@@ -1,0 +1,58 @@
+Resumo do que foi feito e como está o sistema de rotas com o Expo Router:
+Instalação e uso do Expo Router
+
+No arquivo App.js (na raiz do projeto), importei e renderizei o <ExpoRouter />.
+Isso diz ao Expo que as rotas serão gerenciadas automaticamente pelos arquivos dentro da pasta app/.
+Estrutura de pastas
+
+Dentro da pasta app/, cada arquivo corresponde a uma rota.
+Por exemplo:
+arduino
+Copiar
+Editar
+app/
+  ├─ index.jsx    // Rota principal "/", tela de Login
+  ├─ home.jsx     // Rota "/home", tela Home
+  └─ ...          // Outras telas
+
+O arquivo index.jsx é carregado primeiro quando o app inicia, correspondendo à rota “/”.
+Já o arquivo home.jsx corresponde à rota “/home”.
+Nomes dos componentes
+Em cada arquivo de rota, não chamamos a função de exportação de App, pois isso pode gerar conflitos com o arquivo principal App.js.
+Em vez disso, usamos nomes como Index, Home, LoginScreen, etc.
+Exemplo:
+js
+Copiar
+Editar
+// app/index.jsx
+export default function Index() {
+  // ...
+}
+js
+Copiar
+Editar
+// app/home.jsx
+export default function Home() {
+  // ...
+}
+Navegação
+
+Para navegar entre rotas, usamos o useRouter() do expo-router ou o componente <Link>.
+Exemplo para ir da tela de Login para a Home:
+js
+Copiar
+Editar
+import { useRouter } from 'expo-router';
+
+const router = useRouter();
+// ...
+router.push('/home');
+Tela inicial vs. tela Home
+
+Por padrão, o Expo Router sempre abre app/index.jsx (rota /) primeiro.
+Se você quiser que a Home seja a primeira tela do app, basta renomear home.jsx para index.jsx ou adicionar um redirecionamento dentro do seu index.jsx atual.
+Em resumo, o sistema de rotas está configurado de forma que:
+
+app/index.jsx é a tela inicial (Login).
+app/home.jsx é a segunda tela (Home).
+A navegação entre elas ocorre via router.push('/home') ou router.push('/').

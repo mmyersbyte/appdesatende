@@ -9,10 +9,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import estilos from './estilos/estilos';
 import LottieView from 'lottie-react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router'; // <--- ADICIONADO
 
-export default function App() {
+export default function Index() {
+  // <--- RENOMEADO de App() para Index()
   // Estado para controlar qual modal (formulário) está aberto: 'cliente', 'empresa', 'cadastro' ou null (fechado)
   const [modalTipo, setModalTipo] = useState(null);
   // Estados para os formulários de login (cliente/empresa)
@@ -23,6 +26,9 @@ export default function App() {
   const [emailCadastro, setEmailCadastro] = useState('');
   const [senhaCadastro, setSenhaCadastro] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+
+  // Para navegar entre rotas do Expo Router
+  const router = useRouter();
 
   // Função para fechar o modal e limpar os campos
   const fecharModal = () => {
@@ -69,6 +75,8 @@ export default function App() {
             onPress={() => {
               // Aqui você poderá integrar sua lógica de autenticação com o Express.js
               console.log('Submit login', modalTipo, email, senha);
+              // Navegar para /home depois de logar
+              router.push('/home');
             }}
           >
             <Text style={estilos.textoBotaoFormulario}>Entrar</Text>
@@ -146,6 +154,9 @@ export default function App() {
     return null;
   };
 
+  // CONTEUDOS -------
+  // ------------------------------------------------------------------------------------------------
+
   return (
     <View style={estilos.container}>
       {/* Títuls*/}
@@ -162,7 +173,7 @@ export default function App() {
 
       {/* Animação -- Lottie */}
       <LottieView
-        source={require('./Animation - 1742315007264.json')}
+        source={require('./estilos/vector-principal.json')}
         autoPlay
         loop
         style={estilos.animacao}
@@ -170,7 +181,8 @@ export default function App() {
 
       {/* Subtítulo 2 posicionado abaixo da animação e acima dos botões */}
       <Text style={estilos.subtitulo2}>
-        Comece agora! Escolha como deseja entrar.
+        Comece agora! Escolha como deseja entrar.{' '}
+        <Text style={estilos.esqueci}>Esqueceu sua senha? Clique aqui</Text>
       </Text>
 
       {/* Botão de Login como Cliente */}
@@ -258,150 +270,3 @@ export default function App() {
     </View>
   );
 }
-
-const estilos = StyleSheet.create({
-  // Container principal da tela
-  container: {
-    flex: 1,
-    backgroundColor: '#1A1A1D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  // Estilo do título
-  titulo: {
-    fontSize: 27,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    textAlign: 'center',
-    color: 'white',
-  },
-  // Estilo para a palavra diferenciada no título
-  tituloDiferente: {
-    color: '#6A1E55',
-  },
-  // Estilo do subtítulo
-  subtitulo: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: 'white',
-    marginHorizontal: 10,
-    marginBottom: 20,
-  },
-  // Estilo para a parte diferenciada do subtítulo
-  subdiferente: {
-    color: '#A64D79',
-    fontSize: 18,
-  },
-  // Estilo da animação
-  animacao: {
-    width: '100%',
-    height: 180,
-    marginBottom: 50,
-  },
-  // Estilo do subtítulo2
-  subtitulo2: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: 'white',
-    marginHorizontal: 20,
-    marginBottom: 120,
-  },
-  // Estilo base dos botões
-  botao: {
-    backgroundColor: '#6A1E55',
-    paddingVertical: 12,
-    borderRadius: 8,
-    marginVertical: 6,
-    width: '86%',
-  },
-  // Opacidade ao pressionar o botão
-  botaoPressionado: {
-    opacity: 0.2,
-  },
-  // Linha interna do botão para alinhar ícone e texto
-  linhaBotao: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  // Container do ícone à esquerda
-  iconeEsquerdo: {
-    width: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  // Container para centralizar o texto
-  textoCentral: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  // Placeholder para equilibrar o layout
-  iconeDireito: {
-    width: 50,
-  },
-  // Estilo do texto dos botões
-  textoBotao: {
-    color: '#FFF',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  // Estilos do modal
-  modalFundo: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo semi-transparente para destacar o modal
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 15,
-  },
-  modalConteudo: {
-    width: '100%',
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    padding: 20,
-  },
-  // Estilos para o container do formulário dentro do modal
-  formularioContainer: {
-    alignItems: 'center',
-  },
-  // Estilo do título do formulário
-  tituloFormulario: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#6A1E55',
-  },
-  // Estilo dos inputs (campos de texto)
-  input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#CCC',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15,
-    color: '#333',
-  },
-  // Estilo do botão do formulário
-  botaoFormulario: {
-    backgroundColor: '#6A1E55',
-    paddingVertical: 12,
-    borderRadius: 8,
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  // Estilo do texto do botão do formulário
-  textoBotaoFormulario: {
-    color: '#FFF',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  // Botão para fechar o modal (formulário)
-  botaoFechar: {
-    marginTop: 10,
-  },
-  textoBotaoFechar: {
-    color: '#6A1E55',
-    fontSize: 16,
-  },
-});
