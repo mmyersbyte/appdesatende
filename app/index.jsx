@@ -1,272 +1,236 @@
+//HOME AFTER LOGIN
+
 import React, { useState } from 'react';
+import estilos from './estilos/estilosHome';
 import {
   View,
   Text,
-  Pressable,
   StyleSheet,
-  Modal,
   TextInput,
+  Image,
   TouchableOpacity,
+  Modal,
   ScrollView,
 } from 'react-native';
-import estilos from './estilos/estilos';
-import LottieView from 'lottie-react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { useRouter } from 'expo-router'; // <--- ADICIONADO
 
-export default function Index() {
-  // <--- RENOMEADO de App() para Index()
-  // Estado para controlar qual modal (formulário) está aberto: 'cliente', 'empresa', 'cadastro' ou null (fechado)
-  const [modalTipo, setModalTipo] = useState(null);
-  // Estados para os formulários de login (cliente/empresa)
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  // Estados para o formulário de cadastro
-  const [nome, setNome] = useState('');
-  const [emailCadastro, setEmailCadastro] = useState('');
-  const [senhaCadastro, setSenhaCadastro] = useState('');
-  const [confirmarSenha, setConfirmarSenha] = useState('');
+export default function HomeScreen() {
+  // Estados para controlar a visibilidade dos modais
+  const [modalReclamacaoVisivel, setModalReclamacaoVisivel] = useState(false);
+  const [modalHistoricoVisivel, setModalHistoricoVisivel] = useState(false);
 
-  // Para navegar entre rotas do Expo Router
-  const router = useRouter();
+  // Estados para os campos de reclamação (exemplo de "CRUD" futuro)
+  const [empresa, setEmpresa] = useState('');
+  const [tituloReclamacao, setTituloReclamacao] = useState('');
+  const [descricaoReclamacao, setDescricaoReclamacao] = useState('');
+  const [imagemOpcional, setImagemOpcional] = useState('');
 
-  // Função para fechar o modal e limpar os campos
-  const fecharModal = () => {
-    setModalTipo(null);
-    // Limpar campos dos formulários (opcional)
-    setEmail('');
-    setSenha('');
-    setNome('');
-    setEmailCadastro('');
-    setSenhaCadastro('');
-    setConfirmarSenha('');
+  // Função de envio de reclamação (futuro CRUD)
+  const enviarReclamacao = () => {
+    // Aqui você implementaria a lógica para enviar a reclamação ao backend
+    console.log('Enviar reclamação:', {
+      empresa,
+      tituloReclamacao,
+      descricaoReclamacao,
+      imagemOpcional,
+    });
+    // Após enviar, pode fechar o modal e limpar os campos
+    setModalReclamacaoVisivel(false);
+    setEmpresa('');
+    setTituloReclamacao('');
+    setDescricaoReclamacao('');
+    setImagemOpcional('');
   };
-
-  // Renderiza o conteúdo do modal com base no tipo selecionado
-  const renderizarFormulario = () => {
-    // Formulário para login (cliente ou empresa)
-    if (modalTipo === 'cliente' || modalTipo === 'empresa') {
-      return (
-        <View style={estilos.formularioContainer}>
-          <Text style={estilos.tituloFormulario}>
-            {modalTipo === 'cliente'
-              ? 'Login como Cliente'
-              : 'Login como Empresa'}
-          </Text>
-          <TextInput
-            style={estilos.input}
-            placeholder='Email'
-            placeholderTextColor='#999'
-            value={email}
-            onChangeText={setEmail}
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Senha'
-            placeholderTextColor='#999'
-            value={senha}
-            onChangeText={setSenha}
-            secureTextEntry
-          />
-          <TouchableOpacity
-            style={estilos.botaoFormulario}
-            onPress={() => {
-              // Aqui você poderá integrar sua lógica de autenticação com o Express.js
-              console.log('Submit login', modalTipo, email, senha);
-              // Navegar para /home depois de logar
-              router.push('/home');
-            }}
-          >
-            <Text style={estilos.textoBotaoFormulario}>Entrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={fecharModal}
-            style={estilos.botaoFechar}
-          >
-            <Text style={estilos.textoBotaoFechar}>Fechar</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    }
-    // Formulário de cadastroq
-    else if (modalTipo === 'cadastro') {
-      return (
-        <ScrollView contentContainerStyle={estilos.formularioContainer}>
-          <Text style={estilos.tituloFormulario}>Cadastro</Text>
-          <TextInput
-            style={estilos.input}
-            placeholder='Nome'
-            placeholderTextColor='#999'
-            value={nome}
-            onChangeText={setNome}
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Email'
-            placeholderTextColor='#999'
-            value={emailCadastro}
-            onChangeText={setEmailCadastro}
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Senha'
-            placeholderTextColor='#999'
-            value={senhaCadastro}
-            onChangeText={setSenhaCadastro}
-            secureTextEntry
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Confirmar Senha'
-            placeholderTextColor='#999'
-            value={confirmarSenha}
-            onChangeText={setConfirmarSenha}
-            secureTextEntry
-          />
-          <TouchableOpacity
-            style={estilos.botaoFormulario}
-            onPress={() => {
-              // Aqui você poderá integrar sua lógica de cadastro com o Express.js
-              console.log(
-                'Submit cadastro',
-                nome,
-                emailCadastro,
-                senhaCadastro,
-                confirmarSenha
-              );
-            }}
-          >
-            <Text style={estilos.textoBotaoFormulario}>Cadastrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={fecharModal}
-            style={estilos.botaoFechar}
-          >
-            <Text style={estilos.textoBotaoFechar}>Fechar</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      );
-    }
-    return null;
-  };
-
-  // CONTEUDOS -------
-  // ------------------------------------------------------------------------------------------------
 
   return (
     <View style={estilos.container}>
-      {/* Títuls*/}
-      <Text style={estilos.titulo}>
-        Seja bem-vindo ao <Text style={estilos.tituloDiferente}>Desatende</Text>
-        !
-      </Text>
-      {/* Subtítulo com descrição */}
-      <Text style={estilos.subtitulo}>
-        Já sofreu com um{' '}
-        <Text style={estilos.subdiferente}>atendimento ruim</Text>? Compartilhe
-        sua experiência e ajude a melhorar os serviços oferecidos!
+      {/* Pesquisar Empresa */}
+      <View style={estilos.searchSection}>
+        <Text style={estilos.labelPesquisa}>DESATENDE</Text>
+        <View style={estilos.searchContainer}>
+          <FontAwesome
+            name='search'
+            size={20}
+            color={'#999'}
+            style={estilos.searchIcon}
+          />
+          <TextInput
+            style={estilos.searchInput}
+            placeholder='Digite o nome da empresa...'
+            placeholderTextColor={'#999'}
+          />
+        </View>
+      </View>
+
+      {/* Banner Principal (imagem) */}
+      <View style={estilos.bannerContainer}>
+        <Image
+          style={estilos.bannerImagem}
+          source={require('./desatendeHome.jpg')}
+        />
+      </View>
+      {/* Texto explicativo */}
+      <Text style={estilos.textoExplicativo}>
+        Aqui você pode relatar experiências de atendimento ruim, ajudar outros
+        consumidores e incentivar empresas a melhorarem seus serviços.
       </Text>
 
-      {/* Animação -- Lottie */}
-      <LottieView
-        source={require('./estilos/vector-principal.json')}
-        autoPlay
-        loop
-        style={estilos.animacao}
-      />
+      {/* Botões principais */}
+      <View style={estilos.botoesContainer}>
+        {/* Botão - Faça uma reclamação */}
+        <TouchableOpacity
+          style={estilos.botaoQuadrado}
+          onPress={() => setModalReclamacaoVisivel(true)}
+        >
+          <FontAwesome
+            name='exclamation-circle'
+            size={28}
+            color='#fff'
+          />
+          <Text style={estilos.botaoTexto}>Faça uma reclamação</Text>
+        </TouchableOpacity>
 
-      {/* Subtítulo 2 posicionado abaixo da animação e acima dos botões */}
-      <Text style={estilos.subtitulo2}>
-        Comece agora! Escolha como deseja entrar.{' '}
-        <Text style={estilos.esqueci}>Esqueceu sua senha? Clique aqui</Text>
-      </Text>
+        {/* Botão - Minhas Reclamações */}
+        <TouchableOpacity
+          style={estilos.botaoQuadrado}
+          onPress={() => setModalHistoricoVisivel(true)}
+        >
+          <FontAwesome
+            name='list-alt'
+            size={28}
+            color='#fff'
+          />
+          <Text style={estilos.botaoTexto}>Minhas Reclamações</Text>
+        </TouchableOpacity>
+      </View>
 
-      {/* Botão de Login como Cliente */}
-      <Pressable
-        onPress={() => setModalTipo('cliente')}
-        style={({ pressed }) => [
-          estilos.botao,
-          pressed && estilos.botaoPressionado,
-        ]}
+      {/* Modal - Faça uma reclamação */}
+      <Modal
+        visible={modalReclamacaoVisivel}
+        animationType='fade'
+        transparent
+        onRequestClose={() => setModalReclamacaoVisivel(false)}
       >
-        <View style={estilos.linhaBotao}>
-          <View style={estilos.iconeEsquerdo}>
+        <View style={estilos.modalFundo}>
+          <View style={estilos.modalConteudo}>
+            <Text style={estilos.modalTitulo}>Nova Reclamação</Text>
+            <ScrollView style={{ marginVertical: 8 }}>
+              <Text style={estilos.modalLabel}>Empresa</Text>
+              <TextInput
+                style={estilos.modalInput}
+                placeholder='Ex: Empresa X'
+                placeholderTextColor={'#999'}
+                value={empresa}
+                onChangeText={setEmpresa}
+              />
+
+              <Text style={estilos.modalLabel}>Título da Reclamação</Text>
+              <TextInput
+                style={estilos.modalInput}
+                placeholder='Ex: Atendimente gritou comigo'
+                placeholderTextColor={'#999'}
+                value={tituloReclamacao}
+                onChangeText={setTituloReclamacao}
+              />
+
+              <Text style={estilos.modalLabel}>Descrição</Text>
+              <TextInput
+                style={[estilos.modalInput, { height: 80 }]}
+                placeholder='Descreva o ocorrido...'
+                placeholderTextColor={'#999'}
+                value={descricaoReclamacao}
+                onChangeText={setDescricaoReclamacao}
+                multiline
+              />
+
+              <Text style={estilos.modalLabel}>
+                Adicionar Imagem (opcional)
+              </Text>
+              <TextInput
+                style={estilos.modalInput}
+                placeholder='URL da imagem ou caminho local'
+                placeholderTextColor={'#999'}
+                value={imagemOpcional}
+                onChangeText={setImagemOpcional}
+              />
+            </ScrollView>
+
+            <View style={estilos.modalBotoes}>
+              <TouchableOpacity
+                style={[estilos.modalBotao, { marginRight: 8 }]}
+                onPress={() => setModalReclamacaoVisivel(false)}
+              >
+                <Text style={estilos.modalBotaoTexto}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={estilos.modalBotao}
+                onPress={enviarReclamacao}
+              >
+                <Text style={estilos.modalBotaoTexto}>Enviar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal - Histórico de Reclamações */}
+      {/* Aqui fixo o modal acima do footer em todos os celulares, adicionando justifyContent 'flex-end' e paddingBottom */}
+      <Modal
+        visible={modalHistoricoVisivel}
+        animationType='fade'
+        transparent
+        onRequestClose={() => setModalHistoricoVisivel(false)}
+      >
+        <View
+          style={[
+            estilos.modalFundo,
+            { justifyContent: 'flex-end', paddingBottom: 60 },
+          ]}
+        >
+          <View style={estilos.modalConteudo}>
+            <Text style={estilos.modalTitulo}>Minhas Reclamações</Text>
+            <Text style={estilos.modalTexto}>
+              (Exemplo) Aqui apareceriam todas as suas reclamações já enviadas,
+              com possibilidade de edição, exclusão, etc.
+            </Text>
+            <TouchableOpacity
+              style={estilos.modalBotao}
+              onPress={() => setModalHistoricoVisivel(false)}
+            >
+              <Text style={estilos.modalBotaoTexto}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Footer */}
+      <View style={estilos.footer}>
+        {/* Ícone Home - selecionado (sublinhado) */}
+        <TouchableOpacity style={estilos.footerItem}>
+          <View style={estilos.footerItemSelecionado}>
+            <FontAwesome
+              name='home'
+              size={24}
+              color={'#6A1E55'}
+            />
+            <Text style={[estilos.footerTexto, { color: 'white' }]}>Home</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Ícone Perfil - vazio para personalizar depois */}
+        <TouchableOpacity style={estilos.footerItem}>
+          <View style={estilos.footerItemNaoSelecionado}>
             <FontAwesome
               name='user'
               size={24}
-              color='white'
+              color='#555'
             />
+            <Text style={[estilos.footerTexto, { color: '#555' }]}>
+              Seu Perfil
+            </Text>
           </View>
-          <View style={estilos.textoCentral}>
-            <Text style={estilos.textoBotao}>Login como cliente</Text>
-          </View>
-          <View style={estilos.iconeDireito} />
-        </View>
-      </Pressable>
-
-      {/* Botão de Login como Empresa */}
-      <Pressable
-        onPress={() => setModalTipo('empresa')}
-        style={({ pressed }) => [
-          estilos.botao,
-          pressed && estilos.botaoPressionado,
-        ]}
-      >
-        <View style={estilos.linhaBotao}>
-          <View style={estilos.iconeEsquerdo}>
-            <FontAwesome
-              name='building'
-              size={24}
-              color='white'
-            />
-          </View>
-          <View style={estilos.textoCentral}>
-            <Text style={estilos.textoBotao}>Login como empresa</Text>
-          </View>
-          <View style={estilos.iconeDireito} />
-        </View>
-      </Pressable>
-
-      {/* Botão de Cadastro */}
-      <Pressable
-        onPress={() => setModalTipo('cadastro')}
-        style={({ pressed }) => [
-          estilos.botao,
-          pressed && estilos.botaoPressionado,
-        ]}
-      >
-        <View style={estilos.linhaBotao}>
-          <View style={estilos.iconeEsquerdo}>
-            <FontAwesome
-              name='user-plus'
-              size={24}
-              color='white'
-            />
-          </View>
-          <View style={estilos.textoCentral}>
-            <Text style={estilos.textoBotao}>Cadastre-se</Text>
-          </View>
-          <View style={estilos.iconeDireito} />
-        </View>
-      </Pressable>
-
-      {/* Modal para exibir os formulários */}
-      <Modal
-        visible={modalTipo !== null}
-        animationType='slide'
-        transparent
-        onRequestClose={fecharModal}
-      >
-        {/* Fundo semi-transparente para o modal */}
-        <View style={estilos.modalFundo}>
-          {/* Conteúdo do modal */}
-          <View style={estilos.modalConteudo}>{renderizarFormulario()}</View>
-        </View>
-      </Modal>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
