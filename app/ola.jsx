@@ -1,11 +1,8 @@
-//HOME AFTER LOGIN
-
 import React, { useState } from 'react';
 import estilos from './estilos/estilosHome';
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   Image,
   TouchableOpacity,
@@ -13,6 +10,8 @@ import {
   ScrollView,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+// Importa o hook de navegação do Expo Router
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
   // Estados para controlar a visibilidade dos modais
@@ -24,6 +23,9 @@ export default function HomeScreen() {
   const [tituloReclamacao, setTituloReclamacao] = useState('');
   const [descricaoReclamacao, setDescricaoReclamacao] = useState('');
   const [imagemOpcional, setImagemOpcional] = useState('');
+
+  // Hook para navegação entre telas
+  const router = useRouter();
 
   // Função de envio de reclamação (futuro CRUD)
   const enviarReclamacao = () => {
@@ -44,38 +46,39 @@ export default function HomeScreen() {
 
   return (
     <View style={estilos.container}>
-      {/* Pesquisar Empresa */}
+      {/* Seção de Pesquisa */}
       <View style={estilos.searchSection}>
         <Text style={estilos.labelPesquisa}>DESATENDE</Text>
         <View style={estilos.searchContainer}>
           <FontAwesome
             name='search'
             size={20}
-            color={'#999'}
+            color='#999'
             style={estilos.searchIcon}
           />
           <TextInput
             style={estilos.searchInput}
             placeholder='Digite o nome da empresa...'
-            placeholderTextColor={'#999'}
+            placeholderTextColor='#999'
           />
         </View>
       </View>
 
-      {/* Banner Principal (imagem) */}
+      {/* Banner Principal */}
       <View style={estilos.bannerContainer}>
         <Image
           style={estilos.bannerImagem}
           source={require('./desatendeHome.jpg')}
         />
       </View>
+
       {/* Texto explicativo */}
       <Text style={estilos.textoExplicativo}>
         Aqui você pode relatar experiências de atendimento ruim, ajudar outros
         consumidores e incentivar empresas a melhorarem seus serviços.
       </Text>
 
-      {/* Botões principais */}
+      {/* Botões Principais */}
       <View style={estilos.botoesContainer}>
         {/* Botão - Faça uma reclamação */}
         <TouchableOpacity
@@ -119,7 +122,7 @@ export default function HomeScreen() {
               <TextInput
                 style={estilos.modalInput}
                 placeholder='Ex: Empresa X'
-                placeholderTextColor={'#999'}
+                placeholderTextColor='#999'
                 value={empresa}
                 onChangeText={setEmpresa}
               />
@@ -127,8 +130,8 @@ export default function HomeScreen() {
               <Text style={estilos.modalLabel}>Título da Reclamação</Text>
               <TextInput
                 style={estilos.modalInput}
-                placeholder='Ex: Atendimente gritou comigo'
-                placeholderTextColor={'#999'}
+                placeholder='Ex: Atendimento gritou comigo'
+                placeholderTextColor='#999'
                 value={tituloReclamacao}
                 onChangeText={setTituloReclamacao}
               />
@@ -137,7 +140,7 @@ export default function HomeScreen() {
               <TextInput
                 style={[estilos.modalInput, { height: 80 }]}
                 placeholder='Descreva o ocorrido...'
-                placeholderTextColor={'#999'}
+                placeholderTextColor='#999'
                 value={descricaoReclamacao}
                 onChangeText={setDescricaoReclamacao}
                 multiline
@@ -149,7 +152,7 @@ export default function HomeScreen() {
               <TextInput
                 style={estilos.modalInput}
                 placeholder='URL da imagem ou caminho local'
-                placeholderTextColor={'#999'}
+                placeholderTextColor='#999'
                 value={imagemOpcional}
                 onChangeText={setImagemOpcional}
               />
@@ -174,7 +177,6 @@ export default function HomeScreen() {
       </Modal>
 
       {/* Modal - Histórico de Reclamações */}
-      {/* Aqui fixo o modal acima do footer em todos os celulares, adicionando justifyContent 'flex-end' e paddingBottom */}
       <Modal
         visible={modalHistoricoVisivel}
         animationType='fade'
@@ -205,20 +207,27 @@ export default function HomeScreen() {
 
       {/* Footer */}
       <View style={estilos.footer}>
-        {/* Ícone Home - selecionado (sublinhado) */}
+        {/* Ícone Home - selecionado */}
         <TouchableOpacity style={estilos.footerItem}>
           <View style={estilos.footerItemSelecionado}>
             <FontAwesome
               name='home'
               size={24}
-              color={'#6A1E55'}
+              color='#ba68c8'
             />
             <Text style={[estilos.footerTexto, { color: 'white' }]}>Home</Text>
           </View>
         </TouchableOpacity>
 
-        {/* Ícone Perfil - vazio para personalizar depois */}
-        <TouchableOpacity style={estilos.footerItem}>
+        {/* Ícone Perfil - ao pressionar, navega com transição suave para a tela de Perfil */}
+        <TouchableOpacity
+          style={estilos.footerItem}
+          onPress={() => {
+            // Aqui utilizamos o router.push para navegar para a rota '/perfil'
+            // A transição suave depende da configuração do Stack (por exemplo, animation: 'slide_from_right')
+            router.push('/perfil');
+          }}
+        >
           <View style={estilos.footerItemNaoSelecionado}>
             <FontAwesome
               name='user'

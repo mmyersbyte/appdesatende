@@ -17,7 +17,7 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: 'white',
+    color: '#ba68c8',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -63,7 +63,7 @@ const estilos = StyleSheet.create({
     marginBottom: 20,
   },
   botaoQuadrado: {
-    width: '48%',
+    width: '50%',
     backgroundColor: 'transparent',
     borderRadius: 8,
 
@@ -142,7 +142,7 @@ const estilos = StyleSheet.create({
     borderTopColor: '#6A1E55',
     position: 'absolute', // Fixa o footer na tela
     bottom: 0, // Coloca o footer na base
-    width: '100%', // Ocupa toda a largura
+    width: '110%', // Ocupa toda a largura
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 12,

@@ -19,7 +19,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo para a palavra diferenciada no título
   tituloDiferente: {
-    color: '#6A1E55',
+    color: '#ba68c8',
   },
   // Estilo do subtítulo
   subtitulo: {
@@ -31,7 +31,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo para a parte diferenciada do subtítulo
   subdiferente: {
-    color: '#6A1E55',
+    color: '#ba68c8',
     fontSize: 18,
     marginHorizontal: 10,
     marginBottom: 20,
@@ -51,7 +51,7 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
   },
   esqueci: {
-    color: '#6A1E55',
+    color: '#ba68c8',
     fontWeight: 'bold',
   },
   // Estilo base dos botões
