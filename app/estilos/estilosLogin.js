@@ -96,7 +96,6 @@ const estilos = StyleSheet.create({
   // Estilos do modal
   modalFundo: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fundo semi-transparente para destacar o modal
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
@@ -104,7 +103,7 @@ const estilos = StyleSheet.create({
   modalConteudo: {
     width: '100%',
     backgroundColor: '#FFF',
-    borderRadius: 8,
+    borderRadius: 12,
     padding: 20,
   },
   // Estilos para o container do formulário dentro do modal
