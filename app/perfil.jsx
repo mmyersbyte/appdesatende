@@ -22,7 +22,7 @@ import estilos from './estilos/estilosPerfil';
 import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router para navegar entre telas
 import { useRouter } from 'expo-router';
-// Importação para seleção de imagens (será necessário instalar: npx expo install expo-image-picker)
+// Importação para seleção de imagens (necessário instalar: npx expo install expo-image-picker)
 import * as ImagePicker from 'expo-image-picker';
 
 export default function PerfilScreen() {
@@ -375,7 +375,7 @@ export default function PerfilScreen() {
                   <Text style={estilos.labelFormulario}>Título *</Text>
                   <TextInput
                     style={estilos.inputFormulario}
-                    placeholder='Ex: Produto com defeito'
+                    placeholder='Ex: Atendente gritou comigo'
                     placeholderTextColor='#666'
                     value={titulo}
                     onChangeText={setTitulo}
@@ -387,7 +387,7 @@ export default function PerfilScreen() {
                   <Text style={estilos.labelFormulario}>Empresa *</Text>
                   <TextInput
                     style={estilos.inputFormulario}
-                    placeholder='Ex: Loja ABC'
+                    placeholder='Ex: Restaurante Desatende'
                     placeholderTextColor='#666'
                     value={empresa}
                     onChangeText={setEmpresa}

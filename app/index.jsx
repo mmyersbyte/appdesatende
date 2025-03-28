@@ -6,10 +6,8 @@ import {
   Pressable,
   Modal,
   TextInput,
-  TouchableOpacity,
   ScrollView,
 } from 'react-native';
-
 import estilos from './estilos/estilosLogin';
 import LottieView from 'lottie-react-native';
 import { FontAwesome } from '@expo/vector-icons';
@@ -73,7 +71,7 @@ export default function Index() {
             onChangeText={setSenha}
             secureTextEntry
           />
-          <TouchableOpacity
+          <Pressable
             style={estilos.botaoFormulario}
             onPress={() => {
               // Aqui você poderá integrar sua lógica de autenticação com o Express.js
@@ -83,13 +81,13 @@ export default function Index() {
             }}
           >
             <Text style={estilos.textoBotaoFormulario}>Entrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          <Pressable
             onPress={fecharModal}
             style={estilos.botaoFechar}
           >
             <Text style={estilos.textoBotaoFechar}>Fechar</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       );
     }
@@ -130,7 +128,7 @@ export default function Index() {
             onChangeText={setConfirmarSenha}
             secureTextEntry
           />
-          <TouchableOpacity
+          <Pressable
             style={estilos.botaoFormulario}
             onPress={() => {
               // Aqui você poderá integrar sua lógica de cadastro com o Express.js
@@ -144,13 +142,14 @@ export default function Index() {
             }}
           >
             <Text style={estilos.textoBotaoFormulario}>Cadastrar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Pressable>
+          {/* TROCAR PELO PRESSABLE */}
+          <Pressable
             onPress={fecharModal}
             style={estilos.botaoFechar}
           >
             <Text style={estilos.textoBotaoFechar}>Fechar</Text>
-          </TouchableOpacity>
+          </Pressable>
         </ScrollView>
       );
     }
