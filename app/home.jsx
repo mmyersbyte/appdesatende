@@ -7,7 +7,7 @@ import {
   Text,
   TextInput,
   Image,
-  TouchableOpacity,
+  Pressable,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
@@ -70,13 +70,16 @@ export default function HomeScreen() {
     const imageLoaded = imagensCarregadas[item.id];
 
     return (
-      <TouchableOpacity
-        style={estilos.empresaItem}
+      <Pressable
         onPress={() => {
           // Navegação futura para detalhes da empresa
           console.log(`Empresa selecionada: ${item.nome}`);
         }}
-        activeOpacity={0.7}
+        android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+        style={({ pressed }) => [
+          estilos.empresaItem,
+          pressed && { opacity: 0.7 },
+        ]}
       >
         <View style={estilos.empresaImagemContainer}>
           {/* Placeholder com logo da empresa */}
@@ -106,7 +109,7 @@ export default function HomeScreen() {
         >
           {item.nome}
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
@@ -162,7 +165,10 @@ export default function HomeScreen() {
       {/* Footer */}
       <View style={estilos.footer}>
         {/* Ícone Home - selecionado */}
-        <TouchableOpacity style={estilos.footerItem}>
+        <Pressable
+          android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+          style={estilos.footerItem}
+        >
           <View style={estilos.footerItemSelecionado}>
             <FontAwesome
               name='home'
@@ -171,14 +177,15 @@ export default function HomeScreen() {
             />
             <Text style={[estilos.footerTexto, { color: 'white' }]}>Home</Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         {/* Ícone Perfil - ao pressionar, navega com transição suave para a tela de Perfil */}
-        <TouchableOpacity
-          style={estilos.footerItem}
+        <Pressable
           onPress={() => {
             router.push('./perfil');
           }}
+          android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+          style={estilos.footerItem}
         >
           <View style={estilos.footerItemNaoSelecionado}>
             <FontAwesome
@@ -190,7 +197,7 @@ export default function HomeScreen() {
               Seu Perfil
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
