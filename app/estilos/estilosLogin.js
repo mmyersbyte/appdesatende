@@ -15,23 +15,24 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: 'white',
+    color: '#ECDCBF',
   },
   // Estilo para a palavra diferenciada no título
   tituloDiferente: {
-    color: '#ba68c8',
+    color: '#D84040',
   },
   // Estilo do subtítulo
   subtitulo: {
     fontSize: 18,
     textAlign: 'center',
-    color: 'white',
+    color: '#ECDCBF',
     marginHorizontal: 10,
     marginBottom: 20,
   },
   // Estilo para a parte diferenciada do subtítulo
   subdiferente: {
-    color: '#ba68c8',
+    color: '#D84040',
+    fontWeight: 'bold',
     fontSize: 18,
     marginHorizontal: 10,
     marginBottom: 20,
@@ -46,17 +47,16 @@ const estilos = StyleSheet.create({
   subtitulo2: {
     fontSize: 16,
     textAlign: 'center',
-    color: 'white',
+    color: '#ECDCBF',
     marginHorizontal: 20,
     marginBottom: 10,
   },
   esqueci: {
-    color: '#ba68c8',
-    fontWeight: 'bold',
+    color: '#D84040',
   },
   // Estilo base dos botões
   botao: {
-    backgroundColor: '#6A1E55',
+    backgroundColor: '#A31D1D',
     paddingVertical: 12,
     borderRadius: 8,
     marginVertical: 6,
@@ -89,7 +89,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo do texto dos botões
   textoBotao: {
-    color: '#FFF',
+    color: '#ECDCBF',
     fontWeight: '600',
     fontSize: 16,
   },
@@ -115,7 +115,7 @@ const estilos = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#6A1E55',
+    color: '#D84040',
   },
   // Estilo dos inputs (campos de texto)
   input: {
@@ -129,7 +129,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo do botão do formulário
   botaoFormulario: {
-    backgroundColor: '#6A1E55',
+    backgroundColor: '#D84040',
     paddingVertical: 12,
     borderRadius: 8,
     width: '100%',
@@ -147,7 +147,7 @@ const estilos = StyleSheet.create({
     marginTop: 10,
   },
   textoBotaoFechar: {
-    color: '#6A1E55',
+    color: '#D84040',
     fontSize: 16,
   },
 });

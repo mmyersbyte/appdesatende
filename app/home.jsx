@@ -173,7 +173,7 @@ export default function HomeScreen() {
             <FontAwesome
               name='home'
               size={24}
-              color='#ba68c8'
+              color='#A31D1D'
             />
             <Text style={[estilos.footerTexto, { color: 'white' }]}>Home</Text>
           </View>

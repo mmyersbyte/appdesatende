@@ -175,7 +175,7 @@ export default function Index() {
 
       {/* Animação -- Lottie */}
       <LottieView
-        source={require('./estilos/vector-principal.json')}
+        source={require('./estilos/vectorLogin.json')}
         autoPlay
         loop
         style={estilos.animacao}
@@ -183,8 +183,8 @@ export default function Index() {
 
       {/* Subtítulo 2 posicionado abaixo da animação e acima dos botões */}
       <Text style={estilos.subtitulo2}>
-        Comece agora! Escolha como deseja entrar.{' '}
-        <Text style={estilos.esqueci}>Esqueceu sua senha? Clique aqui</Text>
+        Comece agora! Escolha como deseja entrar. Esqueceu sua senha?{' '}
+        <Text style={estilos.esqueci}>Clique aqui</Text>
       </Text>
 
       {/* Botão de Login como Cliente */}

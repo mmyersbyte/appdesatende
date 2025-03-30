@@ -1,5 +1,5 @@
 'use client';
-
+//configuracoes empresa
 import React, { useState } from 'react';
 import {
   View,
@@ -66,7 +66,7 @@ export default function ConfiguracoesEmpresaScreen() {
   // Função para navegar de volta para o dashboard
   const navegarParaDashboard = () => {
     // Corrigido: Usando '/' para navegar para a raiz (index)
-    router.push('/');
+    router.push('/app');
   };
 
   return (

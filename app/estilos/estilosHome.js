@@ -24,7 +24,7 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: corPrimaria,
+    color: '#D84040',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -60,7 +60,7 @@ const estilos = StyleSheet.create({
     fontSize: 17,
     padding: 0,
     fontWeight: 'bold',
-    color: corTexto,
+    color: '#ECDCBF',
     lineHeight: 24,
     textAlign: 'center',
     marginBottom: 20,
@@ -74,7 +74,7 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: corPrimaria,
+    color: '#ECDCBF',
     marginBottom: 15,
   },
   empresasListContainer: {
@@ -152,6 +152,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 2,
     borderBottomColor: corTexto,
+
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {
