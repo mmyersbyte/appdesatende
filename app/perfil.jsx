@@ -5,7 +5,7 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   ScrollView,
   FlatList,
@@ -253,7 +253,7 @@ export default function PerfilScreen() {
         </View>
 
         {/* Container para foto de perfil sobreposta à capa */}
-        <TouchableOpacity
+        <Pressable
           style={estilos.containerFoto}
           onPress={selecionarFotoPerfil}
         >
@@ -282,7 +282,7 @@ export default function PerfilScreen() {
               color='white'
             />
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       {/* Informações do usuário */}
@@ -312,7 +312,7 @@ export default function PerfilScreen() {
           )}
 
           {/* Botão para adicionar nova reclamação */}
-          <TouchableOpacity
+          <Pressable
             style={estilos.botaoNovaReclamacao}
             onPress={() => setModalVisivel(true)}
           >
@@ -323,7 +323,7 @@ export default function PerfilScreen() {
               style={estilos.iconeBotao}
             />
             <Text style={estilos.textoBotao}>Nova Reclamação</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </ScrollView>
 
@@ -342,7 +342,7 @@ export default function PerfilScreen() {
             {/* Cabeçalho do modal */}
             <View style={estilos.cabecalhoModal}>
               <Text style={estilos.tituloModal}>Nova Reclamação</Text>
-              <TouchableOpacity
+              <Pressable
                 onPress={fecharModal}
                 style={estilos.botaoFechar}
               >
@@ -351,7 +351,7 @@ export default function PerfilScreen() {
                   size={20}
                   color='white'
                 />
-              </TouchableOpacity>
+              </Pressable>
             </View>
 
             {/* Conteúdo do formulário */}
@@ -420,7 +420,7 @@ export default function PerfilScreen() {
                         source={{ uri: imagemReclamacao }}
                         style={estilos.previewImagem}
                       />
-                      <TouchableOpacity
+                      <Pressable
                         style={estilos.botaoRemoverImagem}
                         onPress={() => setImagemReclamacao(null)}
                       >
@@ -429,10 +429,10 @@ export default function PerfilScreen() {
                           size={16}
                           color='white'
                         />
-                      </TouchableOpacity>
+                      </Pressable>
                     </View>
                   ) : (
-                    <TouchableOpacity
+                    <Pressable
                       style={estilos.botaoUploadImagem}
                       onPress={selecionarImagem}
                     >
@@ -444,12 +444,12 @@ export default function PerfilScreen() {
                       <Text style={estilos.textoUploadImagem}>
                         Selecionar imagem
                       </Text>
-                    </TouchableOpacity>
+                    </Pressable>
                   )}
                 </View>
 
                 {/* Botão de enviar */}
-                <TouchableOpacity
+                <Pressable
                   style={estilos.botaoEnviar}
                   onPress={enviarReclamacao}
                   disabled={enviando}
@@ -470,7 +470,7 @@ export default function PerfilScreen() {
                       <Text style={estilos.textoBotao}>Enviar Reclamação</Text>
                     </>
                   )}
-                </TouchableOpacity>
+                </Pressable>
               </ScrollView>
             )}
           </View>
@@ -480,7 +480,7 @@ export default function PerfilScreen() {
       {/* Footer com navegação */}
       <View style={estilos.rodape}>
         {/* Ícone Home */}
-        <TouchableOpacity
+        <Pressable
           style={estilos.itemRodape}
           onPress={() => router.push('/home')}
           //home
@@ -493,10 +493,10 @@ export default function PerfilScreen() {
             />
             <Text style={[estilos.textoRodape, { color: '#555' }]}>Home</Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         {/* Ícone Perfil - ativo */}
-        <TouchableOpacity style={estilos.itemRodape}>
+        <Pressable style={estilos.itemRodape}>
           <View style={estilos.itemSelecionado}>
             <FontAwesome
               name='user'
@@ -507,7 +507,7 @@ export default function PerfilScreen() {
               Seu Perfil
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
