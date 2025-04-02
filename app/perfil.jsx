@@ -247,10 +247,8 @@ export default function PerfilScreen() {
         {/* Imagem de capa padrão */}
         <View style={estilos.areaCapa}>
           <Image
-            source={{
-              uri: 'https://images.pexels.com/photos/4458207/pexels-photo-4458207.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-            }}
             style={estilos.imagemCapa}
+            source={require('./desatendeHome.jpg')}
           />
         </View>
 
