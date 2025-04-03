@@ -12,7 +12,8 @@ import {
   Platform, //IOS OU ANDROIDER
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
+// import * as ImagePicker from 'expo-image-picker';
+// image picker removido TEMPORARIAMENTE (ON PRESS NA LINHA 81)
 import { useRouter } from 'expo-router';
 
 // Importa os estilos da tela
@@ -65,7 +66,7 @@ export default function ConfiguracoesEmpresaScreen() {
   // Função para navegar de volta para o dashboard
   const navegarParaDashboard = () => {
     // Corrigido: Usando '/' para navegar para a raiz (index)
-    router.push('/app');
+    router.push('/dashboard');
   };
 
   return (
@@ -77,7 +78,7 @@ export default function ConfiguracoesEmpresaScreen() {
       <View style={estilos.secaoFotoPerfil}>
         <Text style={estilos.labelFotoPerfil}>Foto de Perfil</Text>
         <Pressable
-          onPress={selecionarImagem}
+          // onPress={selecionarImagem}
           disabled={imagemCarregando}
           style={estilos.botaoAlterarFoto}
         >
@@ -131,6 +132,7 @@ export default function ConfiguracoesEmpresaScreen() {
         {/* Ícone Home - ao pressionar, navega com transição suave para a tela Home */}
         <Pressable
           style={estilos.footerItem}
+          //FUNÇÃO DO ROUTER ESTÁ NA LINHA  67
           onPress={navegarParaDashboard}
         >
           <View style={estilos.footerItemNaoSelecionado}>

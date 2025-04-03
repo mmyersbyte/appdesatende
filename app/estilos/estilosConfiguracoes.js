@@ -6,7 +6,7 @@ const COLORS = {
 
   primary: '#D84040',
   border: '#6A1E55',
-  textPrimary: 'white',
+  textPrimary: '#ECDCBF', // Beige/cream color for text
   textDark: '#1A1A1D',
 
   // Overlay

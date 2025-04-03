@@ -10,7 +10,7 @@ const COLORS = {
   border: '#6A1E55',
 
   // Text colors
-  text: 'white',
+  text: '#ECDCBF', // Beige/cream color for text
   textLight: 'rgba(255, 255, 255, 0.9)', // 90% opacity white
   textLighter: 'rgba(255, 255, 255, 0.8)', // 80% opacity white
   textLightest: 'rgba(255, 255, 255, 0.7)', // 70% opacity white
@@ -110,8 +110,10 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
   },
   painelTitulo: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    textAlign: 'center',
+
     color: COLORS.primary,
     marginBottom: 15,
   },

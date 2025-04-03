@@ -253,7 +253,7 @@ export default function PerfilScreen() {
         {/* Container para foto de perfil sobreposta à capa */}
         <Pressable
           style={estilos.containerFoto}
-          onPress={selecionarFotoPerfil}
+          // onPress={selecionarFotoPerfil}
         >
           <View style={estilos.bordaFoto}>
             {profileImage ? (

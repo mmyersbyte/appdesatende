@@ -348,7 +348,7 @@ export default function PerfilEmpresaScreen() {
             <FontAwesome
               name='dashboard'
               size={24}
-              color='#ba68c8'
+              color='#D84040'
             />
             <Text style={[estilos.footerTexto, { color: 'white' }]}>
               Dashboard
