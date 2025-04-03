@@ -16,10 +16,9 @@ import { useRouter } from 'expo-router';
 // Importa o hook de navegação do Expo Router
 
 export default function Index() {
-  // <--- RENOMEADO de App() para Index()
-  // Estado para controlar qual modal (formulário) está aberto: 'cliente', 'empresa', 'cadastro' ou null (fechado)
+  // Estado para controlar qual modal (formulário) tá aberto: 'cliente', 'empresa', 'cadastro' ou null //(fechado)
   const [modalTipo, setModalTipo] = useState(null);
-  // Estados para os formulários de login (cliente/empresa)
+  // Estaos para os formulários de login (cliente/empresa)
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   // Estados para o formulário de cadastro
@@ -28,13 +27,12 @@ export default function Index() {
   const [senhaCadastro, setSenhaCadastro] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
 
-  // Para navegar entre rotas do Expo Router
+  // Para navegar entre rotas do Expo
   const router = useRouter();
 
   // Função para fechar o modal e limpar os campos
   const fecharModal = () => {
     setModalTipo(null);
-    // Limpar campos dos formulários (opcional)
     setEmail('');
     setSenha('');
     setNome('');
@@ -74,7 +72,7 @@ export default function Index() {
           <Pressable
             style={estilos.botaoFormulario}
             onPress={() => {
-              // Aqui você poderá integrar sua lógica de autenticação com o Express.js
+              // lógica de autenticação com o Express.js
               console.log('Submit login', modalTipo, email, senha);
               // Navegar para /home depois de logar
               router.push('/home');
@@ -131,7 +129,7 @@ export default function Index() {
           <Pressable
             style={estilos.botaoFormulario}
             onPress={() => {
-              // Aqui você poderá integrar sua lógica de cadastro com o Express.js
+              // lógica de cadastro com o Express.js
               console.log(
                 'Submit cadastro',
                 nome,
@@ -143,7 +141,6 @@ export default function Index() {
           >
             <Text style={estilos.textoBotaoFormulario}>Cadastrar</Text>
           </Pressable>
-          {/* TROCAR PELO PRESSABLE */}
           <Pressable
             onPress={fecharModal}
             style={estilos.botaoFechar}
@@ -175,7 +172,7 @@ export default function Index() {
 
       {/* Animação -- Lottie */}
       <LottieView
-        source={require('./estilos/vectorLogin.json')}
+        source={require('./imgs/vectorLogin.json')}
         autoPlay
         loop
         style={estilos.animacao}

@@ -1,10 +1,26 @@
 import { StyleSheet } from 'react-native';
 
+// Color variables
+const COLORS = {
+  // Primary colors
+  background: '#1A1A1D',
+  primary: '#D84040', // Red color used throughout the app
+  primaryDarker: '#A31D1D', // Darker red for buttons
+
+  // Text colors
+  textPrimary: '#ECDCBF', // Beige/cream color for text
+  textDark: '#333',
+
+  // UI element colors
+  white: '#FFF',
+  inputBorder: '#CCC',
+};
+
 const estilos = StyleSheet.create({
   // Container principal da tela
   container: {
     flex: 1,
-    backgroundColor: '#1A1A1D',
+    backgroundColor: COLORS.background,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -15,23 +31,23 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: '#ECDCBF',
+    color: COLORS.textPrimary,
   },
   // Estilo para a palavra diferenciada no título
   tituloDiferente: {
-    color: '#D84040',
+    color: COLORS.primary,
   },
   // Estilo do subtítulo
   subtitulo: {
     fontSize: 18,
     textAlign: 'center',
-    color: '#ECDCBF',
+    color: COLORS.textPrimary,
     marginHorizontal: 10,
     marginBottom: 20,
   },
   // Estilo para a parte diferenciada do subtítulo
   subdiferente: {
-    color: '#D84040',
+    color: COLORS.primary,
     fontWeight: 'bold',
     fontSize: 18,
     marginHorizontal: 10,
@@ -47,16 +63,16 @@ const estilos = StyleSheet.create({
   subtitulo2: {
     fontSize: 16,
     textAlign: 'center',
-    color: '#ECDCBF',
+    color: COLORS.textPrimary,
     marginHorizontal: 20,
     marginBottom: 10,
   },
   esqueci: {
-    color: '#D84040',
+    color: COLORS.primary,
   },
   // Estilo base dos botões
   botao: {
-    backgroundColor: '#A31D1D',
+    backgroundColor: COLORS.primaryDarker,
     paddingVertical: 12,
     borderRadius: 8,
     marginVertical: 6,
@@ -89,7 +105,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo do texto dos botões
   textoBotao: {
-    color: '#ECDCBF',
+    color: COLORS.textPrimary,
     fontWeight: '600',
     fontSize: 16,
   },
@@ -102,7 +118,7 @@ const estilos = StyleSheet.create({
   },
   modalConteudo: {
     width: '100%',
-    backgroundColor: '#FFF',
+    backgroundColor: COLORS.white,
     borderRadius: 12,
     padding: 20,
   },
@@ -115,21 +131,21 @@ const estilos = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#D84040',
+    color: COLORS.primary,
   },
   // Estilo dos inputs (campos de texto)
   input: {
     width: '100%',
     borderWidth: 1,
-    borderColor: '#CCC',
+    borderColor: COLORS.inputBorder,
     borderRadius: 8,
     padding: 10,
     marginBottom: 15,
-    color: '#333',
+    color: COLORS.textDark,
   },
   // Estilo do botão do formulário
   botaoFormulario: {
-    backgroundColor: '#D84040',
+    backgroundColor: COLORS.primary,
     paddingVertical: 12,
     borderRadius: 8,
     width: '100%',
@@ -138,7 +154,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo do texto do botão do formulário
   textoBotaoFormulario: {
-    color: '#FFF',
+    color: COLORS.white,
     fontWeight: '600',
     fontSize: 16,
   },
@@ -147,7 +163,7 @@ const estilos = StyleSheet.create({
     marginTop: 10,
   },
   textoBotaoFechar: {
-    color: '#D84040',
+    color: COLORS.primary,
     fontSize: 16,
   },
 });

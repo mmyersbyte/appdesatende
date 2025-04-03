@@ -1,5 +1,4 @@
-'use client';
-//tela perfil empresa
+//Dashboard empresa
 
 import { useState, useEffect } from 'react';
 import estilos from './estilos/estilosPerfilEmpresa';
@@ -7,7 +6,7 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
+  Pressable,
   FlatList,
   TextInput,
   Modal,
@@ -43,7 +42,7 @@ export default function PerfilEmpresaScreen() {
 
   // Efeito para carregar as reclamações (simulando busca no banco de dados)
   useEffect(() => {
-    // Função para buscar reclamações do banco de dados
+    // Funç para buscar reclamações do banco de dados
     const buscarReclamacoes = async () => {
       try {
         // Simulação de delay de rede
@@ -55,39 +54,36 @@ export default function PerfilEmpresaScreen() {
             id: '1',
             usuario: 'João Silva',
             titulo: 'Atendimento demorado',
-            descricao:
-              'Esperei mais de 40 minutos para ser atendido na loja central.',
-            data: '15/03/2023',
+            descricao: 'Esperei mais de 40 minutos blablablablabla.',
+            data: '15/03/2025',
             status: 'pendente',
             resposta: '',
           },
           {
             id: '2',
             usuario: 'Maria Oliveira',
-            titulo: 'Produto com defeito',
-            descricao:
-              'Comprei um produto que apresentou defeito no primeiro dia de uso.',
+            titulo: 'lorem lorem lorem',
+            descricao: 'lorem lorem lorem',
             data: '22/02/2023',
             status: 'respondido',
-            resposta:
-              'Prezada cliente, lamentamos o ocorrido. Por favor, dirija-se à loja mais próxima para substituição do produto.',
+            resposta: 'Oi maria estou respondendo ok.',
           },
           {
             id: '3',
             usuario: 'Carlos Mendes',
             titulo: 'Cobrança indevida',
-            descricao:
-              'Fui cobrado duas vezes pelo mesmo serviço no mês passado.',
+            descricao: 'lorem lorem lorem',
+
             data: '05/03/2023',
             status: 'pendente',
             resposta: '',
           },
           {
             id: '4',
-            usuario: 'Ana Beatriz',
+            usuario: 'Ana beatriz',
             titulo: 'Cancelamento não processado',
-            descricao:
-              'Solicitei o cancelamento há 15 dias e continuo sendo cobrado.',
+            descricao: 'lorem lorem lorem',
+
             data: '10/03/2023',
             status: 'pendente',
             resposta: '',
@@ -96,12 +92,11 @@ export default function PerfilEmpresaScreen() {
             id: '5',
             usuario: 'Roberto Alves',
             titulo: 'Propaganda enganosa',
-            descricao:
-              'O produto anunciado não corresponde ao que foi entregue.',
-            data: '01/03/2023',
+            descricao: 'lorem lorem lorem',
+
+            data: '01/03/2020',
             status: 'respondido',
-            resposta:
-              'Prezado cliente, verificamos seu caso e identificamos um erro no anúncio. Entraremos em contato para resolver a situação.',
+            resposta: 'Oi maria estou respondendo ok.',
           },
         ];
 
@@ -155,7 +150,7 @@ export default function PerfilEmpresaScreen() {
   // Renderiza cada item da lista de reclamações
   const renderReclamacao = ({ item }) => {
     return (
-      <TouchableOpacity
+      <Pressable
         style={[
           estilos.reclamacaoItem,
           {
@@ -194,7 +189,7 @@ export default function PerfilEmpresaScreen() {
             color={item.status === 'pendente' ? '#ff6b6b' : '#4ecdc4'}
           />
         </View>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
@@ -283,13 +278,13 @@ export default function PerfilEmpresaScreen() {
           <View style={estilos.modalContent}>
             <View style={estilos.modalHeader}>
               <Text style={estilos.modalTitulo}>Responder Reclamação</Text>
-              <TouchableOpacity onPress={() => setModalVisivel(false)}>
+              <Pressable onPress={() => setModalVisivel(false)}>
                 <FontAwesome
                   name='close'
                   size={24}
                   color='#fff'
                 />
-              </TouchableOpacity>
+              </Pressable>
             </View>
 
             {reclamacaoSelecionada && (
@@ -323,21 +318,21 @@ export default function PerfilEmpresaScreen() {
                 </View>
 
                 <View style={estilos.modalBotoes}>
-                  <TouchableOpacity
+                  <Pressable
                     style={[estilos.modalBotao, estilos.botaoCancelar]}
                     onPress={() => setModalVisivel(false)}
                   >
                     <Text style={estilos.textoBotaoCancelar}>Cancelar</Text>
-                  </TouchableOpacity>
+                  </Pressable>
 
-                  <TouchableOpacity
+                  <Pressable
                     style={[estilos.modalBotao, estilos.botaoEnviar]}
                     onPress={enviarResposta}
                   >
                     <Text style={estilos.textoBotaoEnviar}>
                       Enviar Resposta
                     </Text>
-                  </TouchableOpacity>
+                  </Pressable>
                 </View>
               </ScrollView>
             )}
@@ -348,7 +343,7 @@ export default function PerfilEmpresaScreen() {
       {/* Footer */}
       <View style={estilos.footer}>
         {/* Ícone Dashboard - selecionado */}
-        <TouchableOpacity style={estilos.footerItem}>
+        <Pressable style={estilos.footerItem}>
           <View style={estilos.footerItemSelecionado}>
             <FontAwesome
               name='dashboard'
@@ -359,13 +354,13 @@ export default function PerfilEmpresaScreen() {
               Dashboard
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         {/* Ícone Perfil - ao pressionar, navega com transição suave para a tela de Perfil */}
-        <TouchableOpacity
+        <Pressable
           style={estilos.footerItem}
           onPress={() => {
-            router.push('/configuracoes');
+            router.push('/confi');
           }}
         >
           <View style={estilos.footerItemNaoSelecionado}>
@@ -378,7 +373,7 @@ export default function PerfilEmpresaScreen() {
               Configurações
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );

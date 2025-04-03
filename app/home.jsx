@@ -1,4 +1,3 @@
-'use client';
 // HOME CLIENTE!!
 import { useState } from 'react';
 import estilos from './estilos/estilosHome';
@@ -16,7 +15,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
-  // Estados para os campos de reclamação (exemplo de "CRUD" futuro)
+  // Estados para os campos de reclamação (exemplo de "CRud" futuro)
   const [empresa, setEmpresa] = useState('');
   const [tituloReclamacao, setTituloReclamacao] = useState('');
   const [descricaoReclamacao, setDescricaoReclamacao] = useState('');
@@ -32,27 +31,27 @@ export default function HomeScreen() {
   const empresasExemplo = [
     {
       id: '1',
-      nome: 'Empresa A',
+      nome: 'Empresa Oii',
       imagem: 'https://via.placeholder.com/150',
     },
     {
       id: '2',
-      nome: 'Empresa B',
+      nome: 'Empresa Xauu',
       imagem: 'https://via.placeholder.com/150',
     },
     {
       id: '3',
-      nome: 'Empresa C',
+      nome: 'Empresa ata',
       imagem: 'https://via.placeholder.com/150',
     },
     {
       id: '4',
-      nome: 'Empresa D',
+      nome: 'Empresa hum',
       imagem: 'https://via.placeholder.com/150',
     },
     {
       id: '5',
-      nome: 'Empresa E',
+      nome: 'Empresa oi',
       imagem: 'https://via.placeholder.com/150',
     },
   ];
@@ -137,7 +136,7 @@ export default function HomeScreen() {
       <View style={estilos.bannerContainer}>
         <Image
           style={estilos.bannerImagem}
-          source={require('./desatendeHome.jpg')}
+          source={require('./imgs/desatendeHome.jpg')}
         />
       </View>
 

@@ -1,18 +1,33 @@
 import { StyleSheet } from 'react-native';
 
-// Cores principais para reutilização
-const corPlaceholder = '#999';
-const corPrimaria = '#ba68c8';
-const corFundo = '#1A1A1D';
-const corBorda = '#6A1E55';
-const corTexto = 'white';
-const corPendente = '#ff6b6b';
-const corRespondido = '#4ecdc4';
+// Color variables organized in a structured object
+const COLORS = {
+  // Primary colors
+  background: '#1A1A1D',
+  backgroundLight: '#2A2A2D',
+  backgroundLighter: '#3A3A3D', //modal
+  primary: '#D84040', // Purple color used throughout the app
+  border: '#6A1E55',
+
+  // Text colors
+  text: 'white',
+  textLight: 'rgba(255, 255, 255, 0.9)', // 90% opacity white
+  textLighter: 'rgba(255, 255, 255, 0.8)', // 80% opacity white
+  textLightest: 'rgba(255, 255, 255, 0.7)', // 70% opacity white
+  placeholder: '#999',
+
+  // Status colors
+  pending: '#ff6b6b', // Red for pending status
+  resolved: '#4ecdc4', // Teal for resolved status
+
+  // Modal
+  modalOverlay: 'rgba(0, 0, 0, 0.7)',
+};
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: corFundo,
+    backgroundColor: COLORS.background,
     paddingTop: 40,
     paddingHorizontal: 16,
     paddingBottom: 60,
@@ -26,12 +41,12 @@ const estilos = StyleSheet.create({
     fontSize: 34,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: corPrimaria,
+    color: COLORS.primary,
   },
   labelPainel: {
     fontSize: 18,
     textAlign: 'center',
-    color: corTexto,
+    color: COLORS.text,
     marginTop: 5,
   },
 
@@ -41,7 +56,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding: 15,
-    backgroundColor: '#2A2A2D',
+    backgroundColor: COLORS.backgroundLight,
     borderRadius: 10,
   },
   logoContainer: {
@@ -61,7 +76,7 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#3A3A3D',
+    backgroundColor: COLORS.backgroundLighter,
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -69,7 +84,7 @@ const estilos = StyleSheet.create({
   placeholderText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: corPrimaria,
+    color: COLORS.primary,
   },
   loadingIndicator: {
     position: 'absolute',
@@ -81,13 +96,12 @@ const estilos = StyleSheet.create({
   nomeEmpresa: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: corTexto,
+    color: COLORS.text,
     marginBottom: 5,
   },
   descricaoEmpresa: {
     fontSize: 14,
-    color: corTexto,
-    opacity: 0.8,
+    color: COLORS.textLighter,
   },
 
   /* PAINEL DE RECLAMAÇÕES */
@@ -98,7 +112,7 @@ const estilos = StyleSheet.create({
   painelTitulo: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: corPrimaria,
+    color: COLORS.primary,
     marginBottom: 15,
   },
   carregandoContainer: {
@@ -108,7 +122,7 @@ const estilos = StyleSheet.create({
   },
   carregandoTexto: {
     marginTop: 10,
-    color: corTexto,
+    color: COLORS.text,
     fontSize: 16,
   },
   semDadosContainer: {
@@ -118,14 +132,14 @@ const estilos = StyleSheet.create({
   },
   semDadosTexto: {
     marginTop: 15,
-    color: corTexto,
+    color: COLORS.text,
     fontSize: 16,
   },
   reclamacoesListContainer: {
     paddingBottom: 80, // Espaço para não sobrepor o footer
   },
   reclamacaoItem: {
-    backgroundColor: '#2A2A2D',
+    backgroundColor: COLORS.backgroundLight,
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,
@@ -139,23 +153,21 @@ const estilos = StyleSheet.create({
   reclamacaoUsuario: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: corTexto,
+    color: COLORS.text,
   },
   reclamacaoData: {
     fontSize: 12,
-    color: corTexto,
-    opacity: 0.7,
+    color: COLORS.textLightest,
   },
   reclamacaoTitulo: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: corTexto,
+    color: COLORS.text,
     marginBottom: 5,
   },
   reclamacaoDescricao: {
     fontSize: 14,
-    color: corTexto,
-    opacity: 0.9,
+    color: COLORS.textLight,
     marginBottom: 10,
   },
   reclamacaoFooter: {
@@ -172,10 +184,10 @@ const estilos = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: COLORS.modalOverlay,
   },
   modalContent: {
-    backgroundColor: '#2A2A2D',
+    backgroundColor: COLORS.backgroundLight,
     margin: 20,
     borderRadius: 10,
     maxHeight: '80%',
@@ -185,14 +197,14 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: corPrimaria,
+    backgroundColor: COLORS.primary,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   modalTitulo: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: COLORS.text,
   },
   modalScrollView: {
     padding: 15,
@@ -203,23 +215,22 @@ const estilos = StyleSheet.create({
   reclamacaoDetalheUsuario: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: corTexto,
+    color: COLORS.text,
   },
   reclamacaoDetalheData: {
     fontSize: 12,
-    color: corTexto,
-    opacity: 0.7,
+    color: COLORS.textLightest,
     marginBottom: 10,
   },
   reclamacaoDetalheTitulo: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: corTexto,
+    color: COLORS.text,
     marginBottom: 5,
   },
   reclamacaoDetalheDescricao: {
     fontSize: 14,
-    color: corTexto,
+    color: COLORS.text,
     lineHeight: 20,
   },
   respostaContainer: {
@@ -228,14 +239,14 @@ const estilos = StyleSheet.create({
   respostaLabel: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: corTexto,
+    color: COLORS.text,
     marginBottom: 10,
   },
   respostaInput: {
-    backgroundColor: '#3A3A3D',
+    backgroundColor: COLORS.backgroundLighter,
     borderRadius: 8,
     padding: 12,
-    color: corTexto,
+    color: COLORS.text,
     textAlignVertical: 'top',
     minHeight: 120,
   },
@@ -252,19 +263,19 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
   },
   botaoCancelar: {
-    backgroundColor: '#3A3A3D',
+    backgroundColor: COLORS.backgroundLighter,
     marginRight: 5,
   },
   botaoEnviar: {
-    backgroundColor: corPrimaria,
+    backgroundColor: COLORS.primary,
     marginLeft: 5,
   },
   textoBotaoCancelar: {
-    color: corTexto,
+    color: COLORS.text,
     fontWeight: 'bold',
   },
   textoBotaoEnviar: {
-    color: '#fff',
+    color: COLORS.text,
     fontWeight: 'bold',
   },
 
@@ -279,8 +290,8 @@ const estilos = StyleSheet.create({
     width: '110%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: corTexto,
-    backgroundColor: corFundo,
+    borderTopColor: COLORS.text,
+    backgroundColor: COLORS.background,
   },
   footerItem: {
     flex: 1,
@@ -290,7 +301,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: corTexto,
+    borderBottomColor: COLORS.text,
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {

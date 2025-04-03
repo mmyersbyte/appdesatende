@@ -1,16 +1,15 @@
-'use client';
 //configuracoes empresa
 import React, { useState } from 'react';
 import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   ActivityIndicator,
   Image,
   Alert,
-  Platform,
+  Platform, //IOS OU ANDROIDER
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
@@ -33,33 +32,33 @@ export default function ConfiguracoesEmpresaScreen() {
   // Estado para controlar o carregamento da imagem
   const [imagemCarregando, setImagemCarregando] = useState(false);
 
-  // Função para selecionar uma imagem da galeria
-  const selecionarImagem = async () => {
-    try {
-      setImagemCarregando(true);
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 1,
-      });
+  // Função para selecionar uma imagem da galeria DSTV
+  // const selecionarImagem = async () => {
+  //   try {
+  //     setImagemCarregando(true);
+  //     const result = await ImagePicker.launchImageLibraryAsync({
+  //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //       allowsEditing: true,
+  //       aspect: [1, 1],
+  //       quality: 1,
+  //     });
 
-      if (!result.canceled) {
-        setFotoPerfil(result.assets[0].uri);
-        // Aqui você pode adicionar a lógica para fazer o upload da imagem para o servidor
-        // e atualizar a URL no estado fotoPerfil.
-      }
-    } catch (error) {
-      console.error('Erro ao selecionar imagem:', error);
-      Alert.alert('Erro', 'Não foi possível selecionar a imagem.');
-    } finally {
-      setImagemCarregando(false);
-    }
-  };
+  //     if (!result.canceled) {
+  //       setFotoPerfil(result.assets[0].uri);
+  //       //  adicionar a lógica para fazer o upload da imagem para o servidor
+  //       // e atualizar a URL no estado fotoPerfil.
+  //     }
+  //   } catch (error) {
+  //     console.error('Erro ao selecionar imagem:', error);
+  //     Alert.alert('Erro', 'Não foi possível selecionar a imagem.');
+  //   } finally {
+  //     setImagemCarregando(false);
+  //   }
+  // };
 
   // Função para salvar as alterações no perfil
   const salvarAlteracoes = () => {
-    // Aqui você pode adicionar a lógica para salvar a bio e a foto de perfil no banco de dados.
+    // lógica para salvar a bio e a foto de perfil no banco de dados.
     Alert.alert('Sucesso', 'Perfil atualizado com sucesso!');
   };
 
@@ -77,7 +76,7 @@ export default function ConfiguracoesEmpresaScreen() {
       {/* Seção da foto de perfil */}
       <View style={estilos.secaoFotoPerfil}>
         <Text style={estilos.labelFotoPerfil}>Foto de Perfil</Text>
-        <TouchableOpacity
+        <Pressable
           onPress={selecionarImagem}
           disabled={imagemCarregando}
           style={estilos.botaoAlterarFoto}
@@ -102,7 +101,7 @@ export default function ConfiguracoesEmpresaScreen() {
               />
             </View>
           )}
-        </TouchableOpacity>
+        </Pressable>
       </View>
 
       {/* Seção da bio */}
@@ -120,17 +119,17 @@ export default function ConfiguracoesEmpresaScreen() {
       </View>
 
       {/* Botão para salvar as alterações */}
-      <TouchableOpacity
+      <Pressable
         style={estilos.botaoSalvar}
         onPress={salvarAlteracoes}
       >
         <Text style={estilos.textoBotaoSalvar}>Salvar Alterações</Text>
-      </TouchableOpacity>
+      </Pressable>
 
       {/* Footer */}
       <View style={estilos.footer}>
         {/* Ícone Home - ao pressionar, navega com transição suave para a tela Home */}
-        <TouchableOpacity
+        <Pressable
           style={estilos.footerItem}
           onPress={navegarParaDashboard}
         >
@@ -144,10 +143,10 @@ export default function ConfiguracoesEmpresaScreen() {
               Dashboard
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
 
         {/* Ícone Perfil - selecionado */}
-        <TouchableOpacity style={estilos.footerItem}>
+        <Pressable style={estilos.footerItem}>
           <View style={estilos.footerItemSelecionado}>
             <FontAwesome
               name='cog'
@@ -158,7 +157,7 @@ export default function ConfiguracoesEmpresaScreen() {
               Configurações
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );

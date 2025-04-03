@@ -1,16 +1,23 @@
 import { StyleSheet } from 'react-native';
 
-// Cores principais para reutilização
-const corPlaceholder = '#999';
-const corPrimaria = '#ba68c8';
-const corFundo = '#1A1A1D';
-const corBorda = '#6A1E55';
-const corTexto = 'white';
+const COLORS = {
+  background: '#1A1A1D',
+  backgroundLight: '#2A2A2D',
+  primary: '#ba68c8', // Purple color
+  accent: '#D84040', // Red color for labels
+  border: '#6A1E55',
+
+  text: 'white',
+  textWarm: '#ECDCBF', // Beige/cream color for text
+  placeholder: '#999',
+
+  white: 'white',
+};
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: corFundo,
+    backgroundColor: COLORS.background,
     paddingTop: 40,
     paddingHorizontal: 16,
     paddingBottom: 60,
@@ -24,13 +31,13 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: '#D84040',
+    color: COLORS.accent,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderColor: corBorda,
+    backgroundColor: COLORS.white,
+    borderColor: COLORS.border,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -42,7 +49,7 @@ const estilos = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 40,
-    color: corFundo,
+    color: COLORS.background,
   },
   /* BANNER PRINCIPAL */
   bannerContainer: {
@@ -60,7 +67,7 @@ const estilos = StyleSheet.create({
     fontSize: 17,
     padding: 0,
     fontWeight: 'bold',
-    color: '#ECDCBF',
+    color: COLORS.textWarm,
     lineHeight: 24,
     textAlign: 'center',
     marginBottom: 20,
@@ -74,7 +81,7 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#ECDCBF',
+    color: COLORS.textWarm,
     marginBottom: 15,
   },
   empresasListContainer: {
@@ -91,7 +98,7 @@ const estilos = StyleSheet.create({
     borderRadius: 200,
     overflow: 'hidden',
     marginBottom: 8,
-    backgroundColor: '#2A2A2D',
+    backgroundColor: COLORS.backgroundLight,
     width: 80,
     height: 80,
   },
@@ -104,7 +111,7 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2A2A2D',
+    backgroundColor: COLORS.backgroundLight,
     borderRadius: 8,
     width: 100,
     height: 100,
@@ -112,7 +119,7 @@ const estilos = StyleSheet.create({
   placeholderText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: corPrimaria,
+    color: COLORS.primary,
   },
   loadingIndicator: {
     position: 'absolute',
@@ -121,7 +128,7 @@ const estilos = StyleSheet.create({
   empresaNome: {
     fontSize: 14,
     fontWeight: '600',
-    color: corTexto,
+    color: COLORS.text,
     textAlign: 'center',
     width: '100%',
     paddingHorizontal: 4,
@@ -140,8 +147,8 @@ const estilos = StyleSheet.create({
     width: '110%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: corTexto,
-    backgroundColor: corFundo,
+    borderTopColor: COLORS.text,
+    backgroundColor: COLORS.background,
   },
   footerItem: {
     flex: 1,
@@ -151,8 +158,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: corTexto,
-
+    borderBottomColor: COLORS.text,
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {

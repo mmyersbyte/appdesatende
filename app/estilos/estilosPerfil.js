@@ -1,9 +1,35 @@
 import { StyleSheet } from 'react-native';
 
+const COLORS = {
+  // Primary colors
+  background: '#1A1A1D',
+  primary: '#D84040',
+
+  //texto
+  textPrimary: 'white',
+  textSecondary: '#999',
+
+  cardBackground: 'rgba(255, 255, 255, 0.05)',
+  borderLight: 'rgba(255, 255, 255, 0.1)',
+  borderWhite: 'white',
+
+  darkGray: '#333',
+  darkGrayAlt: '#222',
+  inputBackground: '#333',
+  inputBorder: '#444',
+
+  successBackground: 'rgba(39, 174, 96, 0.2)', // Green with opacity
+  errorBackground: 'rgba(231, 76, 60, 0.2)', // Red with opacity
+  errorBackgroundDarker: 'rgba(231, 76, 60, 0.8)', // Darker red with opacity
+
+  // Modal
+  modalOverlay: 'rgba(0, 0, 0, 0.7)',
+};
+
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1A1A1D',
+    backgroundColor: COLORS.background,
   },
   cabecalho: {
     position: 'relative',
@@ -12,7 +38,7 @@ const estilos = StyleSheet.create({
   areaCapa: {
     height: 150,
     width: '100%',
-    backgroundColor: '#333',
+    backgroundColor: COLORS.darkGray,
     overflow: 'hidden',
   },
   imagemCapa: {
@@ -31,9 +57,9 @@ const estilos = StyleSheet.create({
     height: 110,
     borderRadius: 55,
     borderWidth: 3,
-    borderColor: '#1A1A1D',
+    borderColor: COLORS.background,
     overflow: 'hidden',
-    backgroundColor: '#333',
+    backgroundColor: COLORS.darkGray,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -46,7 +72,7 @@ const estilos = StyleSheet.create({
     width: 104,
     height: 104,
     borderRadius: 52,
-    backgroundColor: '#333',
+    backgroundColor: COLORS.darkGray,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -54,14 +80,14 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     right: 0,
-    backgroundColor: '#ba68c8',
+    backgroundColor: COLORS.primary,
     width: 32,
     height: 32,
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: '#1A1A1D',
+    borderColor: COLORS.background,
   },
   infoUsuario: {
     alignItems: 'center',
@@ -70,20 +96,20 @@ const estilos = StyleSheet.create({
   },
   boasVindas: {
     fontSize: 18,
-    color: 'white',
+    color: COLORS.textPrimary,
     marginBottom: 4,
   },
   nomeUsuario: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#ba68c8',
+    color: COLORS.primary,
   },
   conteudoPrincipal: {
     flex: 1,
     paddingHorizontal: 16,
   },
   secaoReclamacoes: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: COLORS.cardBackground,
     borderRadius: 12,
     padding: 16,
     marginBottom: 80, // Espaço para o rodapé
@@ -91,7 +117,7 @@ const estilos = StyleSheet.create({
   tituloSecao: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: COLORS.textPrimary,
     marginBottom: 16,
   },
   itemReclamacao: {
@@ -100,24 +126,24 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    borderBottomColor: COLORS.borderLight,
   },
   infoReclamacao: {
     flex: 1,
   },
   tituloReclamacao: {
     fontSize: 16,
-    color: 'white',
+    color: COLORS.textPrimary,
     fontWeight: '500',
   },
   empresaReclamacao: {
     fontSize: 14,
-    color: '#ba68c8',
+    color: COLORS.primary,
     marginTop: 2,
   },
   dataReclamacao: {
     fontSize: 12,
-    color: '#999',
+    color: COLORS.textSecondary,
     marginTop: 4,
   },
   statusReclamacao: {
@@ -128,23 +154,23 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
   },
   respondida: {
-    backgroundColor: 'rgba(39, 174, 96, 0.2)',
+    backgroundColor: COLORS.successBackground,
   },
   naoRespondida: {
-    backgroundColor: 'rgba(231, 76, 60, 0.2)',
+    backgroundColor: COLORS.errorBackground,
   },
   textoStatus: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: 'white',
+    color: COLORS.textPrimary,
   },
   semReclamacoes: {
-    color: '#999',
+    color: COLORS.textSecondary,
     textAlign: 'center',
     marginVertical: 20,
   },
   botaoNovaReclamacao: {
-    backgroundColor: '#ba68c8',
+    backgroundColor: COLORS.primary,
     borderRadius: 25,
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -157,7 +183,7 @@ const estilos = StyleSheet.create({
     marginRight: 8,
   },
   textoBotao: {
-    color: 'white',
+    color: COLORS.textPrimary,
     fontWeight: 'bold',
     fontSize: 16,
   },
@@ -167,10 +193,10 @@ const estilos = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: 'white',
+    borderTopColor: COLORS.borderWhite,
     paddingVertical: 12,
     justifyContent: 'space-around',
-    backgroundColor: '#1A1A1D',
+    backgroundColor: COLORS.background,
   },
   itemRodape: {
     flex: 1,
@@ -180,7 +206,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: 'white',
+    borderBottomColor: COLORS.borderWhite,
     paddingBottom: 4,
   },
   itemNaoSelecionado: {
@@ -198,12 +224,12 @@ const estilos = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: COLORS.modalOverlay,
   },
   conteudoModal: {
     width: '90%',
     maxHeight: '80%',
-    backgroundColor: '#222',
+    backgroundColor: COLORS.darkGrayAlt,
     borderRadius: 12,
     overflow: 'hidden',
   },
@@ -211,12 +237,12 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#ba68c8',
+    backgroundColor: COLORS.primary,
     paddingVertical: 15,
     paddingHorizontal: 20,
   },
   tituloModal: {
-    color: 'white',
+    color: COLORS.textPrimary,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -230,17 +256,17 @@ const estilos = StyleSheet.create({
     marginBottom: 16,
   },
   labelFormulario: {
-    color: 'white',
+    color: COLORS.textPrimary,
     fontSize: 14,
     marginBottom: 6,
   },
   inputFormulario: {
-    backgroundColor: '#333',
+    backgroundColor: COLORS.inputBackground,
     borderRadius: 8,
     padding: 12,
-    color: 'white',
+    color: COLORS.textPrimary,
     borderWidth: 1,
-    borderColor: '#444',
+    borderColor: COLORS.inputBorder,
   },
   inputMultiline: {
     minHeight: 100,
@@ -249,15 +275,15 @@ const estilos = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#333',
+    backgroundColor: COLORS.inputBackground,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#444',
+    borderColor: COLORS.inputBorder,
     borderStyle: 'dashed',
     padding: 20,
   },
   textoUploadImagem: {
-    color: '#ba68c8',
+    color: COLORS.primary,
     marginLeft: 10,
     fontSize: 16,
   },
@@ -275,7 +301,7 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
-    backgroundColor: 'rgba(231, 76, 60, 0.8)',
+    backgroundColor: COLORS.errorBackgroundDarker,
     width: 36,
     height: 36,
     borderRadius: 18,
@@ -283,7 +309,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
   },
   botaoEnviar: {
-    backgroundColor: '#ba68c8',
+    backgroundColor: COLORS.primary,
     borderRadius: 25,
     paddingVertical: 14,
     paddingHorizontal: 20,
@@ -299,7 +325,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
   },
   textoSucesso: {
-    color: 'white',
+    color: COLORS.textPrimary,
     fontSize: 18,
     textAlign: 'center',
     marginTop: 20,

@@ -1,9 +1,22 @@
 import { StyleSheet } from 'react-native';
 
+const COLORS = {
+  background: '#1A1A1D',
+  backgroundDarker: '#2A2A2D',
+
+  primary: '#D84040',
+  border: '#6A1E55',
+  textPrimary: 'white',
+  textDark: '#1A1A1D',
+
+  // Overlay
+  overlayDark: 'rgba(0, 0, 0, 0.4)',
+};
+
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1A1A1D',
+    backgroundColor: COLORS.background,
     paddingTop: 40,
     paddingHorizontal: 16,
     paddingBottom: 60,
@@ -11,7 +24,7 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'white',
+    color: COLORS.textPrimary,
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -20,7 +33,7 @@ const estilos = StyleSheet.create({
   },
   labelFotoPerfil: {
     fontSize: 18,
-    color: 'white',
+    color: COLORS.textPrimary,
     marginBottom: 8,
   },
   botaoAlterarFoto: {
@@ -33,7 +46,7 @@ const estilos = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2A2A2D',
+    backgroundColor: COLORS.backgroundDarker,
   },
   fotoPerfil: {
     width: '100%',
@@ -42,7 +55,7 @@ const estilos = StyleSheet.create({
   },
   overlayFotoPerfil: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: COLORS.overlayDark,
     borderRadius: 75,
   },
   iconeCamera: {
@@ -53,25 +66,25 @@ const estilos = StyleSheet.create({
   },
   labelBio: {
     fontSize: 18,
-    color: 'white',
+    color: COLORS.textPrimary,
     marginBottom: 8,
   },
   inputBio: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.textPrimary,
     borderRadius: 8,
     padding: 12,
-    color: '#1A1A1D',
+    color: COLORS.textDark,
     textAlignVertical: 'top',
   },
   botaoSalvar: {
-    backgroundColor: '#ba68c8',
+    backgroundColor: COLORS.primary,
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
     marginBottom: 24,
   },
   textoBotaoSalvar: {
-    color: 'white',
+    color: COLORS.textPrimary,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -86,8 +99,8 @@ const estilos = StyleSheet.create({
     width: '110%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: 'white',
-    backgroundColor: '#1A1A1D',
+    borderTopColor: COLORS.textPrimary,
+    backgroundColor: COLORS.background,
   },
   footerItem: {
     flex: 1,
@@ -97,7 +110,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: '#ba68c8',
+    borderBottomColor: COLORS.primary,
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {

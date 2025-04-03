@@ -1,4 +1,3 @@
-'use client';
 //PERFIL CLIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 import { useState } from 'react';
 import {
@@ -22,7 +21,7 @@ import estilos from './estilos/estilosPerfil';
 import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router para navegar entre telas
 import { useRouter } from 'expo-router';
-// Importação para seleção de imagens (necessário instalar: npx expo install expo-image-picker)
+// npx expo install expo-image-picker OU DESISTE!!
 import * as ImagePicker from 'expo-image-picker';
 
 export default function PerfilScreen() {
@@ -35,23 +34,23 @@ export default function PerfilScreen() {
   const [reclamacoes, setReclamacoes] = useState([
     {
       id: 1,
-      titulo: 'Problema na entrega',
-      empresa: 'Loja Online',
-      data: '10/03/2024',
+      titulo: 'Tinha uma mosca no meu lanche',
+      empresa: 'Burguer Kongo',
+      data: '10/03/2039',
       respondida: true,
     },
     {
       id: 2,
-      titulo: 'Produto com defeito',
-      empresa: 'Eletrônicos ABC',
-      data: '15/03/2024',
+      titulo: 'oie',
+      empresa: 'McDonalds',
+      data: '15/03/2089',
       respondida: false,
     },
     {
       id: 3,
-      titulo: 'Cobrança indevida',
+      titulo: 'Mataram minha tia',
       empresa: 'Serviço XYZ',
-      data: '20/03/2024',
+      data: '20/03/20224',
       respondida: false,
     },
   ]);
@@ -71,83 +70,82 @@ export default function PerfilScreen() {
   const router = useRouter();
 
   // Função para selecionar foto de perfil da galeria
-  const selecionarFotoPerfil = async () => {
-    try {
-      // Solicitar permissão para acessar a galeria
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
+  // const selecionarFotoPerfil = async () => {
+  //   try {
+  //     // Solicitar permissão para acessar a galeria
+  //     const { status } =
+  //       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-      if (status !== 'granted') {
-        Alert.alert(
-          'Permissão necessária',
-          'Precisamos de permissão para acessar suas fotos.'
-        );
-        return;
-      }
+  //     if (status !== 'granted') {
+  //       Alert.alert(
+  //         'Permissão necessária',
+  //         'Precisamos de permissão para acessar suas fotos.'
+  //       );
+  //       return;
+  //     }
 
-      // Abrir seletor de imagens
-      const resultado = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [1, 1], // Aspecto 1:1 para foto de perfil (quadrada)
-        quality: 0.8,
-      });
+  //     // Abrir seletor de imagens
+  //     //DSTV
+  //     // Aqui seria o código para fazer upload da imagem para o servidor
+  //       // e atualizar o perfil do usuário no banco de dados
+  //     const resultado = await ImagePicker.launchImageLibraryAsync({
+  //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //       allowsEditing: true,
+  //       aspect: [1, 1],
+  //       quality: 0.8,
+  //     });
 
-      if (
-        !resultado.canceled &&
-        resultado.assets &&
-        resultado.assets.length > 0
-      ) {
-        setProfileImage(resultado.assets[0].uri);
+  //     if (
+  //       !resultado.canceled &&
+  //       resultado.assets &&
+  //       resultado.assets.length > 0
+  //     ) {
+  //       setProfileImage(resultado.assets[0].uri);
 
-        // Aqui seria o código para fazer upload da imagem para o servidor
-        // e atualizar o perfil do usuário no banco de dados
-        console.log('Foto de perfil selecionada:', resultado.assets[0].uri);
+  //       console.log('Foto de perfil selecionada:', resultado.assets[0].uri);
 
-        // Feedback para o usuário
-        Alert.alert('Sucesso', 'Foto de perfil atualizada com sucesso!');
-      }
-    } catch (erro) {
-      console.error('Erro ao selecionar foto de perfil:', erro);
-      Alert.alert('Erro', 'Não foi possível selecionar a foto de perfil.');
-    }
-  };
+  //       Alert.alert('Sucesso', 'Foto de perfil atualizada com sucesso!');
+  //     }
+  //   } catch (erro) {
+  //     console.error('Erro ao selecionar foto de perfil:', erro);
+  //     Alert.alert('Erro', 'Não foi possível selecionar a foto de perfil.');
+  //   }
+  // };
+  //dstv
+  // const selecionarImagem = async () => {
+  //   try {
+  //     // Solicitar permissão para acessar a galeria
+  //     const { status } =
+  //       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-  // Função para selecionar imagem da galeria
-  const selecionarImagem = async () => {
-    try {
-      // Solicitar permissão para acessar a galeria
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       Alert.alert(
+  //         'Permissão necessária',
+  //         'Precisamos de permissão para acessar suas fotos.'
+  //       );
+  //       return;
+  //     }
 
-      if (status !== 'granted') {
-        Alert.alert(
-          'Permissão necessária',
-          'Precisamos de permissão para acessar suas fotos.'
-        );
-        return;
-      }
+  //     // Abrir seletor de imagens
+  //     const resultado = await ImagePicker.launchImageLibraryAsync({
+  //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //       allowsEditing: true,
+  //       aspect: [4, 3],
+  //       quality: 0.8,
+  //     });
 
-      // Abrir seletor de imagens
-      const resultado = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 0.8,
-      });
-
-      if (
-        !resultado.canceled &&
-        resultado.assets &&
-        resultado.assets.length > 0
-      ) {
-        setImagemReclamacao(resultado.assets[0].uri);
-      }
-    } catch (erro) {
-      console.error('Erro ao selecionar imagem:', erro);
-      Alert.alert('Erro', 'Não foi possível selecionar a imagem.');
-    }
-  };
+  //     if (
+  //       !resultado.canceled &&
+  //       resultado.assets &&
+  //       resultado.assets.length > 0
+  //     ) {
+  //       setImagemReclamacao(resultado.assets[0].uri);
+  //     }
+  //   } catch (erro) {
+  //     console.error('Erro ao selecionar imagem:', erro);
+  //     Alert.alert('Erro', 'Não foi possível selecionar a imagem.');
+  //   }
+  // };
 
   // Funço para limpar o formulário
   const limparFormulario = () => {
@@ -195,7 +193,7 @@ export default function PerfilScreen() {
         status: 'pendente',
       };
 
-      // Adicionar à lista local (temporário até integração com banco de dados)
+      // Adicionar a lista local(temporário até integração com banco de dados)
       setReclamacoes((reclamacoesAtuais) => [
         novaReclamacao,
         ...reclamacoesAtuais,
@@ -248,7 +246,7 @@ export default function PerfilScreen() {
         <View style={estilos.areaCapa}>
           <Image
             style={estilos.imagemCapa}
-            source={require('./desatendeHome.jpg')}
+            source={require('./imgs/desatendeHome.jpg')}
           />
         </View>
 
@@ -270,7 +268,7 @@ export default function PerfilScreen() {
                 <FontAwesome
                   name='user'
                   size={50}
-                  color='#ba68c8'
+                  color='#D84040'
                 />
               </View>
             )}
@@ -434,7 +432,7 @@ export default function PerfilScreen() {
                   ) : (
                     <Pressable
                       style={estilos.botaoUploadImagem}
-                      onPress={selecionarImagem}
+                      // onPress={selecionarImagem}
                     >
                       <FontAwesome
                         name='camera'
@@ -501,7 +499,7 @@ export default function PerfilScreen() {
             <FontAwesome
               name='user'
               size={24}
-              color='#ba68c8'
+              color='#D84040'
             />
             <Text style={[estilos.textoRodape, { color: 'white' }]}>
               Seu Perfil
