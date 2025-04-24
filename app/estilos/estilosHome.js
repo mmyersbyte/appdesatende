@@ -1,23 +1,34 @@
 import { StyleSheet } from 'react-native';
 
-const COLORS = {
-  background: '#1A1A1D',
-  backgroundLight: '#2A2A2D',
-  primary: '#ba68c8', // Purple color
-  accent: '#D84040', // Red color for labels
-  border: '#6A1E55',
+const CORES = {
+  // Cores de fundo
+  fundoPrincipal: '#1A1A1D', // Fundo principal
+  fundoClaro: '#2A2A2D', // Fundo mais claro
+  fundoMaisClaro: '#3A3A3D', // Fundo para modais
 
-  text: 'white',
-  textWarm: '#ECDCBF', // Beige/cream color for text
-  placeholder: '#999',
+  // Cores principais
+  corPrimaria: '#D84040', // Cor primária vermelha
+  bordaPrincipal: '#6A1E55', // Cor das bordas
 
-  white: 'white',
+  // Cores de texto
+  texto: '#ECDCBF', // Texto principal
+  textoClaro: 'rgba(255, 255, 255, 0.9)', // Texto com 90% opacidade
+  textoMaisClaro: 'rgba(255, 255, 255, 0.8)', // Texto com 80% opacidade
+  textoSuave: 'rgba(255, 255, 255, 0.7)', // Texto com 70% opacidade
+  textoPlaceholder: '#999', // Texto para placeholders
+
+  // Cores de status
+  statusPendente: '#ff6b6b', // Vermelho para pendente
+  statusResolvido: '#4ecdc4', // Verde-água para resolvido
+
+  // Cores de modal
+  fundoModal: 'rgba(0, 0, 0, 0.7)', // Fundo do modal
 };
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: CORES.fundoPrincipal,
     paddingTop: 40,
     paddingHorizontal: 16,
     paddingBottom: 60,
@@ -31,13 +42,13 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: COLORS.accent,
+    color: CORES.corPrimaria,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderColor: COLORS.border,
+    backgroundColor: CORES.branco,
+    borderColor: CORES.bordaPrincipal,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -49,7 +60,7 @@ const estilos = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 40,
-    color: COLORS.background,
+    color: CORES.fundoPrincipal,
   },
   /* BANNER PRINCIPAL */
   bannerContainer: {
@@ -67,7 +78,7 @@ const estilos = StyleSheet.create({
     fontSize: 17,
     padding: 0,
     fontWeight: 'bold',
-    color: COLORS.textWarm,
+    color: CORES.textoMaisClaro,
     lineHeight: 24,
     textAlign: 'center',
     marginBottom: 20,
@@ -81,7 +92,7 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: COLORS.textWarm,
+    color: CORES.textoMaisClaro,
     marginBottom: 15,
   },
   empresasListContainer: {
@@ -98,7 +109,7 @@ const estilos = StyleSheet.create({
     borderRadius: 200,
     overflow: 'hidden',
     marginBottom: 8,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: CORES.fundoClaro,
     width: 80,
     height: 80,
   },
@@ -111,7 +122,7 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: CORES.fundoClaro,
     borderRadius: 8,
     width: 100,
     height: 100,
@@ -119,7 +130,7 @@ const estilos = StyleSheet.create({
   placeholderText: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
   },
   loadingIndicator: {
     position: 'absolute',
@@ -128,7 +139,7 @@ const estilos = StyleSheet.create({
   empresaNome: {
     fontSize: 14,
     fontWeight: '600',
-    color: COLORS.text,
+    color: CORES.texto,
     textAlign: 'center',
     width: '100%',
     paddingHorizontal: 4,
@@ -147,8 +158,8 @@ const estilos = StyleSheet.create({
     width: '110%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: COLORS.text,
-    backgroundColor: COLORS.background,
+    borderTopColor: CORES.texto,
+    backgroundColor: CORES.fundoPrincipal,
   },
   footerItem: {
     flex: 1,
@@ -158,7 +169,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: COLORS.text,
+    borderBottomColor: CORES.texto,
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {

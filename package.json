@@ -19,6 +19,9 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.17",
     "@react-navigation/native-stack": "^7.3.1",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "expo": "~52.0.39",
     "expo-blur": "~14.0.3",
     "expo-constants": "~17.0.8",
@@ -32,6 +35,8 @@
     "expo-symbols": "~0.2.2",
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "~14.0.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "lottie": "^0.0.1",
     "lottie-ios": "^4.5.1",
     "lottie-react-native": "7.1.0",
@@ -59,5 +64,17 @@
     "react-test-renderer": "18.3.1",
     "typescript": "^5.3.3"
   },
-  "private": true
+  "private": true,
+  "description": "This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmyersbyte/appdesatende.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmyersbyte/appdesatende/issues"
+  },
+  "homepage": "https://github.com/mmyersbyte/appdesatende#readme"
 }

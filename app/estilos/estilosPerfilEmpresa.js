@@ -1,33 +1,35 @@
 import { StyleSheet } from 'react-native';
 
-// Color variables organized in a structured object
-const COLORS = {
-  // Primary colors
-  background: '#1A1A1D',
-  backgroundLight: '#2A2A2D',
-  backgroundLighter: '#3A3A3D', //modal
-  primary: '#D84040', // Purple color used throughout the app
-  border: '#6A1E55',
+// Variáveis de cores organizadas em um objeto estruturado
+const CORES = {
+  // Cores de fundo
+  fundoPrincipal: '#1A1A1D', // Fundo principal escuro
+  fundoClaro: '#2A2A2D', // Fundo mais claro para cards
+  fundoMaisClaro: '#3A3A3D', // Fundo para modais
 
-  // Text colors
-  text: '#ECDCBF', // Beige/cream color for text
-  textLight: 'rgba(255, 255, 255, 0.9)', // 90% opacity white
-  textLighter: 'rgba(255, 255, 255, 0.8)', // 80% opacity white
-  textLightest: 'rgba(255, 255, 255, 0.7)', // 70% opacity white
-  placeholder: '#999',
+  // Cores principais
+  corPrimaria: '#D84040', // Vermelho usado no app
+  bordaPrincipal: '#6A1E55', // Cor para bordas principais
 
-  // Status colors
-  pending: '#ff6b6b', // Red for pending status
-  resolved: '#4ecdc4', // Teal for resolved status
+  // Cores de texto
+  textoPrincipal: '#ECDCBF', // Texto em tom bege/creme
+  textoClaro: 'rgba(255, 255, 255, 0.9)', // Texto branco 90% opacidade
+  textoMaisClaro: 'rgba(255, 255, 255, 0.8)', // Texto branco 80% opacidade
+  textoSuave: 'rgba(255, 255, 255, 0.7)', // Texto branco 70% opacidade
+  textoPlaceholder: '#999', // Texto para placeholders
 
-  // Modal
-  modalOverlay: 'rgba(0, 0, 0, 0.7)',
+  // Cores de status
+  statusPendente: '#ff6b6b', // Vermelho para pendentes
+  statusResolvido: '#4ecdc4', // Verde-água para resolvidos
+
+  // Cores de modal
+  fundoModal: 'rgba(0, 0, 0, 0.7)', // Sobreposição escura para modal
 };
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: CORES.fundoPrincipal,
     paddingTop: 40,
     paddingHorizontal: 16,
     paddingBottom: 60,
@@ -41,12 +43,12 @@ const estilos = StyleSheet.create({
     fontSize: 34,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
   },
   labelPainel: {
     fontSize: 18,
     textAlign: 'center',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     marginTop: 5,
   },
 
@@ -56,7 +58,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding: 15,
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: CORES.fundoClaro,
     borderRadius: 10,
   },
   logoContainer: {
@@ -76,7 +78,7 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.backgroundLighter,
+    backgroundColor: CORES.fundoMaisClaro,
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -84,7 +86,7 @@ const estilos = StyleSheet.create({
   placeholderText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
   },
   loadingIndicator: {
     position: 'absolute',
@@ -96,12 +98,12 @@ const estilos = StyleSheet.create({
   nomeEmpresa: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     marginBottom: 5,
   },
   descricaoEmpresa: {
     fontSize: 14,
-    color: COLORS.textLighter,
+    color: CORES.textoMaisClaro,
   },
 
   /* PAINEL DE RECLAMAÇÕES */
@@ -113,8 +115,7 @@ const estilos = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
     marginBottom: 15,
   },
   carregandoContainer: {
@@ -124,7 +125,7 @@ const estilos = StyleSheet.create({
   },
   carregandoTexto: {
     marginTop: 10,
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     fontSize: 16,
   },
   semDadosContainer: {
@@ -134,14 +135,14 @@ const estilos = StyleSheet.create({
   },
   semDadosTexto: {
     marginTop: 15,
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     fontSize: 16,
   },
   reclamacoesListContainer: {
     paddingBottom: 80, // Espaço para não sobrepor o footer
   },
   reclamacaoItem: {
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: CORES.fundoClaro,
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,
@@ -155,21 +156,21 @@ const estilos = StyleSheet.create({
   reclamacaoUsuario: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
   },
   reclamacaoData: {
     fontSize: 12,
-    color: COLORS.textLightest,
+    color: CORES.textoSuave,
   },
   reclamacaoTitulo: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     marginBottom: 5,
   },
   reclamacaoDescricao: {
     fontSize: 14,
-    color: COLORS.textLight,
+    color: CORES.textoClaro,
     marginBottom: 10,
   },
   reclamacaoFooter: {
@@ -186,10 +187,10 @@ const estilos = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: COLORS.modalOverlay,
+    backgroundColor: CORES.fundoModal,
   },
   modalContent: {
-    backgroundColor: COLORS.backgroundLight,
+    backgroundColor: CORES.fundoClaro,
     margin: 20,
     borderRadius: 10,
     maxHeight: '80%',
@@ -199,14 +200,14 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: COLORS.primary,
+    backgroundColor: CORES.corPrimaria,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   modalTitulo: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
   },
   modalScrollView: {
     padding: 15,
@@ -217,22 +218,22 @@ const estilos = StyleSheet.create({
   reclamacaoDetalheUsuario: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
   },
   reclamacaoDetalheData: {
     fontSize: 12,
-    color: COLORS.textLightest,
+    color: CORES.textoSuave,
     marginBottom: 10,
   },
   reclamacaoDetalheTitulo: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     marginBottom: 5,
   },
   reclamacaoDetalheDescricao: {
     fontSize: 14,
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     lineHeight: 20,
   },
   respostaContainer: {
@@ -241,14 +242,14 @@ const estilos = StyleSheet.create({
   respostaLabel: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     marginBottom: 10,
   },
   respostaInput: {
-    backgroundColor: COLORS.backgroundLighter,
+    backgroundColor: CORES.fundoMaisClaro,
     borderRadius: 8,
     padding: 12,
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     textAlignVertical: 'top',
     minHeight: 120,
   },
@@ -265,19 +266,19 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
   },
   botaoCancelar: {
-    backgroundColor: COLORS.backgroundLighter,
+    backgroundColor: CORES.fundoMaisClaro,
     marginRight: 5,
   },
   botaoEnviar: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: CORES.corPrimaria,
     marginLeft: 5,
   },
   textoBotaoCancelar: {
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     fontWeight: 'bold',
   },
   textoBotaoEnviar: {
-    color: COLORS.text,
+    color: CORES.textoPrincipal,
     fontWeight: 'bold',
   },
 
@@ -292,8 +293,8 @@ const estilos = StyleSheet.create({
     width: '110%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: COLORS.text,
-    backgroundColor: COLORS.background,
+    borderTopColor: CORES.textoPrincipal,
+    backgroundColor: CORES.fundoPrincipal,
   },
   footerItem: {
     flex: 1,
@@ -303,7 +304,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: COLORS.text,
+    borderBottomColor: CORES.textoPrincipal,
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {

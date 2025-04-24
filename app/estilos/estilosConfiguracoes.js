@@ -1,13 +1,28 @@
 import { StyleSheet } from 'react-native';
 
-const COLORS = {
-  background: '#1A1A1D',
-  backgroundDarker: '#2A2A2D',
+const CORES = {
+  // Cores de fundo
+  fundoPrincipal: '#1A1A1D', // Fundo principal da tela
+  fundoSecundario: '#2A2A2D', // Fundo secundário para elementos
 
-  primary: '#D84040',
-  border: '#6A1E55',
-  textPrimary: '#ECDCBF', // Beige/cream color for text
-  textDark: '#1A1A1D',
+  // Cores principais
+  corPrimaria: '#D84040', // Vermelho principal
+  corSecundaria: '#ba68c8', // Roxo para elementos secundários
+
+  // Cores de texto
+  textoPrincipal: '#ECDCBF', // Texto principal em tom bege
+  textoEscuro: '#1A1A1D', // Texto escuro para contraste
+  textoClaro: 'white', // Texto em branco
+
+  // Cores de borda
+  bordaPrincipal: '#6A1E55', // Borda principal
+  bordaBranca: 'white', // Borda em branco
+
+  // Cores de status
+  corSucesso: '#27ae60', // Verde para feedback positivo
+
+  // Cores utilitárias
+  cinzaEscuro: '#555', // Cinza para elementos inativos
 
   // Overlay
   overlayDark: 'rgba(0, 0, 0, 0.4)',
@@ -16,7 +31,7 @@ const COLORS = {
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: CORES.fundoPrincipal,
     paddingTop: 40,
     paddingHorizontal: 16,
     paddingBottom: 60,
@@ -24,7 +39,7 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -33,7 +48,7 @@ const estilos = StyleSheet.create({
   },
   labelFotoPerfil: {
     fontSize: 18,
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     marginBottom: 8,
   },
   botaoAlterarFoto: {
@@ -46,7 +61,7 @@ const estilos = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.backgroundDarker,
+    backgroundColor: CORES.fundoSecundario,
   },
   fotoPerfil: {
     width: '100%',
@@ -55,7 +70,7 @@ const estilos = StyleSheet.create({
   },
   overlayFotoPerfil: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: COLORS.overlayDark,
+    backgroundColor: CORES.overlayDark,
     borderRadius: 75,
   },
   iconeCamera: {
@@ -66,25 +81,25 @@ const estilos = StyleSheet.create({
   },
   labelBio: {
     fontSize: 18,
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     marginBottom: 8,
   },
   inputBio: {
-    backgroundColor: COLORS.textPrimary,
+    backgroundColor: CORES.textoPrincipal,
     borderRadius: 8,
     padding: 12,
-    color: COLORS.textDark,
+    color: CORES.textoEscuro,
     textAlignVertical: 'top',
   },
   botaoSalvar: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: CORES.corPrimaria,
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
     marginBottom: 24,
   },
   textoBotaoSalvar: {
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -99,8 +114,8 @@ const estilos = StyleSheet.create({
     width: '110%',
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: COLORS.textPrimary,
-    backgroundColor: COLORS.background,
+    borderTopColor: CORES.bordaBranca,
+    backgroundColor: CORES.fundoPrincipal,
   },
   footerItem: {
     flex: 1,
@@ -110,7 +125,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: COLORS.primary,
+    borderBottomColor: CORES.corSecundaria,
     paddingBottom: 4,
   },
   footerItemNaoSelecionado: {

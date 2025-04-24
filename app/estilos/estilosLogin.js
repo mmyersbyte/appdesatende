@@ -1,26 +1,27 @@
 import { StyleSheet } from 'react-native';
 
-// Color variables
-const COLORS = {
-  // Primary colors
-  background: '#1A1A1D',
-  primary: '#D84040', // Red color used throughout the app
-  primaryDarker: '#A31D1D', // Darker red for buttons
+// Variáveis de cores padronizadas
+const CORES = {
+  // BACKGROUND
+  fundoPrincipal: '#1A1A1D', // Fundo principal escuro do app
 
-  // Text colors
-  textPrimary: '#ECDCBF', // Beige/cream color for text
-  textDark: '#333',
+  // Cores principais
+  corPrimaria: '#D84040', // Vermelho usado em todo o app
+  corPrimariaEscura: '#A31D1D', // Vermelho mais escuro
 
-  // UI element colors
-  white: '#FFF',
-  inputBorder: '#CCC',
+  // Cores de texto
+  textoPrincipal: '#ECDCBF', // Cor bege/creme para textos
+  textoEscuro: '#333', // Cor escura para textos em fundos claros
+
+  // Cores de elementos UI
+  branco: '#FFF', // Branco puro para elementos
+  bordaInput: '#CCC', // Cor para bordas de campos de entrada
 };
 
 const estilos = StyleSheet.create({
-  // Container principal da tela
   container: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: CORES.fundoPrincipal,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -31,23 +32,23 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
     textAlign: 'center',
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
   },
   // Estilo para a palavra diferenciada no título
   tituloDiferente: {
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
   },
   // Estilo do subtítulo
   subtitulo: {
     fontSize: 18,
     textAlign: 'center',
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     marginHorizontal: 10,
     marginBottom: 20,
   },
   // Estilo para a parte diferenciada do subtítulo
   subdiferente: {
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
     fontWeight: 'bold',
     fontSize: 18,
     marginHorizontal: 10,
@@ -63,16 +64,16 @@ const estilos = StyleSheet.create({
   subtitulo2: {
     fontSize: 16,
     textAlign: 'center',
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     marginHorizontal: 20,
     marginBottom: 10,
   },
   esqueci: {
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
   },
   // Estilo base dos botões
   botao: {
-    backgroundColor: COLORS.primaryDarker,
+    backgroundColor: CORES.corPrimariaEscura,
     paddingVertical: 12,
     borderRadius: 8,
     marginVertical: 6,
@@ -105,7 +106,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo do texto dos botões
   textoBotao: {
-    color: COLORS.textPrimary,
+    color: CORES.textoPrincipal,
     fontWeight: '600',
     fontSize: 16,
   },
@@ -118,7 +119,7 @@ const estilos = StyleSheet.create({
   },
   modalConteudo: {
     width: '100%',
-    backgroundColor: COLORS.white,
+    backgroundColor: CORES.branco,
     borderRadius: 12,
     padding: 20,
   },
@@ -131,21 +132,21 @@ const estilos = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
   },
   // Estilo dos inputs (campos de texto)
   input: {
     width: '100%',
     borderWidth: 1,
-    borderColor: COLORS.inputBorder,
+    borderColor: CORES.bordaInput,
     borderRadius: 8,
     padding: 10,
     marginBottom: 15,
-    color: COLORS.textDark,
+    color: CORES.textoEscuro,
   },
   // Estilo do botão do formulário
   botaoFormulario: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: CORES.corPrimaria,
     paddingVertical: 12,
     borderRadius: 8,
     width: '100%',
@@ -154,7 +155,7 @@ const estilos = StyleSheet.create({
   },
   // Estilo do texto do botão do formulário
   textoBotaoFormulario: {
-    color: COLORS.white,
+    color: CORES.branco,
     fontWeight: '600',
     fontSize: 16,
   },
@@ -163,7 +164,7 @@ const estilos = StyleSheet.create({
     marginTop: 10,
   },
   textoBotaoFechar: {
-    color: COLORS.primary,
+    color: CORES.corPrimaria,
     fontSize: 16,
   },
 });
