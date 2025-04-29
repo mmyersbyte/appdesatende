@@ -437,7 +437,7 @@ export default function PerfilScreen() {
                       <FontAwesome
                         name='camera'
                         size={20}
-                        color='#ba68c8'
+                        color='#fff'
                       />
                       <Text style={estilos.textoUploadImagem}>
                         Selecionar imagem

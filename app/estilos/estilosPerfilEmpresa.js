@@ -11,7 +11,7 @@ const CORES = {
   corPrimaria: '#D84040', // Vermelho usado no app
   bordaPrincipal: '#6A1E55', // Cor para bordas principais
 
-  // Cores de texto
+  // Cores de text
   textoPrincipal: '#ECDCBF', // Texto em tom bege/creme
   textoClaro: 'rgba(255, 255, 255, 0.9)', // Texto branco 90% opacidade
   textoMaisClaro: 'rgba(255, 255, 255, 0.8)', // Texto branco 80% opacidade

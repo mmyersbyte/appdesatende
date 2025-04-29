@@ -245,7 +245,7 @@ const estilos = StyleSheet.create({
   tituloModal: {
     color: CORES.textoPrincipal,
     fontSize: 18,
-    fontWeight: 'bold',
+    marginLeft: 26,
   },
   botaoFechar: {
     padding: 5,

@@ -11,9 +11,12 @@ import {
 import estilos from './estilos/estilosLogin';
 import LottieView from 'lottie-react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { cadastrar, login as loginApi } from './services/api'; // Importa funções de conexão com backend
 
 import { useRouter } from 'expo-router';
 // Importa o hook de navegação do Expo Router
+
+const BASE_URL = 'http://10.0.2.2:5000/api';
 
 export default function Index() {
   // Estado para controlar qual modal (formulário) tá aberto: 'cliente', 'empresa', 'cadastro' ou null //(fechado)
@@ -26,6 +29,8 @@ export default function Index() {
   const [emailCadastro, setEmailCadastro] = useState('');
   const [senhaCadastro, setSenhaCadastro] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
+  // Estado para controlar o tipo de cadastro: 'cliente' ou 'empresa'
+  const [tipoCadastro, setTipoCadastro] = useState('cliente');
 
   // Para navegar entre rotas do Expo
   const router = useRouter();
@@ -39,6 +44,52 @@ export default function Index() {
     setEmailCadastro('');
     setSenhaCadastro('');
     setConfirmarSenha('');
+  };
+
+  // Função para autenticar login com o backend
+  const autenticarLogin = async () => {
+    try {
+      const resposta = await loginApi({ email, senha, tipo: modalTipo });
+      if (resposta.data.user) {
+        router.push('/home');
+      } else if (resposta.data.empresa) {
+        router.push('/dashboard');
+      } else {
+        alert('Tipo de usuário não reconhecido.');
+      }
+      fecharModal();
+    } catch (erro) {
+      alert(
+        erro.response?.data?.message ||
+          'Erro ao fazer login. Verifique os dados.'
+      );
+    }
+  };
+
+  // Função para cadastrar novo usuário ou empresa
+  const cadastrarNovo = async () => {
+    if (!nome || !emailCadastro || !senhaCadastro || !confirmarSenha) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+    if (senhaCadastro !== confirmarSenha) {
+      alert('As senhas não coincidem!');
+      return;
+    }
+    try {
+      await cadastrar({
+        nome,
+        email: emailCadastro,
+        senha: senhaCadastro,
+        tipo: tipoCadastro,
+      });
+      alert('Cadastro realizado com sucesso! Faça login.');
+      fecharModal();
+    } catch (erro) {
+      alert(
+        erro.response?.data?.message || 'Erro ao cadastrar. Verifique os dados.'
+      );
+    }
   };
 
   // Renderiza o conteúdo do modal com base no tipo selecionado
@@ -71,12 +122,7 @@ export default function Index() {
           />
           <Pressable
             style={estilos.botaoFormulario}
-            onPress={() => {
-              // lógica de autenticação com o Express.js
-              console.log('Submit login', modalTipo, email, senha);
-              // Navegar para /home depois de logar
-              router.push('/home');
-            }}
+            onPress={autenticarLogin}
           >
             <Text style={estilos.textoBotaoFormulario}>Entrar</Text>
           </Pressable>
@@ -89,11 +135,45 @@ export default function Index() {
         </View>
       );
     }
-    // Formulário de cadastroq
+    // Formulário de cadastro
     else if (modalTipo === 'cadastro') {
       return (
         <ScrollView contentContainerStyle={estilos.formularioContainer}>
           <Text style={estilos.tituloFormulario}>Cadastro</Text>
+          {/* Botões para escolher o tipo de cadastro */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              borderRadius: '60%',
+              width: '50%',
+            }}
+          >
+            <Pressable
+              style={[
+                estilos.botaoFormulario,
+                tipoCadastro === 'cliente' && {
+                  backgroundColor: '#A31D1D',
+                },
+              ]}
+              onPress={() => setTipoCadastro('cliente')}
+            >
+              <Text style={{ color: 'white' }}>Cliente</Text>
+            </Pressable>
+
+            <Pressable
+              style={[
+                estilos.botaoFormulario,
+                tipoCadastro === 'empresa' && {
+                  backgroundColor: '#A31D1D',
+                },
+              ]}
+              onPress={() => setTipoCadastro('empresa')}
+            >
+              <Text style={{ color: 'white' }}>Empresa</Text>
+            </Pressable>
+          </View>
+          {/* Formulário de cadastro */}
           <TextInput
             style={estilos.input}
             placeholder='Nome'
@@ -128,16 +208,7 @@ export default function Index() {
           />
           <Pressable
             style={estilos.botaoFormulario}
-            onPress={() => {
-              // lógica de cadastro com o Express.js
-              console.log(
-                'Submit cadastro',
-                nome,
-                emailCadastro,
-                senhaCadastro,
-                confirmarSenha
-              );
-            }}
+            onPress={cadastrarNovo}
           >
             <Text style={estilos.textoBotaoFormulario}>Cadastrar</Text>
           </Pressable>
