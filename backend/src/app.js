@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import connectDB from './config/db.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -18,11 +18,7 @@ app.use('/api/empresas', empresaRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+connectDB(process.env.MONGODB_URI)
   .then(() => {
     console.log('MongoDB conectado');
     app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
