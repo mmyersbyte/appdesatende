@@ -13,67 +13,34 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router
 import { useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
 
 export default function HomeScreen() {
-  // Estados para os campos de reclamação (exemplo de "CRud" futuro)
-  const [empresa, setEmpresa] = useState('');
-  const [tituloReclamacao, setTituloReclamacao] = useState('');
-  const [descricaoReclamacao, setDescricaoReclamacao] = useState('');
-  const [imagemOpcional, setImagemOpcional] = useState('');
-
-  // Estado para controlar o carregamento das imagens
+  const [search, setSearch] = useState('');
   const [imagensCarregadas, setImagensCarregadas] = useState({});
-
-  // Hook para navegação entre telas
   const router = useRouter();
 
-  // Dados de exemplo para a lista de empresas
   const empresasExemplo = [
-    {
-      id: '1',
-      nome: 'Empresa Oii',
-      imagem: 'https://via.placeholder.com/150',
-    },
+    { id: '1', nome: 'Empresa Oii', imagem: 'https://via.placeholder.com/150' },
     {
       id: '2',
       nome: 'Empresa Xauu',
       imagem: 'https://via.placeholder.com/150',
     },
-    {
-      id: '3',
-      nome: 'Empresa ata',
-      imagem: 'https://via.placeholder.com/150',
-    },
-    {
-      id: '4',
-      nome: 'Empresa hum',
-      imagem: 'https://via.placeholder.com/150',
-    },
-    {
-      id: '5',
-      nome: 'Empresa oi',
-      imagem: 'https://via.placeholder.com/150',
-    },
+    { id: '3', nome: 'Empresa ata', imagem: 'https://via.placeholder.com/150' },
+    { id: '4', nome: 'Empresa hum', imagem: 'https://via.placeholder.com/150' },
+    { id: '5', nome: 'Empresa oi', imagem: 'https://via.placeholder.com/150' },
   ];
 
-  // Função para marcar uma imagem como carregada
   const handleImageLoad = (id) => {
-    setImagensCarregadas((prev) => ({
-      ...prev,
-      [id]: true,
-    }));
+    setImagensCarregadas((prev) => ({ ...prev, [id]: true }));
   };
 
-  // Renderiza cada item da lista de empresas
   const renderEmpresa = ({ item }) => {
     const imageLoaded = imagensCarregadas[item.id];
-
     return (
       <Pressable
-        onPress={() => {
-          // Navegação futura para detalhes da empresa
-          console.log(`Empresa selecionada: ${item.nome}`);
-        }}
+        onPress={() => {}}
         android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
         style={({ pressed }) => [
           estilos.empresaItem,
@@ -81,7 +48,6 @@ export default function HomeScreen() {
         ]}
       >
         <View style={estilos.empresaImagemContainer}>
-          {/* Placeholder com logo da empresa */}
           {!imageLoaded && (
             <View style={estilos.placeholderContainer}>
               <Text style={estilos.placeholderText}>{item.nome.charAt(0)}</Text>
@@ -92,8 +58,6 @@ export default function HomeScreen() {
               />
             </View>
           )}
-
-          {/* Imagem real da empresa */}
           <Image
             source={{ uri: item.imagem }}
             style={[estilos.empresaImagem, !imageLoaded && { opacity: 0 }]}
@@ -128,34 +92,40 @@ export default function HomeScreen() {
             style={estilos.searchInput}
             placeholder='Digite o nome da empresa...'
             placeholderTextColor='#999'
+            value={search}
+            onChangeText={setSearch}
+            returnKeyType='search'
+            accessibilityLabel='Buscar empresa'
           />
         </View>
       </View>
 
       {/* Banner Principal */}
       <View style={estilos.bannerContainer}>
-        <Image
+        <LottieView
+          source={require('./imgs/banner.json')}
+          autoPlay
+          loop
           style={estilos.bannerImagem}
-          source={require('./imgs/desatendeHome.jpg')}
         />
       </View>
 
       {/* Texto explicativo */}
       <Text style={estilos.textoExplicativo}>
-        Aqui você pode relatar experiências de atendimento ruim, ajudar outros
-        consumidores e incentivar empresas a melhorarem seus serviços.
+        Relate experiências de atendimento ruim, ajude outros consumidores e
+        incentive empresas a melhorarem seus serviços.
       </Text>
 
       {/* Lista horizontal de empresas */}
       <View style={estilos.empresasSection}>
         <Text style={estilos.empresasSubtitulo}>Empresas Populares</Text>
-
-        {/* Lista horizontal de empresas com rolagem */}
         <FlatList
-          data={empresasExemplo}
+          data={empresasExemplo.filter((e) =>
+            e.nome.toLowerCase().includes(search.toLowerCase())
+          )}
           renderItem={renderEmpresa}
           keyExtractor={(item) => item.id}
-          horizontal={true}
+          horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={estilos.empresasListContainer}
         />
@@ -163,11 +133,7 @@ export default function HomeScreen() {
 
       {/* Footer */}
       <View style={estilos.footer}>
-        {/* Ícone Home - selecionado */}
-        <Pressable
-          android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
-          style={estilos.footerItem}
-        >
+        <Pressable style={estilos.footerItem}>
           <View style={estilos.footerItemSelecionado}>
             <FontAwesome
               name='home'
@@ -177,13 +143,8 @@ export default function HomeScreen() {
             <Text style={[estilos.footerTexto, { color: 'white' }]}>Home</Text>
           </View>
         </Pressable>
-
-        {/* Ícone Perfil - ao pressionar, navega com transição suave para a tela de Perfil */}
         <Pressable
-          onPress={() => {
-            router.push('./perfil');
-          }}
-          android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
+          onPress={() => router.push('./perfil')}
           style={estilos.footerItem}
         >
           <View style={estilos.footerItemNaoSelecionado}>

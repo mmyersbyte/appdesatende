@@ -240,55 +240,6 @@ export default function PerfilScreen() {
 
   return (
     <View style={estilos.container}>
-      {/* Área de cabeçalho com capa e foto de perfil */}
-      <View style={estilos.cabecalho}>
-        {/* Imagem de capa padrão */}
-        <View style={estilos.areaCapa}>
-          <Image
-            style={estilos.imagemCapa}
-            source={require('./imgs/desatendeHome.jpg')}
-          />
-        </View>
-
-        {/* Container para foto de perfil sobreposta à capa */}
-        <Pressable
-          style={estilos.containerFoto}
-          // onPress={selecionarFotoPerfil}
-        >
-          <View style={estilos.bordaFoto}>
-            {profileImage ? (
-              // Se existir foto de perfil, exibe a imagem
-              <Image
-                source={{ uri: profileImage }}
-                style={estilos.fotoPerfil}
-              />
-            ) : (
-              // Se não tem foto, exibe um ícone de usuário com fundo
-              <View style={estilos.placeholderFoto}>
-                <FontAwesome
-                  name='user'
-                  size={50}
-                  color='#D84040'
-                />
-              </View>
-            )}
-          </View>
-          <View style={estilos.botaoEditarFoto}>
-            <FontAwesome
-              name='camera'
-              size={16}
-              color='white'
-            />
-          </View>
-        </Pressable>
-      </View>
-
-      {/* Informações do usuário */}
-      <View style={estilos.infoUsuario}>
-        <Text style={estilos.boasVindas}>Olá, bem vindo</Text>
-        <Text style={estilos.nomeUsuario}>{userName}</Text>
-      </View>
-
       {/* Conteúdo principal com scroll */}
       <ScrollView style={estilos.conteudoPrincipal}>
         {/* Seção de reclamações */}

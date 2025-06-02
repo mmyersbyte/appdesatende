@@ -16,6 +16,8 @@ import { cadastrar, login as loginApi } from './services/api'; // Importa funç�
 import { useRouter } from 'expo-router';
 // Importa o hook de navegação do Expo Router
 
+import CustomButton from './components/CustomButton';
+
 const BASE_URL = 'http://10.0.2.2:5000/api';
 
 export default function Index() {
@@ -256,73 +258,25 @@ export default function Index() {
       </Text>
 
       {/* Botão de Login como Cliente */}
-      <Pressable
+      <CustomButton
+        title='Login como cliente'
+        iconName='user'
         onPress={() => setModalTipo('cliente')}
-        style={({ pressed }) => [
-          estilos.botao,
-          pressed && estilos.botaoPressionado,
-        ]}
-      >
-        <View style={estilos.linhaBotao}>
-          <View style={estilos.iconeEsquerdo}>
-            <FontAwesome
-              name='user'
-              size={24}
-              color='white'
-            />
-          </View>
-          <View style={estilos.textoCentral}>
-            <Text style={estilos.textoBotao}>Login como cliente</Text>
-          </View>
-          <View style={estilos.iconeDireito} />
-        </View>
-      </Pressable>
+      />
 
       {/* Botão de Login como Empresa */}
-      <Pressable
+      <CustomButton
+        title='Login como empresa'
+        iconName='building'
         onPress={() => setModalTipo('empresa')}
-        style={({ pressed }) => [
-          estilos.botao,
-          pressed && estilos.botaoPressionado,
-        ]}
-      >
-        <View style={estilos.linhaBotao}>
-          <View style={estilos.iconeEsquerdo}>
-            <FontAwesome
-              name='building'
-              size={24}
-              color='white'
-            />
-          </View>
-          <View style={estilos.textoCentral}>
-            <Text style={estilos.textoBotao}>Login como empresa</Text>
-          </View>
-          <View style={estilos.iconeDireito} />
-        </View>
-      </Pressable>
+      />
 
       {/* Botão de Cadastro */}
-      <Pressable
+      <CustomButton
+        title='Cadastre-se'
+        iconName='user-plus'
         onPress={() => setModalTipo('cadastro')}
-        style={({ pressed }) => [
-          estilos.botao,
-          pressed && estilos.botaoPressionado,
-        ]}
-      >
-        <View style={estilos.linhaBotao}>
-          <View style={estilos.iconeEsquerdo}>
-            <FontAwesome
-              name='user-plus'
-              size={24}
-              color='white'
-            />
-          </View>
-          <View style={estilos.textoCentral}>
-            <Text style={estilos.textoBotao}>Cadastre-se</Text>
-          </View>
-          <View style={estilos.iconeDireito} />
-        </View>
-      </Pressable>
+      />
 
       {/* Modal para exibir os formulários */}
       <Modal
