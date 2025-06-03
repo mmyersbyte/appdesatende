@@ -1,43 +1,36 @@
 import User from '../models/User.js';
-import bcrypt from 'bcryptjs';
 
-export const register = async (req, res) => {
+export const cadastrarUsuario = async (req, res) => {
   try {
     const { nome, email, senha } = req.body;
-    const userExist = await User.findOne({ email });
-    if (userExist)
-      return res.status(400).json({ message: 'Email já cadastrado' });
-    const hashedSenha = await bcrypt.hash(senha, 10);
-    const user = new User({ nome, email, senha: hashedSenha });
-    await user.save();
-    res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ message: 'Erro ao cadastrar usuário', error: err.message });
-  }
-};
+    if (!nome || !email || !senha) {
+      return res
+        .status(400)
+        .json({ message: 'Nome, email e senha são obrigatórios.' });
+    }
 
-export const login = async (req, res) => {
-  try {
-    const { email, senha } = req.body;
-    const user = await User.findOne({ email });
-    if (!user)
-      return res.status(400).json({ message: 'Usuário não encontrado' });
-    const isMatch = await bcrypt.compare(senha, user.senha);
-    if (!isMatch) return res.status(400).json({ message: 'Senha incorreta' });
-    res.status(200).json({
-      message: 'Login realizado com sucesso',
-      user: {
-        id: user._id,
-        nome: user.nome,
-        email: user.email,
-        tipo: user.tipo,
-      },
+    // Verifica se já existe usuário com o mesmo email
+    const usuarioExistente = await User.findOne({ email });
+    if (usuarioExistente) {
+      return res
+        .status(409)
+        .json({ message: 'Já existe um usuário com este email.' });
+    }
+
+    // Cria o usuário
+    const novoUsuario = new User({ nome, email, senha });
+    await novoUsuario.save();
+
+    // Remove a senha do retorno
+    const usuarioRetorno = novoUsuario.toJSON();
+
+    return res.status(201).json({
+      user: usuarioRetorno,
+      message: 'Usuário cadastrado com sucesso!',
     });
-  } catch (err) {
-    res
+  } catch (error) {
+    return res
       .status(500)
-      .json({ message: 'Erro ao fazer login', error: err.message });
+      .json({ message: 'Erro ao cadastrar usuário.', error: error.message });
   }
 };
