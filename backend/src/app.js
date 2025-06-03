@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/empresas', empresaRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 
 connectDB(process.env.MONGODB_URI);
 

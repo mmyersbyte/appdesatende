@@ -123,27 +123,6 @@ const estilos = StyleSheet.create({
     borderRadius: 12,
     padding: 20,
   },
-  // Estilos para o container do formulário dentro do modal
-  formularioContainer: {
-    alignItems: 'center',
-  },
-  // Estilo do título do formulário
-  tituloFormulario: {
-    fontSize: 25,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: CORES.corPrimaria,
-  },
-  // Estilo dos inputs (campos de texto)
-  input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: CORES.bordaInput,
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15,
-    color: CORES.textoEscuro,
-  },
   // Estilo do botão do formulário
   botaoFormulario: {
     backgroundColor: CORES.corPrimaria,

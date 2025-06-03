@@ -17,6 +17,8 @@ import { useRouter } from 'expo-router';
 // Importa o hook de navegação do Expo Router
 
 import CustomButton from './components/CustomButton';
+import AuthModal from './components/AuthModal';
+import Formulario from './components/Formulario';
 
 const BASE_URL = 'http://10.0.2.2:5000/api';
 
@@ -99,128 +101,64 @@ export default function Index() {
     // Formulário para login (cliente ou empresa)
     if (modalTipo === 'cliente' || modalTipo === 'empresa') {
       return (
-        <View style={estilos.formularioContainer}>
-          <Text style={estilos.tituloFormulario}>
-            {modalTipo === 'cliente'
-              ? 'Login como Cliente'
-              : 'Login como Empresa'}
-          </Text>
-          <TextInput
-            style={estilos.input}
-            placeholder='Email'
-            placeholderTextColor='#999'
-            value={email}
-            onChangeText={setEmail}
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Senha'
-            placeholderTextColor='#999'
-            value={senha}
-            onChangeText={setSenha}
-            secureTextEntry
-          />
-          <Pressable
-            style={estilos.botaoFormulario}
-            onPress={autenticarLogin}
-          >
-            <Text style={estilos.textoBotaoFormulario}>Entrar</Text>
-          </Pressable>
-          <Pressable
-            onPress={fecharModal}
-            style={estilos.botaoFechar}
-          >
-            <Text style={estilos.textoBotaoFechar}>Fechar</Text>
-          </Pressable>
-        </View>
+        <Formulario
+          titulo={modalTipo === 'cliente' ? 'Login' : 'Login Empresa'}
+          campos={[
+            {
+              placeholder: 'Email',
+              value: email,
+              onChangeText: setEmail,
+              props: { keyboardType: 'email-address', autoCapitalize: 'none' },
+            },
+            {
+              placeholder: 'Senha',
+              value: senha,
+              onChangeText: setSenha,
+              props: { secureTextEntry: true },
+            },
+          ]}
+          botoes={[
+            { title: 'Entrar', onPress: autenticarLogin },
+            { title: 'Fechar', onPress: fecharModal },
+          ]}
+        />
       );
     }
     // Formulário de cadastro
     else if (modalTipo === 'cadastro') {
       return (
-        <ScrollView contentContainerStyle={estilos.formularioContainer}>
-          <Text style={estilos.tituloFormulario}>Cadastro</Text>
-          {/* Botões para escolher o tipo de cadastro */}
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              borderRadius: '60%',
-              width: '50%',
-            }}
-          >
-            <Pressable
-              style={[
-                estilos.botaoFormulario,
-                tipoCadastro === 'cliente' && {
-                  backgroundColor: '#A31D1D',
-                },
-              ]}
-              onPress={() => setTipoCadastro('cliente')}
-            >
-              <Text style={{ color: 'white' }}>Cliente</Text>
-            </Pressable>
-
-            <Pressable
-              style={[
-                estilos.botaoFormulario,
-                tipoCadastro === 'empresa' && {
-                  backgroundColor: '#A31D1D',
-                },
-              ]}
-              onPress={() => setTipoCadastro('empresa')}
-            >
-              <Text style={{ color: 'white' }}>Empresa</Text>
-            </Pressable>
-          </View>
-          {/* Formulário de cadastro */}
-          <TextInput
-            style={estilos.input}
-            placeholder='Nome'
-            placeholderTextColor='#999'
-            value={nome}
-            onChangeText={setNome}
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Email'
-            placeholderTextColor='#999'
-            value={emailCadastro}
-            onChangeText={setEmailCadastro}
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Senha'
-            placeholderTextColor='#999'
-            value={senhaCadastro}
-            onChangeText={setSenhaCadastro}
-            secureTextEntry
-          />
-          <TextInput
-            style={estilos.input}
-            placeholder='Confirmar Senha'
-            placeholderTextColor='#999'
-            value={confirmarSenha}
-            onChangeText={setConfirmarSenha}
-            secureTextEntry
-          />
-          <Pressable
-            style={estilos.botaoFormulario}
-            onPress={cadastrarNovo}
-          >
-            <Text style={estilos.textoBotaoFormulario}>Cadastrar</Text>
-          </Pressable>
-          <Pressable
-            onPress={fecharModal}
-            style={estilos.botaoFechar}
-          >
-            <Text style={estilos.textoBotaoFechar}>Fechar</Text>
-          </Pressable>
-        </ScrollView>
+        <Formulario
+          titulo='Cadastro'
+          campos={[
+            {
+              placeholder: 'Nome',
+              value: nome,
+              onChangeText: setNome,
+            },
+            {
+              placeholder: 'Email',
+              value: emailCadastro,
+              onChangeText: setEmailCadastro,
+              props: { keyboardType: 'email-address', autoCapitalize: 'none' },
+            },
+            {
+              placeholder: 'Senha',
+              value: senhaCadastro,
+              onChangeText: setSenhaCadastro,
+              props: { secureTextEntry: true },
+            },
+            {
+              placeholder: 'Confirmar Senha',
+              value: confirmarSenha,
+              onChangeText: setConfirmarSenha,
+              props: { secureTextEntry: true },
+            },
+          ]}
+          botoes={[
+            { title: 'Cadastrar', onPress: cadastrarNovo },
+            { title: 'Fechar', onPress: fecharModal },
+          ]}
+        />
       );
     }
     return null;
@@ -260,37 +198,27 @@ export default function Index() {
       {/* Botão de Login como Cliente */}
       <CustomButton
         title='Login como cliente'
-        iconName='user'
         onPress={() => setModalTipo('cliente')}
       />
 
       {/* Botão de Login como Empresa */}
       <CustomButton
         title='Login como empresa'
-        iconName='building'
         onPress={() => setModalTipo('empresa')}
       />
 
       {/* Botão de Cadastro */}
       <CustomButton
         title='Cadastre-se'
-        iconName='user-plus'
         onPress={() => setModalTipo('cadastro')}
       />
 
       {/* Modal para exibir os formulários */}
-      <Modal
+      <AuthModal
         visible={modalTipo !== null}
-        animationType='slide'
-        transparent
         onRequestClose={fecharModal}
-      >
-        {/* Fundo semi-transparente para o modal */}
-        <View style={estilos.modalFundo}>
-          {/* Conteúdo do modal */}
-          <View style={estilos.modalConteudo}>{renderizarFormulario()}</View>
-        </View>
-      </Modal>
+        renderizarFormulario={renderizarFormulario}
+      />
     </View>
   );
 }

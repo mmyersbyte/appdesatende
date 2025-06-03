@@ -168,48 +168,6 @@ const estilos = StyleSheet.create({
     marginTop: 2,
     height: 36,
   },
-
-  /* FOOTER */
-  footer: {
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: '100%',
-    flexDirection: 'row',
-    borderTopWidth: 1,
-    borderTopColor: CORES.textoSuave,
-    backgroundColor: CORES.fundoPrincipal,
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 8,
-  },
-  footerItem: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 2,
-  },
-  footerItemSelecionado: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: CORES.corPrimaria,
-    paddingBottom: 4,
-  },
-  footerItemNaoSelecionado: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingBottom: 4,
-  },
-  footerTexto: {
-    fontSize: 13,
-    marginTop: 2,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-  },
 });
 
 export default estilos;

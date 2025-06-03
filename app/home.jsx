@@ -14,6 +14,7 @@ import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
+import Rodape from './components/Rodape';
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
@@ -132,33 +133,13 @@ export default function HomeScreen() {
       </View>
 
       {/* Footer */}
-      <View style={estilos.footer}>
-        <Pressable style={estilos.footerItem}>
-          <View style={estilos.footerItemSelecionado}>
-            <FontAwesome
-              name='home'
-              size={24}
-              color='#A31D1D'
-            />
-            <Text style={[estilos.footerTexto, { color: 'white' }]}>Home</Text>
-          </View>
-        </Pressable>
-        <Pressable
-          onPress={() => router.push('./perfil')}
-          style={estilos.footerItem}
-        >
-          <View style={estilos.footerItemNaoSelecionado}>
-            <FontAwesome
-              name='user'
-              size={24}
-              color='#555'
-            />
-            <Text style={[estilos.footerTexto, { color: '#555' }]}>
-              Seu Perfil
-            </Text>
-          </View>
-        </Pressable>
-      </View>
+      <Rodape
+        selecionado='home'
+        navegar={(destino) => {
+          if (destino === 'home') return; // já está na home
+          if (destino === 'perfil') router.push('./perfil');
+        }}
+      />
     </View>
   );
 }

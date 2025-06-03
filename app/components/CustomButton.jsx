@@ -1,31 +1,55 @@
 import React from 'react';
-import { Pressable, View, Text } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import estilos from '../estilos/estilosLogin';
+import { Pressable, View, Text, StyleSheet } from 'react-native';
 
-export default function CustomButton({ title, iconName, onPress }) {
+const CORES = {
+  corPrimaria: '#D84040',
+  corPrimariaEscura: '#A31D1D',
+  textoPrincipal: 'white',
+};
+
+const estilos = StyleSheet.create({
+  botao: {
+    backgroundColor: CORES.corPrimaria,
+    borderRadius: 25,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    minWidth: 70,
+  },
+  botaoPressionado: {
+    opacity: 0.7,
+  },
+  linhaBotao: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  textoBotao: {
+    color: CORES.textoPrincipal,
+    fontWeight: 'bold',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+});
+
+export default function CustomButton({ title, onPress, disabled }) {
   return (
     <Pressable
       style={({ pressed }) => [
         estilos.botao,
         pressed && estilos.botaoPressionado,
+        disabled && { opacity: 0.5 },
       ]}
       onPress={onPress}
+      disabled={disabled}
     >
       <View style={estilos.linhaBotao}>
-        <View style={estilos.iconeEsquerdo}>
-          {iconName && (
-            <FontAwesome
-              name={iconName}
-              size={22}
-              color={estilos.textoBotao.color}
-            />
-          )}
-        </View>
-        <View style={estilos.textoCentral}>
-          <Text style={estilos.textoBotao}>{title}</Text>
-        </View>
-        <View style={estilos.iconeDireito} />
+        <Text style={estilos.textoBotao}>{title}</Text>
       </View>
     </Pressable>
   );

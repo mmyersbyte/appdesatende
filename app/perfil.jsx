@@ -23,6 +23,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 // npx expo install expo-image-picker OU DESISTE!!
 import * as ImagePicker from 'expo-image-picker';
+import CustomButton from './components/CustomButton';
+import Rodape from './components/Rodape';
 
 export default function PerfilScreen() {
   // Estado para armazenar o nome do usuário (futuro CRUD)
@@ -261,18 +263,10 @@ export default function PerfilScreen() {
           )}
 
           {/* Botão para adicionar nova reclamação */}
-          <Pressable
-            style={estilos.botaoNovaReclamacao}
+          <CustomButton
+            title='Nova Reclamação'
             onPress={() => setModalVisivel(true)}
-          >
-            <FontAwesome
-              name='plus'
-              size={16}
-              color='white'
-              style={estilos.iconeBotao}
-            />
-            <Text style={estilos.textoBotao}>Nova Reclamação</Text>
-          </Pressable>
+          />
         </View>
       </ScrollView>
 
@@ -291,16 +285,10 @@ export default function PerfilScreen() {
             {/* Cabeçalho do modal */}
             <View style={estilos.cabecalhoModal}>
               <Text style={estilos.tituloModal}>Nova Reclamação</Text>
-              <Pressable
+              <CustomButton
+                title='Fechar'
                 onPress={fecharModal}
-                style={estilos.botaoFechar}
-              >
-                <FontAwesome
-                  name='times'
-                  size={20}
-                  color='white'
-                />
-              </Pressable>
+              />
             </View>
 
             {/* Conteúdo do formulário */}
@@ -398,28 +386,11 @@ export default function PerfilScreen() {
                 </View>
 
                 {/* Botão de enviar */}
-                <Pressable
-                  style={estilos.botaoEnviar}
+                <CustomButton
+                  title='Enviar Reclamação'
                   onPress={enviarReclamacao}
                   disabled={enviando}
-                >
-                  {enviando ? (
-                    <ActivityIndicator
-                      color='white'
-                      size='small'
-                    />
-                  ) : (
-                    <>
-                      <FontAwesome
-                        name='paper-plane'
-                        size={16}
-                        color='white'
-                        style={estilos.iconeBotao}
-                      />
-                      <Text style={estilos.textoBotao}>Enviar Reclamação</Text>
-                    </>
-                  )}
-                </Pressable>
+                />
               </ScrollView>
             )}
           </View>
@@ -427,37 +398,13 @@ export default function PerfilScreen() {
       </Modal>
 
       {/* Footer com navegação */}
-      <View style={estilos.rodape}>
-        {/* Ícone Home */}
-        <Pressable
-          style={estilos.itemRodape}
-          onPress={() => router.push('/home')}
-          //home
-        >
-          <View style={estilos.itemNaoSelecionado}>
-            <FontAwesome
-              name='home'
-              size={24}
-              color='#555'
-            />
-            <Text style={[estilos.textoRodape, { color: '#555' }]}>Home</Text>
-          </View>
-        </Pressable>
-
-        {/* Ícone Perfil - ativo */}
-        <Pressable style={estilos.itemRodape}>
-          <View style={estilos.itemSelecionado}>
-            <FontAwesome
-              name='user'
-              size={24}
-              color='#D84040'
-            />
-            <Text style={[estilos.textoRodape, { color: 'white' }]}>
-              Seu Perfil
-            </Text>
-          </View>
-        </Pressable>
-      </View>
+      <Rodape
+        selecionado='perfil'
+        navegar={(destino) => {
+          if (destino === 'home') router.push('/home');
+          if (destino === 'perfil') router.push('/perfil');
+        }}
+      />
     </View>
   );
 }
