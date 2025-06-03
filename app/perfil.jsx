@@ -5,13 +5,11 @@ import {
   Text,
   Image,
   Pressable,
-  StyleSheet,
   ScrollView,
   FlatList,
   Modal,
   TextInput,
   Alert,
-  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
@@ -25,6 +23,8 @@ import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import CustomButton from './components/CustomButton';
 import Rodape from './components/Rodape';
+import { criarReclamacao } from './api/reclamacao';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PerfilScreen() {
   // Estado para armazenar o nome do usuário (futuro CRUD)
@@ -165,7 +165,7 @@ export default function PerfilScreen() {
     setModalVisivel(false);
   };
 
-  // Função para enviar a reclamação
+  // Função para enviar a reclamação (agora integrada ao backend)
   const enviarReclamacao = async () => {
     // Validação básica
     if (!titulo.trim() || !empresa.trim() || !descricao.trim()) {
@@ -178,33 +178,22 @@ export default function PerfilScreen() {
 
     try {
       setEnviando(true);
-
-      // Simulação de envio para o banco de dados
-      // Aqui seria a integração com o banco de dados real
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Criar objeto com os dados da reclamação
-      const novaReclamacao = {
-        id: Date.now(), // ID temporário (sera substituído pelo ID do banco de dados)
+      // Recupera o token JWT do usuário logado (salvo no AsyncStorage após login)
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
+        setEnviando(false);
+        return;
+      }
+      // Monta o objeto de dados para o backend
+      const dados = {
         titulo,
-        empresa,
         descricao,
-        imagemUrl: imagemReclamacao, // URL da imagem (seria o caminho após upload para o servidor)
-        data: new Date().toLocaleDateString('pt-BR'),
-        respondida: false,
-        status: 'pendente',
+        empresa, // aqui deve ser o ID da empresa
       };
-
-      // Adicionar a lista local(temporário até integração com banco de dados)
-      setReclamacoes((reclamacoesAtuais) => [
-        novaReclamacao,
-        ...reclamacoesAtuais,
-      ]);
-
-      // Mostrar mensagem de sucesso
+      // Chama o serviço de criação de reclamação
+      await criarReclamacao(dados, token);
       setSucessoEnvio(true);
-
-      // Fechar o modal após alguns segundos
       setTimeout(() => {
         fecharModal();
       }, 2000);
@@ -212,7 +201,8 @@ export default function PerfilScreen() {
       console.error('Erro ao enviar reclamação:', erro);
       Alert.alert(
         'Erro',
-        'Não foi possível enviar sua reclamação. Tente novamente.'
+        erro.response?.data?.msg ||
+          'Não foi possível enviar sua reclamação. Tente novamente.'
       );
     } finally {
       setEnviando(false);

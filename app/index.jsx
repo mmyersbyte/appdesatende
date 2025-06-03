@@ -1,17 +1,8 @@
 //INDEX.JS TELA DE LOGIN
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  Modal,
-  TextInput,
-  ScrollView,
-} from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import estilos from './estilos/estilosLogin';
 import LottieView from 'lottie-react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { cadastrar, login as loginApi } from './services/api'; // Importa funções de conexão com backend
 
 import { useRouter } from 'expo-router';
 // Importa o hook de navegação do Expo Router
@@ -20,7 +11,20 @@ import CustomButton from './components/CustomButton';
 import AuthModal from './components/AuthModal';
 import Formulario from './components/Formulario';
 
-const BASE_URL = 'http://10.0.2.2:5000/api';
+// Adicione o import dos serviços de autenticação
+import {
+  loginUsuario,
+  loginEmpresa,
+  cadastrarUsuario,
+  salvarToken,
+} from './api/auth';
+import api from './api/axios';
+
+// Adiciona um interceptor para logar todas as requisições feitas pelo Axios
+api.interceptors.request.use((request) => {
+  console.log('Requisição Axios:', request);
+  return request;
+});
 
 export default function Index() {
   // Estado para controlar qual modal (formulário) tá aberto: 'cliente', 'empresa', 'cadastro' ou null //(fechado)
@@ -50,48 +54,50 @@ export default function Index() {
     setConfirmarSenha('');
   };
 
-  // Função para autenticar login com o backend
-  const autenticarLogin = async () => {
+  // Handler para login
+  const handleLogin = async () => {
+    console.log('Tentando login com:', { email, senha });
     try {
-      const resposta = await loginApi({ email, senha, tipo: modalTipo });
-      if (resposta.data.user) {
-        router.push('/home');
-      } else if (resposta.data.empresa) {
-        router.push('/dashboard');
+      let data;
+      if (modalTipo === 'cliente') {
+        data = await loginUsuario({ email, senha });
       } else {
-        alert('Tipo de usuário não reconhecido.');
+        data = await loginEmpresa({ email, senha });
       }
+      // Salva o token retornado no AsyncStorage usando função utilitária
+      await salvarToken(data.token);
+      Alert.alert('Sucesso', 'Login realizado!');
       fecharModal();
-    } catch (erro) {
-      alert(
-        erro.response?.data?.message ||
-          'Erro ao fazer login. Verifique os dados.'
+      // Redireciona para a tela correta após login
+      if (modalTipo === 'cliente') {
+        router.push('/home'); // Cliente vai para home
+      } else {
+        router.push('/dashboard'); // Empresa vai para dashboard
+      }
+    } catch (error) {
+      console.log('Erro no login:', error, error?.response);
+      Alert.alert(
+        'Erro',
+        error.response?.data?.mensagem || 'Erro ao fazer login'
       );
     }
   };
 
-  // Função para cadastrar novo usuário ou empresa
-  const cadastrarNovo = async () => {
-    if (!nome || !emailCadastro || !senhaCadastro || !confirmarSenha) {
-      alert('Preencha todos os campos!');
-      return;
-    }
-    if (senhaCadastro !== confirmarSenha) {
-      alert('As senhas não coincidem!');
-      return;
-    }
+  // Handler para cadastro
+  const handleCadastro = async () => {
     try {
-      await cadastrar({
+      await cadastrarUsuario({
         nome,
         email: emailCadastro,
         senha: senhaCadastro,
-        tipo: tipoCadastro,
+        confirmarSenha,
       });
-      alert('Cadastro realizado com sucesso! Faça login.');
+      Alert.alert('Sucesso', 'Cadastro realizado!');
       fecharModal();
-    } catch (erro) {
-      alert(
-        erro.response?.data?.message || 'Erro ao cadastrar. Verifique os dados.'
+    } catch (error) {
+      Alert.alert(
+        'Erro',
+        error.response?.data?.mensagem || 'Erro ao cadastrar'
       );
     }
   };
@@ -118,7 +124,7 @@ export default function Index() {
             },
           ]}
           botoes={[
-            { title: 'Entrar', onPress: autenticarLogin },
+            { title: 'Entrar', onPress: handleLogin },
             { title: 'Fechar', onPress: fecharModal },
           ]}
         />
@@ -155,7 +161,7 @@ export default function Index() {
             },
           ]}
           botoes={[
-            { title: 'Cadastrar', onPress: cadastrarNovo },
+            { title: 'Cadastrar', onPress: handleCadastro },
             { title: 'Fechar', onPress: fecharModal },
           ]}
         />

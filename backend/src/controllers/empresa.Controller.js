@@ -41,3 +41,18 @@ export const listarEmpresas = async (req, res) => {
     });
   }
 };
+
+export const buscarEmpresaPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const empresa = await Empresa.findById(id);
+    if (!empresa) {
+      return res.status(404).json({ message: 'Empresa não encontrada.' });
+    }
+    return res.status(200).json(empresa);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Erro ao buscar empresa.', error: error.message });
+  }
+};
