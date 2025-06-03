@@ -16,6 +16,9 @@
     "mongoose": "^7.6.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "mongodb-memory-server": "^10.1.4",
+    "nodemon": "^3.0.1",
+    "poku": "^3.0.2",
+    "supertest": "^7.1.1"
   }
 }

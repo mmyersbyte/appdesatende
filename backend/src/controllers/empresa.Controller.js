@@ -29,3 +29,15 @@ export const cadastrarEmpresa = async (req, res) => {
     });
   }
 };
+
+export const listarEmpresas = async (req, res) => {
+  try {
+    const empresas = await Empresa.find().select('-senha');
+    return res.status(200).json({ empresas });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Erro ao buscar empresas.',
+      error: error.message,
+    });
+  }
+};

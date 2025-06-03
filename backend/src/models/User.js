@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-// Modelo de usuário
 const userSchema = new mongoose.Schema(
   {
     nome: {

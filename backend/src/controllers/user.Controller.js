@@ -34,3 +34,15 @@ export const cadastrarUsuario = async (req, res) => {
       .json({ message: 'Erro ao cadastrar usuário.', error: error.message });
   }
 };
+
+export const listarUsuarios = async (req, res) => {
+  try {
+    const usuarios = await User.find().select('-senha');
+    return res.status(200).json({ usuarios });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Erro ao buscar empresas.',
+      error: error.message,
+    });
+  }
+};
