@@ -16,6 +16,7 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router
 import { useRouter } from 'expo-router';
+import ModalRespostaReclamacao from './components/ModalRespostaReclamacao';
 
 export default function PerfilEmpresaScreen() {
   // Estados para informações da empresa
@@ -202,34 +203,6 @@ export default function PerfilEmpresaScreen() {
       </View>
 
       {/* Seção de perfil da empresa */}
-      <View style={estilos.perfilContainer}>
-        <View style={estilos.logoContainer}>
-          {!logoCarregado && (
-            <View style={estilos.placeholderContainer}>
-              <Text style={estilos.placeholderText}>
-                {nomeEmpresa.charAt(0)}
-              </Text>
-              <ActivityIndicator
-                size='small'
-                color='#ba68c8'
-                style={estilos.loadingIndicator}
-              />
-            </View>
-          )}
-
-          <Image
-            source={{ uri: logoEmpresa }}
-            style={[estilos.logoEmpresa, !logoCarregado && { opacity: 0 }]}
-            onLoad={() => setLogoCarregado(true)}
-            onError={() => setLogoCarregado(true)}
-          />
-        </View>
-
-        <View style={estilos.infoEmpresa}>
-          <Text style={estilos.nomeEmpresa}>{nomeEmpresa}</Text>
-          <Text style={estilos.descricaoEmpresa}>{descricaoEmpresa}</Text>
-        </View>
-      </View>
 
       {/* Painel administrativo de reclamações */}
       <View style={estilos.painelContainer}>
@@ -268,113 +241,14 @@ export default function PerfilEmpresaScreen() {
       </View>
 
       {/* Modal para responder reclamação */}
-      <Modal
+      <ModalRespostaReclamacao
         visible={modalVisivel}
-        transparent={true}
-        animationType='slide'
-        onRequestClose={() => setModalVisivel(false)}
-      >
-        <View style={estilos.modalContainer}>
-          <View style={estilos.modalContent}>
-            <View style={estilos.modalHeader}>
-              <Text style={estilos.modalTitulo}>Responder Reclamação</Text>
-              <Pressable onPress={() => setModalVisivel(false)}>
-                <FontAwesome
-                  name='close'
-                  size={24}
-                  color='#fff'
-                />
-              </Pressable>
-            </View>
-
-            {reclamacaoSelecionada && (
-              <ScrollView style={estilos.modalScrollView}>
-                <View style={estilos.reclamacaoDetalhes}>
-                  <Text style={estilos.reclamacaoDetalheUsuario}>
-                    Cliente: {reclamacaoSelecionada.usuario}
-                  </Text>
-                  <Text style={estilos.reclamacaoDetalheData}>
-                    Data: {reclamacaoSelecionada.data}
-                  </Text>
-                  <Text style={estilos.reclamacaoDetalheTitulo}>
-                    {reclamacaoSelecionada.titulo}
-                  </Text>
-                  <Text style={estilos.reclamacaoDetalheDescricao}>
-                    {reclamacaoSelecionada.descricao}
-                  </Text>
-                </View>
-
-                <View style={estilos.respostaContainer}>
-                  <Text style={estilos.respostaLabel}>Sua Resposta:</Text>
-                  <TextInput
-                    style={estilos.respostaInput}
-                    multiline={true}
-                    numberOfLines={5}
-                    placeholder='Digite sua resposta para esta reclamação...'
-                    placeholderTextColor='#999'
-                    value={respostaReclamacao}
-                    onChangeText={setRespostaReclamacao}
-                  />
-                </View>
-
-                <View style={estilos.modalBotoes}>
-                  <Pressable
-                    style={[estilos.modalBotao, estilos.botaoCancelar]}
-                    onPress={() => setModalVisivel(false)}
-                  >
-                    <Text style={estilos.textoBotaoCancelar}>Cancelar</Text>
-                  </Pressable>
-
-                  <Pressable
-                    style={[estilos.modalBotao, estilos.botaoEnviar]}
-                    onPress={enviarResposta}
-                  >
-                    <Text style={estilos.textoBotaoEnviar}>
-                      Enviar Resposta
-                    </Text>
-                  </Pressable>
-                </View>
-              </ScrollView>
-            )}
-          </View>
-        </View>
-      </Modal>
-
-      {/* Footer */}
-      <View style={estilos.footer}>
-        {/* Ícone Dashboard - selecionado */}
-        <Pressable style={estilos.footerItem}>
-          <View style={estilos.footerItemSelecionado}>
-            <FontAwesome
-              name='dashboard'
-              size={24}
-              color='#D84040'
-            />
-            <Text style={[estilos.footerTexto, { color: 'white' }]}>
-              Dashboard
-            </Text>
-          </View>
-        </Pressable>
-
-        {/* Ícone Perfil - ao pressionar, navega com transição suave para a tela de Perfil */}
-        <Pressable
-          style={estilos.footerItem}
-          onPress={() => {
-            router.push('/confi');
-          }}
-        >
-          <View style={estilos.footerItemNaoSelecionado}>
-            <FontAwesome
-              name='cog'
-              size={24}
-              color='#555'
-            />
-            <Text style={[estilos.footerTexto, { color: '#555' }]}>
-              Configurações
-            </Text>
-          </View>
-        </Pressable>
-      </View>
+        onClose={() => setModalVisivel(false)}
+        reclamacao={reclamacaoSelecionada}
+        resposta={respostaReclamacao}
+        setResposta={setRespostaReclamacao}
+        onEnviar={enviarResposta}
+      />
     </View>
   );
 }
