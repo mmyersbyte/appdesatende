@@ -1,6 +1,6 @@
 //Dashboard empresa
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import estilos from './estilos/estilosPerfilEmpresa';
 import {
   View,
@@ -21,6 +21,7 @@ import {
   buscarReclamacoesRecebidas,
   responderReclamacao,
 } from './api/reclamacao';
+import { useReclamacoesRecebidas } from './hooks/useReclamacoesRecebidas';
 
 export default function PerfilEmpresaScreen() {
   // Estados para informações da empresa
@@ -35,33 +36,15 @@ export default function PerfilEmpresaScreen() {
   // Estado para controlar o carregamento da imagem do logo
   const [logoCarregado, setLogoCarregado] = useState(false);
 
-  // Estados para o painel administrativo de reclamações
-  const [reclamacoes, setReclamacoes] = useState([]);
-  const [carregandoReclamacoes, setCarregandoReclamacoes] = useState(true);
+  // Usa o hook customizado para buscar reclamações recebidas
+  const { reclamacoes, carregando: carregandoReclamacoes } =
+    useReclamacoesRecebidas();
   const [modalVisivel, setModalVisivel] = useState(false);
   const [reclamacaoSelecionada, setReclamacaoSelecionada] = useState(null);
   const [respostaReclamacao, setRespostaReclamacao] = useState('');
 
   // Hook para navegação entre telas
   const router = useRouter();
-
-  // Efeito para carregar as reclamações (simulando busca no banco de dados)
-  useEffect(() => {
-    // Busca reclamações reais do backend
-    const carregarReclamacoes = async () => {
-      setCarregandoReclamacoes(true);
-      try {
-        const dados = await buscarReclamacoesRecebidas();
-        setReclamacoes(dados);
-        console.log('Reclamações recebidas:', dados);
-      } catch (erro) {
-        console.error('Erro ao buscar reclamações:', erro);
-      } finally {
-        setCarregandoReclamacoes(false);
-      }
-    };
-    carregarReclamacoes();
-  }, []);
 
   // Função para abrir o modal de resposta
   const abrirModalResposta = (reclamacao) => {

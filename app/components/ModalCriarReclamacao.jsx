@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { useImagePicker } from '../hooks/useImagePicker';
 
 /**
  * ModalCriarReclamacao
@@ -32,37 +33,17 @@ export default function ModalCriarReclamacao({
   // Estados do formulário
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
-  const [imagemReclamacao, setImagemReclamacao] = useState(null);
   const [enviando, setEnviando] = useState(false);
   const [sucessoEnvio, setSucessoEnvio] = useState(false);
 
-  // Selecionar imagem da galeria (atualizado para 2025)
-  const selecionarImagem = async () => {
-    try {
-      // Não é mais necessário pedir permissão manualmente para abrir a galeria
-      const resultado = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-      if (
-        !resultado.canceled &&
-        resultado.assets &&
-        resultado.assets.length > 0
-      ) {
-        setImagemReclamacao(resultado.assets[0].uri);
-      }
-    } catch (erro) {
-      Alert.alert('Erro', 'Não foi possível selecionar a imagem.');
-    }
-  };
+  // Hook para seleção de imagem
+  const { imagem, setImagem, selecionarImagem } = useImagePicker();
 
   // Limpa o formulário ao fechar
   const limparFormulario = () => {
     setTitulo('');
     setDescricao('');
-    setImagemReclamacao(null);
+    setImagem(null);
     setSucessoEnvio(false);
   };
 
@@ -74,10 +55,7 @@ export default function ModalCriarReclamacao({
     }
     try {
       setEnviando(true);
-      await onSubmit(
-        { titulo, descricao, empresaId: empresa?.id },
-        imagemReclamacao
-      );
+      await onSubmit({ titulo, descricao, empresaId: empresa?.id }, imagem);
       setSucessoEnvio(true);
       setTimeout(() => {
         limparFormulario();
@@ -232,10 +210,10 @@ export default function ModalCriarReclamacao({
                 >
                   Imagem (opcional)
                 </Text>
-                {imagemReclamacao ? (
+                {imagem ? (
                   <View style={{ alignItems: 'center', marginBottom: 8 }}>
                     <Image
-                      source={{ uri: imagemReclamacao }}
+                      source={{ uri: imagem }}
                       style={{
                         width: 90,
                         height: 90,
@@ -250,7 +228,7 @@ export default function ModalCriarReclamacao({
                         paddingVertical: 4,
                         paddingHorizontal: 12,
                       }}
-                      onPress={() => setImagemReclamacao(null)}
+                      onPress={() => setImagem(null)}
                     >
                       <Text style={{ color: '#fff', fontSize: 14 }}>
                         Remover imagem

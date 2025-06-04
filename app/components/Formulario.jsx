@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, TextInput, StyleSheet } from 'react-native';
+import { ScrollView, Text, TextInput, StyleSheet } from 'react-native';
 import CustomButton from './CustomButton';
 
 const CORES = {

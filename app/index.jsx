@@ -19,6 +19,7 @@ import {
   salvarToken,
 } from './api/auth';
 import api from './api/axios';
+import { useAuth } from './hooks/useAuth';
 
 // Adiciona um interceptor para logar todas as requisições feitas pelo Axios
 api.interceptors.request.use((request) => {
@@ -42,6 +43,7 @@ export default function Index() {
 
   // Para navegar entre rotas do Expo
   const router = useRouter();
+  const { token, tipo, carregando: carregandoAuth } = useAuth();
 
   // Função para fechar o modal e limpar os campos
   const fecharModal = () => {
@@ -175,6 +177,11 @@ export default function Index() {
 
   return (
     <View style={estilos.container}>
+      {/* Exemplo de uso do hook useAuth */}
+      <Text style={{ color: '#888', fontSize: 12, marginBottom: 8 }}>
+        Token: {token ? token.slice(0, 16) + '...' : 'Nenhum'} | Tipo:{' '}
+        {tipo || 'N/A'} | Carregando: {carregandoAuth ? 'Sim' : 'Não'}
+      </Text>
       {/* Títuls*/}
       <Text style={estilos.titulo}>
         Seja bem-vindo ao <Text style={estilos.tituloDiferente}>Desatende</Text>
