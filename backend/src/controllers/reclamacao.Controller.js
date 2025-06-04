@@ -68,10 +68,24 @@ export const listarReclamacoesPorUsuario = async (req, res) => {
     }
 
     const reclamacoes = await Reclamacao.find({ user: req.user.id })
-      .populate('empresa', 'nome email') // exibe nome e email da empresa
+      .populate('empresa', 'nome email')
       .sort({ createdAt: -1 });
 
-    return res.status(200).json(reclamacoes);
+    const reclamacoesComImagem = reclamacoes.map((rec) => {
+      let imagem = null;
+      if (rec.imagem && rec.imagem.data) {
+        imagem = {
+          contentType: rec.imagem.contentType,
+          data: rec.imagem.data.toString('base64'),
+        };
+      }
+      return {
+        ...rec.toObject(),
+        imagem,
+      };
+    });
+
+    return res.status(200).json(reclamacoesComImagem);
   } catch (error) {
     console.error('Erro ao listar reclamações do usuário:', error);
     return res.status(500).json({ msg: 'Erro interno ao listar reclamações.' });

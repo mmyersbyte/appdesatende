@@ -1,6 +1,6 @@
 //PERFIL CLIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 import { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, Image } from 'react-native';
 
 import estilos from './estilos/estilosPerfil';
 
@@ -46,6 +46,21 @@ export default function PerfilScreen() {
             <View
               style={{ padding: 16, borderBottomWidth: 1, borderColor: '#222' }}
             >
+              {/* Exibe a imagem da reclamação, se existir */}
+              {item.imagem && item.imagem.data && (
+                <Image
+                  source={{
+                    uri: `data:${item.imagem.contentType};base64,${item.imagem.data}`,
+                  }}
+                  style={{
+                    width: 120,
+                    height: 120,
+                    borderRadius: 10,
+                    marginBottom: 8,
+                  }}
+                  resizeMode='cover'
+                />
+              )}
               <Text
                 style={{ fontWeight: 'bold', color: '#ECDCBF', fontSize: 16 }}
               >
