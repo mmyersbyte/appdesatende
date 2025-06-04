@@ -15,6 +15,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import Rodape from './components/Rodape';
+import EmpresaItem from './components/EmpresaItem';
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
@@ -35,46 +36,6 @@ export default function HomeScreen() {
 
   const handleImageLoad = (id) => {
     setImagensCarregadas((prev) => ({ ...prev, [id]: true }));
-  };
-
-  const renderEmpresa = ({ item }) => {
-    const imageLoaded = imagensCarregadas[item.id];
-    return (
-      <Pressable
-        onPress={() => {}}
-        android_ripple={{ color: 'rgba(0, 0, 0, 0.1)' }}
-        style={({ pressed }) => [
-          estilos.empresaItem,
-          pressed && { opacity: 0.7 },
-        ]}
-      >
-        <View style={estilos.empresaImagemContainer}>
-          {!imageLoaded && (
-            <View style={estilos.placeholderContainer}>
-              <Text style={estilos.placeholderText}>{item.nome.charAt(0)}</Text>
-              <ActivityIndicator
-                size='small'
-                color='#ba68c8'
-                style={estilos.loadingIndicator}
-              />
-            </View>
-          )}
-          <Image
-            source={{ uri: item.imagem }}
-            style={[estilos.empresaImagem, !imageLoaded && { opacity: 0 }]}
-            onLoad={() => handleImageLoad(item.id)}
-            onError={() => handleImageLoad(item.id)}
-          />
-        </View>
-        <Text
-          style={estilos.empresaNome}
-          numberOfLines={2}
-          ellipsizeMode='tail'
-        >
-          {item.nome}
-        </Text>
-      </Pressable>
-    );
   };
 
   return (
@@ -124,7 +85,14 @@ export default function HomeScreen() {
           data={empresasExemplo.filter((e) =>
             e.nome.toLowerCase().includes(search.toLowerCase())
           )}
-          renderItem={renderEmpresa}
+          renderItem={({ item }) => (
+            <EmpresaItem
+              item={item}
+              imageLoaded={imagensCarregadas[item.id]}
+              onImageLoad={() => handleImageLoad(item.id)}
+              onPress={() => {}}
+            />
+          )}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}
