@@ -109,7 +109,22 @@ export const listarReclamacoesPorEmpresa = async (req, res) => {
       .populate('user', 'nome email') // exibe nome e email do usuário autor
       .sort({ createdAt: -1 });
 
-    return res.status(200).json(reclamacoes);
+    // Converte imagem para base64, igual ao controller do usuário
+    const reclamacoesComImagem = reclamacoes.map((rec) => {
+      let imagem = null;
+      if (rec.imagem && rec.imagem.data) {
+        imagem = {
+          contentType: rec.imagem.contentType,
+          data: rec.imagem.data.toString('base64'),
+        };
+      }
+      return {
+        ...rec.toObject(),
+        imagem,
+      };
+    });
+
+    return res.status(200).json(reclamacoesComImagem);
   } catch (error) {
     console.error('Erro ao listar reclamações da empresa:', error);
     return res.status(500).json({ msg: 'Erro interno ao listar reclamações.' });

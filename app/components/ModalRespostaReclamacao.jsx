@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   StyleSheet,
+  Image,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -155,6 +156,21 @@ export default function ModalRespostaReclamacao({
                 <Text style={estilos.reclamacaoDetalheData}>
                   Data: {reclamacao.data}
                 </Text>
+                {reclamacao.imagem && reclamacao.imagem.data && (
+                  <Image
+                    source={{
+                      uri: `data:${reclamacao.imagem.contentType};base64,${reclamacao.imagem.data}`,
+                    }}
+                    style={{
+                      width: 180,
+                      height: 180,
+                      borderRadius: 12,
+                      marginBottom: 12,
+                      alignSelf: 'center',
+                    }}
+                    resizeMode='cover'
+                  />
+                )}
                 <Text style={estilos.reclamacaoDetalheTitulo}>
                   {reclamacao.titulo}
                 </Text>

@@ -75,6 +75,39 @@ export default function PerfilScreen() {
               <Text style={{ color: '#888', fontSize: 12, marginTop: 2 }}>
                 Criada em: {new Date(item.createdAt).toLocaleString()}
               </Text>
+              {/* Exibe a resposta da empresa, se existir */}
+              {item.resposta && item.resposta.texto && (
+                <View
+                  style={{
+                    backgroundColor: '#232326',
+                    borderRadius: 8,
+                    padding: 10,
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: '#4ecdc4',
+                      fontWeight: 'bold',
+                      marginBottom: 4,
+                    }}
+                  >
+                    Resposta da empresa:
+                  </Text>
+                  <Text style={{ color: '#fff' }}>{item.resposta.texto}</Text>
+                  {item.resposta.respondidoPor && (
+                    <Text style={{ color: '#bbb', fontSize: 12, marginTop: 4 }}>
+                      Respondido por:{' '}
+                      {item.resposta.respondidoPor.nome || 'Empresa'}
+                    </Text>
+                  )}
+                  {item.resposta.data && (
+                    <Text style={{ color: '#888', fontSize: 11, marginTop: 2 }}>
+                      Em: {new Date(item.resposta.data).toLocaleString()}
+                    </Text>
+                  )}
+                </View>
+              )}
             </View>
           )}
           ListEmptyComponent={

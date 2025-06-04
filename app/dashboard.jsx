@@ -17,6 +17,10 @@ import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router
 import { useRouter } from 'expo-router';
 import ModalRespostaReclamacao from './components/ModalRespostaReclamacao';
+import {
+  buscarReclamacoesRecebidas,
+  responderReclamacao,
+} from './api/reclamacao';
 
 export default function PerfilEmpresaScreen() {
   // Estados para informações da empresa
@@ -43,73 +47,20 @@ export default function PerfilEmpresaScreen() {
 
   // Efeito para carregar as reclamações (simulando busca no banco de dados)
   useEffect(() => {
-    // Funç para buscar reclamações do banco de dados
-    const buscarReclamacoes = async () => {
+    // Busca reclamações reais do backend
+    const carregarReclamacoes = async () => {
+      setCarregandoReclamacoes(true);
       try {
-        // Simulação de delay de rede
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-
-        // Dados de exemplo - em produção, isso viria do banco de dados
-        const reclamacoesExemplo = [
-          {
-            id: '1',
-            usuario: 'João Silva',
-            titulo: 'Atendimento demorado',
-            descricao: 'Esperei mais de 40 minutos blablablablabla.',
-            data: '15/03/2025',
-            status: 'pendente',
-            resposta: '',
-          },
-          {
-            id: '2',
-            usuario: 'Maria Oliveira',
-            titulo: 'lorem lorem lorem',
-            descricao: 'lorem lorem lorem',
-            data: '22/02/2023',
-            status: 'respondido',
-            resposta: 'Oi maria estou respondendo ok.',
-          },
-          {
-            id: '3',
-            usuario: 'Carlos Mendes',
-            titulo: 'Cobrança indevida',
-            descricao: 'lorem lorem lorem',
-
-            data: '05/03/2023',
-            status: 'pendente',
-            resposta: '',
-          },
-          {
-            id: '4',
-            usuario: 'Ana beatriz',
-            titulo: 'Cancelamento não processado',
-            descricao: 'lorem lorem lorem',
-
-            data: '10/03/2023',
-            status: 'pendente',
-            resposta: '',
-          },
-          {
-            id: '5',
-            usuario: 'Roberto Alves',
-            titulo: 'Propaganda enganosa',
-            descricao: 'lorem lorem lorem',
-
-            data: '01/03/2020',
-            status: 'respondido',
-            resposta: 'Oi maria estou respondendo ok.',
-          },
-        ];
-
-        setReclamacoes(reclamacoesExemplo);
-        setCarregandoReclamacoes(false);
+        const dados = await buscarReclamacoesRecebidas();
+        setReclamacoes(dados);
+        console.log('Reclamações recebidas:', dados);
       } catch (erro) {
         console.error('Erro ao buscar reclamações:', erro);
+      } finally {
         setCarregandoReclamacoes(false);
       }
     };
-
-    buscarReclamacoes();
+    carregarReclamacoes();
   }, []);
 
   // Função para abrir o modal de resposta
@@ -120,32 +71,32 @@ export default function PerfilEmpresaScreen() {
   };
 
   // Função para enviar resposta à reclamação
-  const enviarResposta = () => {
+  const enviarResposta = async () => {
     if (!respostaReclamacao.trim()) {
       alert('Por favor, digite uma resposta para a reclamação.');
       return;
     }
-
-    // Atualiza a reclamação localmente
-    const reclamacoesAtualizadas = reclamacoes.map((item) => {
-      if (item.id === reclamacaoSelecionada.id) {
-        return {
-          ...item,
-          resposta: respostaReclamacao,
-          status: 'respondido',
-        };
-      }
-      return item;
-    });
-
-    setReclamacoes(reclamacoesAtualizadas);
-
-    // Em produção, aqui seria feita a chamada à API para atualizar no banco de dados
-    // exemplo: await api.post('/reclamacoes/responder', { id: reclamacaoSelecionada.id, resposta: respostaReclamacao });
-
-    setModalVisivel(false);
-    setReclamacaoSelecionada(null);
-    setRespostaReclamacao('');
+    try {
+      // Chama a API para responder a reclamação
+      const respostaApi = await responderReclamacao(
+        reclamacaoSelecionada._id,
+        respostaReclamacao
+      );
+      // Atualiza a lista de reclamações com o retorno da API
+      setReclamacoes((recs) =>
+        recs.map((item) =>
+          item._id === reclamacaoSelecionada._id ? respostaApi.reclamacao : item
+        )
+      );
+      setModalVisivel(false);
+      setReclamacaoSelecionada(null);
+      setRespostaReclamacao('');
+    } catch (erro) {
+      alert(
+        erro?.response?.data?.msg || 'Erro ao enviar resposta. Tente novamente.'
+      );
+      console.error('Erro ao responder reclamação:', erro);
+    }
   };
 
   // Renderiza cada item da lista de reclamações
@@ -233,7 +184,7 @@ export default function PerfilEmpresaScreen() {
           <FlatList
             data={reclamacoes}
             renderItem={renderReclamacao}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item._id}
             contentContainerStyle={estilos.reclamacoesListContainer}
             showsVerticalScrollIndicator={false}
           />
