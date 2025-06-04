@@ -1,10 +1,9 @@
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-
 import { useRouter } from 'expo-router';
-
 import Rodape from './components/Rodape';
 import { useMinhasReclamacoes } from './hooks/useMinhasReclamacoes';
 import ReclamacaoItem from './components/ReclamacaoItem';
+import HeaderTitulo from './components/HeaderTitulo';
 
 export default function PerfilScreen() {
   const router = useRouter();
@@ -12,6 +11,7 @@ export default function PerfilScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#1A1A1D' }}>
+      <HeaderTitulo titulo='Minhas Reclamações' />
       {carregando ? (
         <ActivityIndicator
           size='large'
@@ -23,6 +23,12 @@ export default function PerfilScreen() {
           data={reclamacoes}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => <ReclamacaoItem item={item} />}
+          contentContainerStyle={{
+            paddingBottom: 90, // espaço para o rodapé
+            paddingTop: 10,
+            paddingHorizontal: 8,
+          }}
+          showsVerticalScrollIndicator={false}
           ListEmptyComponent={
             <Text style={{ textAlign: 'center', marginTop: 20, color: '#bbb' }}>
               Nenhuma reclamação encontrada.

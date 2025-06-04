@@ -22,6 +22,7 @@ import api from './api/axios';
 import ModalCriarReclamacao from './components/ModalCriarReclamacao';
 import { useEmpresas } from './hooks/useEmpresas';
 import { useFeedback } from './hooks/useFeedback';
+import HeaderTitulo from './components/HeaderTitulo';
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
@@ -69,9 +70,9 @@ export default function HomeScreen() {
 
   return (
     <View style={estilos.container}>
+      <HeaderTitulo titulo='Desatende' />
       {/* Seção de Pesquisa */}
       <View style={estilos.searchSection}>
-        <Text style={estilos.labelPesquisa}>DESATENDE</Text>
         <View style={estilos.searchContainer}>
           <FontAwesome
             name='search'

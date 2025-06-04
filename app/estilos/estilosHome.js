@@ -49,16 +49,16 @@ const estilos = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: CORES.fundoMaisClaro,
-    borderColor: CORES.bordaPrincipal,
-    borderWidth: 1,
-    borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    backgroundColor: '#232326', // Fundo mais claro
+    borderColor: 'transparent', // Remove borda roxa
+    borderWidth: 0, // Remove borda
+    borderRadius: 14, // Mais arredondado
+    paddingHorizontal: 14,
+    paddingVertical: 7,
     shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOpacity: 0.1, // Sombra mais suave
+    shadowRadius: 8,
+    elevation: 3,
   },
   searchIcon: {
     marginRight: 8,
@@ -66,9 +66,12 @@ const estilos = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 44,
-    color: CORES.textoMaisClaro,
+    color: '#fff',
     fontSize: 16,
     backgroundColor: 'transparent',
+    fontWeight: '500',
+    letterSpacing: 0.2,
+    paddingLeft: 2,
   },
   /* BANNER PRINCIPAL */
   bannerContainer: {
