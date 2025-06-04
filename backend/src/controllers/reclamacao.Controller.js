@@ -61,6 +61,7 @@ export const criarReclamacao = async (req, res) => {
 export const listarReclamacoesPorUsuario = async (req, res) => {
   try {
     if (!req.user || req.user.tipo !== 'user') {
+      console.log('Usuário autenticado:', req.user);
       return res
         .status(403)
         .json({ msg: 'Apenas usuários podem acessar suas reclamações.' });

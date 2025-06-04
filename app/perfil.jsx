@@ -1,6 +1,6 @@
 //PERFIL CLIENTEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-import { useState } from 'react';
-import { View } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 
 import estilos from './estilos/estilosPerfil';
 
@@ -9,17 +9,66 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
 import Rodape from './components/Rodape';
+import { buscarMinhasReclamacoes } from './api/reclamacao';
 
 export default function PerfilScreen() {
   const router = useRouter();
+  const [reclamacoes, setReclamacoes] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+
+  useEffect(() => {
+    async function carregar() {
+      try {
+        const dados = await buscarMinhasReclamacoes();
+        setReclamacoes(dados);
+      } catch (e) {
+        // Trate o erro se quiser
+      } finally {
+        setCarregando(false);
+      }
+    }
+    carregar();
+  }, []);
+
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#1A1A1D',
-        justifyContent: 'flex-end',
-      }}
-    >
+    <View style={{ flex: 1, backgroundColor: '#1A1A1D' }}>
+      {carregando ? (
+        <ActivityIndicator
+          size='large'
+          color='#D84040'
+          style={{ marginTop: 40 }}
+        />
+      ) : (
+        <FlatList
+          data={reclamacoes}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <View
+              style={{ padding: 16, borderBottomWidth: 1, borderColor: '#222' }}
+            >
+              <Text
+                style={{ fontWeight: 'bold', color: '#ECDCBF', fontSize: 16 }}
+              >
+                {item.titulo}
+              </Text>
+              <Text style={{ color: '#fff', marginTop: 4 }}>
+                {item.descricao}
+              </Text>
+              <Text style={{ color: '#bbb', marginTop: 4 }}>
+                Empresa: {item.empresa?.nome || 'N/A'}
+              </Text>
+              <Text style={{ color: '#888', fontSize: 12, marginTop: 2 }}>
+                Criada em: {new Date(item.createdAt).toLocaleString()}
+              </Text>
+            </View>
+          )}
+          ListEmptyComponent={
+            <Text style={{ textAlign: 'center', marginTop: 20, color: '#bbb' }}>
+              Nenhuma reclamação encontrada.
+            </Text>
+          }
+        />
+      )}
       <Rodape
         selecionado='perfil'
         navegar={(destino) => {

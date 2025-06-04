@@ -23,6 +23,8 @@ import Rodape from './components/Rodape';
 import EmpresaItem from './components/EmpresaItem';
 import * as ImagePicker from 'expo-image-picker';
 import { buscarEmpresas } from './api/empresas'; // Importa a função de busca
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from './api/axios';
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
@@ -88,19 +90,58 @@ export default function HomeScreen() {
     setSucessoEnvio(false);
   };
 
-  // Função para enviar a reclamação (aqui só simula, depois integra com backend)
+  // Função para enviar a reclamação (agora integra com backend)
   const enviarReclamacao = async () => {
     if (!titulo.trim() || !descricao.trim()) {
       Alert.alert('Campos obrigatórios', 'Preencha todos os campos.');
       return;
     }
+    if (!empresaSelecionada || !empresaSelecionada._id) {
+      Alert.alert('Erro', 'Empresa não selecionada.');
+      return;
+    }
     try {
       setEnviando(true);
-      // Aqui entraria a integração com o backend
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
+        setEnviando(false);
+        return;
+      }
+      const formData = new FormData();
+      formData.append('titulo', titulo);
+      formData.append('descricao', descricao);
+      formData.append('empresa', String(empresaSelecionada._id));
+      if (imagemReclamacao) {
+        const filename = imagemReclamacao.split('/').pop();
+        const match = filename ? /\.(\w+)$/.exec(filename) : null;
+        const type = match ? `image/${match[1]}` : 'image';
+        formData.append('imagem', {
+          uri: imagemReclamacao,
+          name: filename ?? 'foto.jpg',
+          type,
+        });
+      }
+      // Log para depuração
+      console.log('FormData para envio:', {
+        titulo,
+        descricao,
+        empresa: String(empresaSelecionada._id),
+        imagem: imagemReclamacao ?? null,
+      });
+      await api.post('/reclamacoes', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setSucessoEnvio(true);
       setTimeout(() => fecharModal(), 1800);
     } catch (e) {
+      console.log(
+        'Erro ao enviar reclamação:',
+        e?.response?.data || e.message || e
+      );
       Alert.alert('Erro', 'Não foi possível enviar sua reclamação.');
     } finally {
       setEnviando(false);
