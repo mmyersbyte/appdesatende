@@ -5,15 +5,14 @@ import {
   Text,
   Image,
   TextInput,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
   Alert,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
 import { useImagePicker } from '../hooks/useImagePicker';
+import CustomButton from './CustomButton';
 
 /**
  * ModalCriarReclamacao
@@ -221,74 +220,28 @@ export default function ModalCriarReclamacao({
                         marginBottom: 6,
                       }}
                     />
-                    <Pressable
-                      style={{
-                        backgroundColor: '#D84040',
-                        borderRadius: 6,
-                        paddingVertical: 4,
-                        paddingHorizontal: 12,
-                      }}
+                    <CustomButton
+                      title='Remover imagem'
                       onPress={() => setImagem(null)}
-                    >
-                      <Text style={{ color: '#fff', fontSize: 14 }}>
-                        Remover imagem
-                      </Text>
-                    </Pressable>
+                    />
                   </View>
                 ) : (
-                  <Pressable
-                    style={{
-                      backgroundColor: '#D84040',
-                      borderRadius: 8,
-                      padding: 10,
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                    }}
+                  <CustomButton
+                    title='Selecionar imagem'
                     onPress={selecionarImagem}
-                  >
-                    <FontAwesome
-                      name='camera'
-                      size={18}
-                      color='#fff'
-                      style={{ marginRight: 8 }}
-                    />
-                    <Text
-                      style={{
-                        color: '#fff',
-                        fontWeight: 'bold',
-                        fontSize: 15,
-                      }}
-                    >
-                      Selecionar imagem
-                    </Text>
-                  </Pressable>
+                  />
                 )}
               </View>
-              <Pressable
-                style={{
-                  backgroundColor: '#D84040',
-                  borderRadius: 8,
-                  padding: 12,
-                  alignItems: 'center',
-                  marginTop: 8,
-                  opacity: enviando ? 0.7 : 1,
-                }}
+              <CustomButton
+                title='Enviar Reclamação'
                 onPress={handleEnviar}
                 disabled={enviando}
-              >
-                <Text
-                  style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}
-                >
-                  Enviar Reclamação
-                </Text>
-              </Pressable>
-              <Pressable
-                style={{ marginTop: 10, alignItems: 'center' }}
+              />
+              <CustomButton
+                title='Cancelar'
                 onPress={handleClose}
-              >
-                <Text style={{ color: '#bbb', fontSize: 15 }}>Cancelar</Text>
-              </Pressable>
+                disabled={enviando}
+              />
             </ScrollView>
           )}
         </View>
