@@ -8,36 +8,42 @@ import Reclamacao from '../models/Reclamacao.js';
  */
 export const criarReclamacao = async (req, res) => {
   try {
-    // Somente 'user' pode criar reclamação
     if (!req.user || req.user.tipo !== 'user') {
       return res
         .status(403)
         .json({ msg: 'Apenas usuários podem criar reclamações.' });
     }
 
-    const { titulo, descricao, empresa: empresaId } = req.body;
+    const { titulo, descricao, empresa: empresaId, contato } = req.body;
 
-    // Validação básica
     if (!titulo || !descricao || !empresaId) {
       return res
         .status(400)
         .json({ msg: 'Campos obrigatório: titulo, descricao, empresa.' });
     }
 
-    // Garantir que o companyId é um ObjectId válido
     if (!mongoose.Types.ObjectId.isValid(empresaId)) {
       return res.status(400).json({ msg: 'ID de empresa inválido.' });
     }
 
-    // Construir o objeto de nova reclamação
+    // Validação: contato pode ser email ou WhatsApp (regex básico)
+    const contatoRegex = /^(\+?\d{10,15}|[\w.-]+@[\w.-]+\.\w{2,})$/;
+    if (contato && !contatoRegex.test(contato.trim())) {
+      return res
+        .status(400)
+        .json({ msg: 'Contato deve ser e-mail ou WhatsApp válido.' });
+    }
+
     const novaReclamacao = new Reclamacao({
       titulo: titulo.trim(),
       descricao: descricao.trim(),
       user: req.user.id,
       empresa: empresaId,
+      contato: contato ? contato.trim() : undefined,
     });
 
-    // Se vier uma imagem via Multer (req.file), salvar no Buffer
+    // Validação: se houver imagem, ela deve ser uma imagem válida/
+
     if (req.file) {
       novaReclamacao.imagem = {
         data: req.file.buffer,

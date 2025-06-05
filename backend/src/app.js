@@ -7,6 +7,7 @@ import errorHandler from './middlewares/errorHandler.js';
 
 const app = express();
 
+// NÃO TEM CORS, É UM FRONT REACT NATIVE
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 

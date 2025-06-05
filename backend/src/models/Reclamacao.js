@@ -26,6 +26,13 @@ const reclamacaoSchema = new mongoose.Schema(
       required: [true, 'A empresa alvo da reclamação é obrigatória.'],
     },
 
+    contato: {
+      type: String, // Pode ser e-mail ou número de WhatsApp
+      trim: true,
+      maxlength: 100,
+      // Dica: validação mais rígida pode ser feita no controller/Joi
+    },
+
     imagem: {
       data: Buffer, // conteúdo da imagem
       contentType: String, // ex: 'image/jpeg', 'image/png'
@@ -42,6 +49,22 @@ const reclamacaoSchema = new mongoose.Schema(
       },
       data: {
         type: Date,
+      },
+    },
+
+    avaliacao: {
+      estrelas: {
+        type: Number,
+        min: 1,
+        max: 5,
+      },
+      problemaResolvido: {
+        type: Boolean,
+      },
+      comentario: {
+        type: String,
+        trim: true,
+        maxlength: 500,
       },
     },
 

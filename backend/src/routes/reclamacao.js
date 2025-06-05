@@ -8,6 +8,7 @@ import {
   deletarReclamacao,
   responderReclamacao,
   removerResposta,
+  avaliarReclamacao,
 } from '../controllers/reclamacao.Controller.js';
 import auth from '../middlewares/auth.js'; // Importe o middleware
 import upload from '../middlewares/upload.js'; // Importa o upload
@@ -26,5 +27,5 @@ router.patch('/:id', editarReclamacao);
 router.delete('/:id', deletarReclamacao);
 router.patch('/:id/responder', responderReclamacao);
 router.delete('/:id/remover-resposta', removerResposta);
-
+router.post('/:id/avaliar', avaliarReclamacao);
 export default router;
