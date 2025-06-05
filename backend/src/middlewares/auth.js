@@ -11,6 +11,21 @@ export default async function auth(req, res, next) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // Checa se o token expirou explicitamente (exp é timestamp em segundos)
+    if (decoded.exp && Date.now() >= decoded.exp * 1000) {
+      return res.status(401).json({ msg: 'Token expirado.' });
+    }
+
+    // Garante que o tipo está presente no token
+    if (
+      !decoded.tipo ||
+      (decoded.tipo !== 'user' && decoded.tipo !== 'empresa')
+    ) {
+      return res
+        .status(401)
+        .json({ msg: 'Tipo de usuário inválido no token.' });
+    }
+
     // Tenta buscar como usuário
     let user = await User.findById(decoded.id);
     if (!user) {
@@ -18,6 +33,11 @@ export default async function auth(req, res, next) {
       user = await Empresa.findById(decoded.id);
       if (!user)
         return res.status(401).json({ msg: 'Usuário/Empresa não encontrado.' });
+    }
+
+    // Se existir campo 'ativo', bloqueia inativos
+    if (user.ativo === false) {
+      return res.status(403).json({ msg: 'Usuário/Empresa inativo.' });
     }
 
     req.user = user;
