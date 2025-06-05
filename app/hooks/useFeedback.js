@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Alert } from 'react-native';
 
 export function useFeedback() {
   const [loading, setLoading] = useState(false);
@@ -9,12 +10,14 @@ export function useFeedback() {
     setSuccess(msg);
     setError(null);
     setLoading(false);
+    Alert.alert('Sucesso', msg);
   }
 
   function showError(msg) {
     setError(msg);
     setSuccess(null);
     setLoading(false);
+    Alert.alert('Erro', msg);
   }
 
   function resetFeedback() {

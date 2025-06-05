@@ -7,7 +7,6 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
-  Alert,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router
@@ -15,8 +14,6 @@ import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import Rodape from './components/Rodape';
 import EmpresaItem from './components/EmpresaItem';
-import * as ImagePicker from 'expo-image-picker';
-import { buscarEmpresas } from './api/empresas'; // Importa a função de busca
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from './api/axios';
 import ModalCriarReclamacao from './components/ModalCriarReclamacao';
@@ -28,12 +25,10 @@ export default function HomeScreen() {
   const [search, setSearch] = useState('');
   const [imagensCarregadas, setImagensCarregadas] = useState({});
   const router = useRouter();
-
   // Busca empresas reais do backend via hook
   const { empresas, carregando: carregandoEmpresas } = useEmpresas();
-
   // Filtra as 5 primeiras empresas como populares
-  const empresasPopulares = empresas.slice(0, 5);
+  const empresasPopulares = empresas.slice(0, 8);
 
   // Estados para modal e empresa selecionada
   const [modalVisivel, setModalVisivel] = useState(false);

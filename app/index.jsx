@@ -1,25 +1,24 @@
-//INDEX.JS TELA DE LOGIN
 import React, { useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text } from 'react-native';
 import estilos from './estilos/estilosLogin';
 import LottieView from 'lottie-react-native';
-
 import { useRouter } from 'expo-router';
-// Importa o hook de navegação do Expo Router
-
 import CustomButton from './components/CustomButton';
 import AuthModal from './components/AuthModal';
 import Formulario from './components/Formulario';
+import { FontAwesome } from '@expo/vector-icons';
 
 // Adicione o import dos serviços de autenticação
 import {
   loginUsuario,
   loginEmpresa,
   cadastrarUsuario,
+  cadastrarEmpresa,
   salvarToken,
 } from './api/auth';
 import api from './api/axios';
 import { useAuth } from './hooks/useAuth';
+import { useFeedback } from './hooks/useFeedback';
 
 // Adiciona um interceptor para logar todas as requisições feitas pelo Axios
 api.interceptors.request.use((request) => {
@@ -44,6 +43,7 @@ export default function Index() {
   // Para navegar entre rotas do Expo
   const router = useRouter();
   const { token, tipo, carregando: carregandoAuth } = useAuth();
+  const feedback = useFeedback();
 
   // Função para fechar o modal e limpar os campos
   const fecharModal = () => {
@@ -58,7 +58,10 @@ export default function Index() {
 
   // Handler para login
   const handleLogin = async () => {
-    console.log('Tentando login com:', { email, senha });
+    if (!email.trim() || !senha.trim()) {
+      feedback.showError('Preencha todos os campos!');
+      return;
+    }
     try {
       let data;
       if (modalTipo === 'cliente') {
@@ -66,41 +69,67 @@ export default function Index() {
       } else {
         data = await loginEmpresa({ email, senha });
       }
-      // Salva o token retornado no AsyncStorage usando função utilitária
       await salvarToken(data.token);
-      Alert.alert('Sucesso', 'Login realizado!');
+      feedback.showSuccess('Login realizado!');
       fecharModal();
-      // Redireciona para a tela correta após login
       if (modalTipo === 'cliente') {
-        router.push('/home'); // Cliente vai para home
+        router.push('/home');
       } else {
-        router.push('/dashboard'); // Empresa vai para dashboard
+        router.push('/dashboard');
       }
     } catch (error) {
-      console.log('Erro no login:', error, error?.response);
-      Alert.alert(
-        'Erro',
-        error.response?.data?.mensagem || 'Erro ao fazer login'
-      );
+      const msg =
+        error.response?.data?.mensagem || error.response?.data?.message;
+      if (msg === 'Email ou senha inválidos.') {
+        feedback.showError('Senha inválida ou usuário não encontrado!');
+      } else {
+        feedback.showError(msg || 'Erro ao fazer login');
+      }
     }
   };
 
   // Handler para cadastro
   const handleCadastro = async () => {
+    if (
+      !nome.trim() ||
+      !emailCadastro.trim() ||
+      !senhaCadastro.trim() ||
+      !confirmarSenha.trim()
+    ) {
+      feedback.showError('Preencha todos os campos!');
+      return;
+    }
+    if (senhaCadastro !== confirmarSenha) {
+      feedback.showError('As senhas não coincidem!');
+      return;
+    }
     try {
-      await cadastrarUsuario({
-        nome,
-        email: emailCadastro,
-        senha: senhaCadastro,
-        confirmarSenha,
-      });
-      Alert.alert('Sucesso', 'Cadastro realizado!');
+      if (tipoCadastro === 'empresa') {
+        await cadastrarEmpresa({
+          nome,
+          email: emailCadastro,
+          senha: senhaCadastro,
+          tipo: 'empresa',
+        });
+      } else {
+        await cadastrarUsuario({
+          nome,
+          email: emailCadastro,
+          senha: senhaCadastro,
+          confirmarSenha,
+          tipo: 'user',
+        });
+      }
+      feedback.showSuccess('Cadastro realizado!');
       fecharModal();
     } catch (error) {
-      Alert.alert(
-        'Erro',
-        error.response?.data?.mensagem || 'Erro ao cadastrar'
-      );
+      const msg =
+        error.response?.data?.mensagem || error.response?.data?.message;
+      if (msg === 'Já existe um usuário com este email.') {
+        feedback.showError('Este email já está cadastrado!');
+      } else {
+        feedback.showError(msg || 'Erro ao cadastrar');
+      }
     }
   };
 
@@ -166,7 +195,57 @@ export default function Index() {
             { title: 'Cadastrar', onPress: handleCadastro },
             { title: 'Fechar', onPress: fecharModal },
           ]}
-        />
+        >
+          {/* Botões de seleção de tipo de cadastro */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginBottom: 12,
+              gap: 8,
+            }}
+          >
+            <CustomButton
+              title={
+                <>
+                  <FontAwesome
+                    name='user'
+                    size={20}
+                    color='#fff'
+                  />
+                </>
+              }
+              onPress={() => setTipoCadastro('cliente')}
+              disabled={tipoCadastro === 'cliente'}
+              height={45}
+              width={20}
+            />
+            <CustomButton
+              title={
+                <>
+                  <FontAwesome
+                    name='building'
+                    size={20}
+                    color='#fff'
+                  />
+                </>
+              }
+              onPress={() => setTipoCadastro('empresa')}
+              disabled={tipoCadastro === 'empresa'}
+              height={45}
+              width={20}
+            />
+          </View>
+
+          <Text style={{ textAlign: 'center', color: '#bbb', marginBottom: 8 }}>
+            Tipo selecionado:{' '}
+            <Text
+              style={{ color: '#D84040', fontWeight: 'bold', fontSize: 16 }}
+            >
+              {tipoCadastro === 'empresa' ? 'Empresa' : 'Cliente'}
+            </Text>
+          </Text>
+        </Formulario>
       );
     }
     return null;
@@ -177,6 +256,21 @@ export default function Index() {
 
   return (
     <View style={estilos.container}>
+      {/* Feedback visual */}
+      {feedback.error && (
+        <Text
+          style={{ color: '#D84040', textAlign: 'center', marginBottom: 8 }}
+        >
+          {feedback.error}
+        </Text>
+      )}
+      {feedback.success && (
+        <Text
+          style={{ color: '#27ae60', textAlign: 'center', marginBottom: 8 }}
+        >
+          {feedback.success}
+        </Text>
+      )}
       {/* Exemplo de uso do hook useAuth */}
       <Text style={{ color: '#888', fontSize: 12, marginBottom: 8 }}>
         Token: {token ? token.slice(0, 16) + '...' : 'Nenhum'} | Tipo:{' '}

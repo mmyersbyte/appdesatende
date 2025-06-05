@@ -37,13 +37,21 @@ const estilos = StyleSheet.create({
   },
 });
 
-export default function CustomButton({ title, onPress, disabled }) {
+export default function CustomButton({
+  title,
+  onPress,
+  disabled,
+  height,
+  width,
+}) {
   return (
     <Pressable
       style={({ pressed }) => [
         estilos.botao,
         pressed && estilos.botaoPressionado,
         disabled && { opacity: 0.5 },
+        height && { height },
+        width && { width },
       ]}
       onPress={onPress}
       disabled={disabled}

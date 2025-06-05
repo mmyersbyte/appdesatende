@@ -37,8 +37,11 @@ export default function PerfilEmpresaScreen() {
   const [logoCarregado, setLogoCarregado] = useState(false);
 
   // Usa o hook customizado para buscar reclamações recebidas
-  const { reclamacoes, carregando: carregandoReclamacoes } =
-    useReclamacoesRecebidas();
+  const {
+    reclamacoes,
+    carregando: carregandoReclamacoes,
+    refresh,
+  } = useReclamacoesRecebidas();
   const [modalVisivel, setModalVisivel] = useState(false);
   const [reclamacaoSelecionada, setReclamacaoSelecionada] = useState(null);
   const [respostaReclamacao, setRespostaReclamacao] = useState('');
@@ -60,17 +63,8 @@ export default function PerfilEmpresaScreen() {
       return;
     }
     try {
-      // Chama a API para responder a reclamação
-      const respostaApi = await responderReclamacao(
-        reclamacaoSelecionada._id,
-        respostaReclamacao
-      );
-      // Atualiza a lista de reclamações com o retorno da API
-      setReclamacoes((recs) =>
-        recs.map((item) =>
-          item._id === reclamacaoSelecionada._id ? respostaApi.reclamacao : item
-        )
-      );
+      await responderReclamacao(reclamacaoSelecionada._id, respostaReclamacao);
+      await refresh(); // Atualiza a lista após responder
       setModalVisivel(false);
       setReclamacaoSelecionada(null);
       setRespostaReclamacao('');

@@ -8,11 +8,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useImagePicker } from '../hooks/useImagePicker';
 import CustomButton from './CustomButton';
+import { useFeedback } from '../hooks/useFeedback';
 
 /**
  * ModalCriarReclamacao
@@ -38,6 +38,9 @@ export default function ModalCriarReclamacao({
   // Hook para seleção de imagem
   const { imagem, setImagem, selecionarImagem } = useImagePicker();
 
+  // Hook para feedbacks
+  const feedback = useFeedback();
+
   // Limpa o formulário ao fechar
   const limparFormulario = () => {
     setTitulo('');
@@ -49,21 +52,45 @@ export default function ModalCriarReclamacao({
   // Handler de envio
   const handleEnviar = async () => {
     if (!titulo.trim() || !descricao.trim()) {
-      Alert.alert('Campos obrigatórios', 'Preencha todos os campos.');
+      feedback.showError('Preencha todos os campos.');
+      return;
+    }
+    if (titulo.trim().length < 5 || descricao.trim().length < 5) {
+      feedback.showError('Título e descrição devem ter no mínimo 5 letras.');
+      return;
+    }
+    // Impede reclamação duplicada consecutiva
+    const ultimaReclamacao = global.ultimaReclamacao || {};
+    if (
+      ultimaReclamacao.empresaId === empresa?.id &&
+      ultimaReclamacao.titulo === titulo.trim() &&
+      ultimaReclamacao.descricao === descricao.trim()
+    ) {
+      feedback.showError(
+        'Você não pode reclamar da mesma empresa duas vezes seguidas com o mesmo conteúdo.'
+      );
       return;
     }
     try {
-      setEnviando(true);
+      feedback.setLoading(true);
       await onSubmit({ titulo, descricao, empresaId: empresa?.id }, imagem);
+      feedback.showSuccess('Reclamação enviada com sucesso!');
+      // Salva última reclamação globalmente para evitar duplicidade consecutiva
+      global.ultimaReclamacao = {
+        empresaId: empresa?.id,
+        titulo: titulo.trim(),
+        descricao: descricao.trim(),
+      };
       setSucessoEnvio(true);
       setTimeout(() => {
         limparFormulario();
         onClose();
+        feedback.resetFeedback();
       }, 1800);
     } catch (e) {
-      Alert.alert('Erro', 'Não foi possível enviar sua reclamação.');
+      feedback.showError('Não foi possível enviar sua reclamação.');
     } finally {
-      setEnviando(false);
+      feedback.setLoading(false);
     }
   };
 
@@ -99,6 +126,21 @@ export default function ModalCriarReclamacao({
             maxHeight: 500,
           }}
         >
+          {/* Feedback visual */}
+          {feedback.error && (
+            <Text
+              style={{ color: '#D84040', textAlign: 'center', marginBottom: 8 }}
+            >
+              {feedback.error}
+            </Text>
+          )}
+          {feedback.success && (
+            <Text
+              style={{ color: '#27ae60', textAlign: 'center', marginBottom: 8 }}
+            >
+              {feedback.success}
+            </Text>
+          )}
           {/* Dados da empresa */}
           {empresa && (
             <View style={{ alignItems: 'center', marginBottom: 18 }}>

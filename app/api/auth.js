@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Cadastro de usuário
 export const cadastrarUsuario = async (dados) => {
-  const response = await api.post('/users/register', dados);
+  const response = await api.post('/users/cadastrar', dados);
   return response.data;
 };
 
@@ -16,6 +16,12 @@ export const loginUsuario = async (dados) => {
 // Login de empresa
 export const loginEmpresa = async (dados) => {
   const response = await api.post('/empresas/login', dados);
+  return response.data;
+};
+
+// Cadastro de empresa
+export const cadastrarEmpresa = async (dados) => {
+  const response = await api.post('/empresas/cadastrar', dados);
   return response.data;
 };
 
