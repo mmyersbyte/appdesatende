@@ -4,10 +4,13 @@ import {
   listarUsuarios,
 } from '../controllers/user.Controller.js';
 import { loginUser } from '../controllers/authUser.Controller.js';
+import auth from '../middlewares/auth.js';
+import { validateBody } from '../middlewares/validate.js';
+import { loginSchema } from '../validators/authValidator.js';
 const router = express.Router();
 
-router.post('/login', loginUser);
+router.post('/login', validateBody(loginSchema), loginUser);
 router.post('/cadastrar', cadastrarUsuario);
-router.get('/listar-usuarios', listarUsuarios);
+router.get('/listar-usuarios', auth, listarUsuarios);
 
 export default router;
