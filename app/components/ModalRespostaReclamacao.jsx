@@ -12,12 +12,14 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 
 const CORES = {
-  fundoModal: 'rgba(0, 0, 0, 0.7)',
-  fundoClaro: '#2A2A2D',
-  fundoMaisClaro: '#3A3A3D',
-  corPrimaria: '#D84040',
-  textoPrincipal: '#ECDCBF',
+  fundoModal: 'rgba(0, 0, 0, 0.8)',
+  fundoClaro: '#282a36',
+  fundoMaisClaro: '#3a3f58',
+  corPrimaria: '#44475a',
+  corSecundaria: '#6272a4',
+  textoPrincipal: '#f8f8f2',
   textoSuave: 'rgba(255, 255, 255, 0.7)',
+  placeholder: '#8be9fd',
 };
 
 const estilos = StyleSheet.create({
@@ -25,98 +27,147 @@ const estilos = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: CORES.fundoModal,
+    paddingHorizontal: 15,
   },
   modalContent: {
     backgroundColor: CORES.fundoClaro,
-    margin: 20,
-    borderRadius: 10,
-    maxHeight: '80%',
+    borderRadius: 15,
+    maxHeight: '88%',
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 15,
+    padding: 18,
     backgroundColor: CORES.corPrimaria,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   modalTitulo: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: CORES.textoPrincipal,
+    color: '#fff',
   },
   modalScrollView: {
-    padding: 15,
+    padding: 18,
   },
   reclamacaoDetalhes: {
-    marginBottom: 20,
+    marginBottom: 22,
+    backgroundColor: CORES.fundoMaisClaro,
+    padding: 16,
+    borderRadius: 12,
   },
   reclamacaoDetalheUsuario: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: CORES.textoPrincipal,
-  },
-  reclamacaoDetalheData: {
-    fontSize: 12,
-    color: CORES.textoSuave,
-    marginBottom: 10,
-  },
-  reclamacaoDetalheTitulo: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: CORES.textoPrincipal,
-    marginBottom: 5,
-  },
-  reclamacaoDetalheDescricao: {
-    fontSize: 14,
-    color: CORES.textoPrincipal,
-    lineHeight: 20,
-  },
-  respostaContainer: {
-    marginBottom: 20,
-  },
-  respostaLabel: {
     fontSize: 16,
     fontWeight: 'bold',
     color: CORES.textoPrincipal,
-    marginBottom: 10,
+    marginBottom: 2,
+  },
+  reclamacaoDetalheData: {
+    fontSize: 13,
+    color: CORES.textoSuave,
+    marginBottom: 12,
+  },
+  reclamacaoDetalheTitulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: CORES.textoPrincipal,
+    marginBottom: 8,
+    lineHeight: 26,
+  },
+  reclamacaoDetalheDescricao: {
+    fontSize: 15,
+    color: CORES.textoPrincipal,
+    lineHeight: 22,
+  },
+  respostaContainer: {
+    marginBottom: 22,
+  },
+  respostaLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: CORES.textoPrincipal,
+    marginBottom: 12,
   },
   respostaInput: {
     backgroundColor: CORES.fundoMaisClaro,
-    borderRadius: 8,
-    padding: 12,
+    borderRadius: 12,
+    padding: 16,
     color: CORES.textoPrincipal,
     textAlignVertical: 'top',
-    minHeight: 120,
+    minHeight: 140,
+    fontSize: 16,
+    lineHeight: 22,
+    borderWidth: 2,
+    borderColor: 'transparent',
+  },
+  respostaInputFocused: {
+    borderColor: CORES.placeholder,
   },
   modalBotoes: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
-    marginBottom: 10,
+    gap: 12,
+    marginTop: 8,
+    marginBottom: 8,
   },
   modalBotao: {
     flex: 1,
-    padding: 12,
-    borderRadius: 8,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    borderRadius: 12,
     alignItems: 'center',
+    elevation: 2,
   },
   botaoCancelar: {
-    backgroundColor: CORES.fundoMaisClaro,
-    marginRight: 5,
+    backgroundColor: CORES.corSecundaria,
   },
   botaoEnviar: {
-    backgroundColor: CORES.corPrimaria,
-    marginLeft: 5,
+    backgroundColor: CORES.corSecundaria,
   },
   textoBotaoCancelar: {
-    color: CORES.textoPrincipal,
+    color: '#fff',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   textoBotaoEnviar: {
-    color: CORES.textoPrincipal,
+    color: '#fff',
     fontWeight: 'bold',
+    fontSize: 16,
+  },
+  /**
+   * Estilos para exibição de contato do cliente
+   * Segue padrão visual do design system
+   */
+  contatoContainer: {
+    backgroundColor: CORES.fundoMaisClaro,
+    padding: 14,
+    borderRadius: 10,
+    marginBottom: 15,
+    borderLeftWidth: 4,
+    borderLeftColor: CORES.placeholder,
+  },
+  contatoLabel: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: CORES.placeholder,
+    marginBottom: 6,
+  },
+  contatoValor: {
+    fontSize: 17,
+    color: CORES.textoPrincipal,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  contatoDica: {
+    fontSize: 13,
+    color: CORES.textoSuave,
+    fontStyle: 'italic',
   },
 });
 
@@ -151,11 +202,46 @@ export default function ModalRespostaReclamacao({
             <ScrollView style={estilos.modalScrollView}>
               <View style={estilos.reclamacaoDetalhes}>
                 <Text style={estilos.reclamacaoDetalheUsuario}>
-                  Cliente: {reclamacao.usuario}
+                  Cliente: {reclamacao.user?.nome || 'Nome não informado'}
                 </Text>
                 <Text style={estilos.reclamacaoDetalheData}>
-                  Data: {reclamacao.data}
+                  Data:{' '}
+                  {reclamacao.createdAt
+                    ? new Date(reclamacao.createdAt).toLocaleDateString(
+                        'pt-BR',
+                        {
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }
+                      )
+                    : 'Data não informada'}
                 </Text>
+
+                {/**
+                 * Exibição do contato do cliente
+                 * Permite comunicação direta empresa-cliente
+                 */}
+                {reclamacao.contato && (
+                  <View style={estilos.contatoContainer}>
+                    <Text style={estilos.contatoLabel}>
+                      Contato do Cliente:
+                    </Text>
+                    <Text style={estilos.contatoValor}>
+                      {reclamacao.contato}
+                    </Text>
+                    <Text style={estilos.contatoDica}>
+                      Use este contato para comunicação direta
+                    </Text>
+                  </View>
+                )}
+
+                {/**
+                 * Exibição da imagem da reclamação
+                 * Renderizada em base64 conforme enviado pelo backend
+                 */}
                 {reclamacao.imagem && reclamacao.imagem.data && (
                   <Image
                     source={{
@@ -171,6 +257,11 @@ export default function ModalRespostaReclamacao({
                     resizeMode='cover'
                   />
                 )}
+
+                {/**
+                 * Título e descrição da reclamação
+                 * Dados principais do problema relatado
+                 */}
                 <Text style={estilos.reclamacaoDetalheTitulo}>
                   {reclamacao.titulo}
                 </Text>
@@ -185,7 +276,7 @@ export default function ModalRespostaReclamacao({
                   multiline={true}
                   numberOfLines={5}
                   placeholder='Digite sua resposta para esta reclamação...'
-                  placeholderTextColor='#999'
+                  placeholderTextColor={CORES.placeholder}
                   value={resposta}
                   onChangeText={setResposta}
                 />

@@ -52,7 +52,13 @@ export default function PerfilEmpresaScreen() {
   // Função para abrir o modal de resposta
   const abrirModalResposta = (reclamacao) => {
     setReclamacaoSelecionada(reclamacao);
-    setRespostaReclamacao(reclamacao.resposta);
+
+    /**
+     * Define a resposta inicial baseada no status da reclamação
+     * Se já foi respondida, carrega a resposta existente
+     * Se não, inicia com string vazia
+     */
+    setRespostaReclamacao(reclamacao.resposta?.texto || '');
     setModalVisivel(true);
   };
 
@@ -83,15 +89,25 @@ export default function PerfilEmpresaScreen() {
         style={[
           estilos.reclamacaoItem,
           {
-            borderLeftColor: item.status === 'pendente' ? '#ff6b6b' : '#4ecdc4',
+            borderLeftColor: item.status === 'aberta' ? '#ff6b6b' : '#4ecdc4',
           },
         ]}
         onPress={() => abrirModalResposta(item)}
         activeOpacity={0.7}
       >
         <View style={estilos.reclamacaoHeader}>
-          <Text style={estilos.reclamacaoUsuario}>{item.usuario}</Text>
-          <Text style={estilos.reclamacaoData}>{item.data}</Text>
+          <Text style={estilos.reclamacaoUsuario}>
+            {item.user?.nome || 'Nome não informado'}
+          </Text>
+          <Text style={estilos.reclamacaoData}>
+            {item.createdAt
+              ? new Date(item.createdAt).toLocaleDateString('pt-BR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                })
+              : 'Data não informada'}
+          </Text>
         </View>
 
         <Text style={estilos.reclamacaoTitulo}>{item.titulo}</Text>
@@ -106,16 +122,16 @@ export default function PerfilEmpresaScreen() {
           <Text
             style={[
               estilos.reclamacaoStatus,
-              { color: item.status === 'pendente' ? '#ff6b6b' : '#4ecdc4' },
+              { color: item.status === 'aberta' ? '#ff6b6b' : '#4ecdc4' },
             ]}
           >
-            {item.status === 'pendente' ? 'Pendente' : 'Respondido'}
+            {item.status === 'aberta' ? 'Pendente' : 'Respondida'}
           </Text>
 
           <FontAwesome
-            name={item.status === 'pendente' ? 'reply' : 'check-circle'}
+            name={item.status === 'aberta' ? 'reply' : 'check-circle'}
             size={16}
-            color={item.status === 'pendente' ? '#ff6b6b' : '#4ecdc4'}
+            color={item.status === 'aberta' ? '#ff6b6b' : '#4ecdc4'}
           />
         </View>
       </Pressable>

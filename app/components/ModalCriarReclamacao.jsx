@@ -8,11 +8,41 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Pressable,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
 import { useImagePicker } from '../hooks/useImagePicker';
 import CustomButton from './CustomButton';
 import { useFeedback } from '../hooks/useFeedback';
+
+// 🎨 PALETA DRACULA PARA MODAL CRIAR RECLAMAÇÃO
+const CORES = {
+  // Fundos
+  fundoModal: 'rgba(0, 0, 0, 0.8)',
+  fundoPrincipal: '#282a36', // Dracula background
+  fundoInput: '#44475a', // Dracula current line
+  fundoImagem: '#3a3f58', // Dracula selection
+
+  // Textos
+  textoPrincipal: '#f8f8f2', // Dracula foreground
+  textoSecundario: '#6272a4', // Dracula comment
+  textoSuave: 'rgba(255, 255, 255, 0.7)',
+  placeholder: '#6272a4', // Dracula comment
+
+  // Cores de ação
+  sucesso: '#50fa7b', // Dracula green
+  erro: '#ff5555', // Dracula red
+  alerta: '#ffb86c', // Dracula orange
+  primaria: '#8be9fd', // Dracula cyan
+  secundaria: '#bd93f9', // Dracula purple
+
+  // Botões
+  botaoEnviar: '#50fa7b', // Verde para ação principal
+  botaoCancelar: '#6272a4', // Cinza para cancelar
+  botaoRemover: '#ff5555', // Vermelho para remover
+  botaoImagem: '#bd93f9', // Purple para imagem
+};
 
 /**
  * ModalCriarReclamacao
@@ -32,6 +62,13 @@ export default function ModalCriarReclamacao({
   // Estados do formulário
   const [titulo, setTitulo] = useState('');
   const [descricao, setDescricao] = useState('');
+
+  /**
+   * Estado para campo de contato (email ou WhatsApp)
+   * Implementa comunicação direta entre cliente e empresa
+   */
+  const [contato, setContato] = useState('');
+
   const [enviando, setEnviando] = useState(false);
   const [sucessoEnvio, setSucessoEnvio] = useState(false);
 
@@ -41,24 +78,72 @@ export default function ModalCriarReclamacao({
   // Hook para feedbacks
   const feedback = useFeedback();
 
-  // Limpa o formulário ao fechar
+  /**
+   * Função de limpeza do formulário
+   * Reseta todos os estados para valores iniciais
+   */
   const limparFormulario = () => {
     setTitulo('');
     setDescricao('');
+    setContato(''); // Reset do campo contato
     setImagem(null);
     setSucessoEnvio(false);
   };
 
+  /**
+   * Validação específica do campo contato
+   * Implementa regras de negócio no lado cliente
+   */
+  const validarContato = (valor) => {
+    if (!valor || !valor.trim()) return true; // Campo opcional
+
+    const contatoTrimmed = valor.trim();
+
+    // Validação de comprimento mínimo
+    if (contatoTrimmed.length < 5) {
+      return 'Contato deve ter pelo menos 5 caracteres.';
+    }
+
+    // Regex para validação de email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Regex para validação de WhatsApp (flexível para diferentes formatos)
+    const whatsappRegex =
+      /^(?:\+?55\s?)?(?:\(?\d{2}\)?[\s-]?)(?:9\d{4}[\s-]?\d{4}|\d{4}[\s-]?\d{4})$/;
+
+    const isValidEmail = emailRegex.test(contatoTrimmed);
+    const isValidWhatsApp = whatsappRegex.test(contatoTrimmed);
+
+    if (!isValidEmail && !isValidWhatsApp) {
+      return 'Digite um email válido ou WhatsApp no formato (11)99999-9999';
+    }
+
+    return null; // Válido
+  };
+
   // Handler de envio
   const handleEnviar = async () => {
+    // Validação dos campos obrigatórios
     if (!titulo.trim() || !descricao.trim()) {
-      feedback.showError('Preencha todos os campos.');
+      feedback.showError('Preencha todos os campos obrigatórios.');
       return;
     }
+
     if (titulo.trim().length < 5 || descricao.trim().length < 5) {
       feedback.showError('Título e descrição devem ter no mínimo 5 letras.');
       return;
     }
+
+    /**
+     * Validação do campo contato se preenchido
+     * Aplica validação client-side antes do envio
+     */
+    const erroContato = validarContato(contato);
+    if (erroContato) {
+      feedback.showError(erroContato);
+      return;
+    }
+
     // Impede reclamação duplicada consecutiva
     const ultimaReclamacao = global.ultimaReclamacao || {};
     if (
@@ -71,22 +156,40 @@ export default function ModalCriarReclamacao({
       );
       return;
     }
+
     try {
       feedback.setLoading(true);
-      await onSubmit({ titulo, descricao, empresaId: empresa?.id }, imagem);
-      feedback.showSuccess('Reclamação enviada com sucesso!');
+
+      /**
+       * Envio dos dados incluindo o campo contato
+       * Mantém compatibilidade com API existente
+       */
+      await onSubmit(
+        {
+          titulo,
+          descricao,
+          contato: contato.trim() || undefined, // Remove se vazio
+          empresaId: empresa?.id,
+        },
+        imagem
+      );
+
+      // Não mostra mais alert - tela visual de sucesso é suficiente
+      // feedback.showSuccess('Reclamação enviada com sucesso!'); // REMOVIDO
+
       // Salva última reclamação globalmente para evitar duplicidade consecutiva
       global.ultimaReclamacao = {
         empresaId: empresa?.id,
         titulo: titulo.trim(),
         descricao: descricao.trim(),
       };
+
       setSucessoEnvio(true);
       setTimeout(() => {
         limparFormulario();
         onClose();
         feedback.resetFeedback();
-      }, 1800);
+      }, 5800); // Aumentado de 1800ms para 5800ms (mais 4 segundos)
     } catch (e) {
       feedback.showError('Não foi possível enviar sua reclamação.');
     } finally {
@@ -113,36 +216,35 @@ export default function ModalCriarReclamacao({
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: 'rgba(0,0,0,0.7)',
+          backgroundColor: CORES.fundoModal,
         }}
       >
         <View
           style={{
-            backgroundColor: '#232326',
+            backgroundColor: CORES.fundoPrincipal,
             borderRadius: 18,
             padding: 20,
             width: '90%',
             maxWidth: 400,
-            maxHeight: 500,
+            maxHeight: '85%',
+            minHeight: 600,
           }}
         >
-          {/* Feedback visual */}
+          {/* Feedback visual - apenas erros são mostrados */}
           {feedback.error && (
             <Text
-              style={{ color: '#D84040', textAlign: 'center', marginBottom: 8 }}
+              style={{
+                color: CORES.erro,
+                textAlign: 'center',
+                marginBottom: 8,
+              }}
             >
               {feedback.error}
             </Text>
           )}
-          {feedback.success && (
-            <Text
-              style={{ color: '#27ae60', textAlign: 'center', marginBottom: 8 }}
-            >
-              {feedback.success}
-            </Text>
-          )}
+          {/* Removido feedback.success - tela visual é melhor */}
           {/* Dados da empresa */}
-          {empresa && (
+          {empresa && !sucessoEnvio && (
             <View style={{ alignItems: 'center', marginBottom: 18 }}>
               <Image
                 source={{ uri: empresa.imagem }}
@@ -151,14 +253,14 @@ export default function ModalCriarReclamacao({
                   height: 70,
                   borderRadius: 35,
                   marginBottom: 8,
-                  backgroundColor: '#2A2A2D',
+                  backgroundColor: CORES.fundoImagem,
                 }}
               />
               <Text
                 style={{
                   fontSize: 18,
                   fontWeight: 'bold',
-                  color: '#ECDCBF',
+                  color: CORES.textoPrincipal,
                   marginBottom: 2,
                 }}
               >
@@ -166,7 +268,7 @@ export default function ModalCriarReclamacao({
               </Text>
               <Text
                 style={{
-                  color: '#bbb',
+                  color: CORES.textoSecundario,
                   fontSize: 13,
                   marginTop: 2,
                   textAlign: 'center',
@@ -178,22 +280,98 @@ export default function ModalCriarReclamacao({
           )}
           {/* Formulário de reclamação */}
           {sucessoEnvio ? (
-            <View style={{ alignItems: 'center', marginVertical: 30 }}>
-              <FontAwesome
-                name='check-circle'
-                size={60}
-                color='#27ae60'
-              />
-              <Text style={{ color: '#27ae60', fontSize: 18, marginTop: 10 }}>
-                Reclamação enviada com sucesso!
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: 40,
+                paddingHorizontal: 20,
+                minHeight: 280,
+                position: 'relative',
+              }}
+            >
+              {/* Botão X para fechar */}
+              <Pressable
+                style={{
+                  position: 'absolute',
+                  top: 10,
+                  right: 10,
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: 20,
+                  padding: 8,
+                  zIndex: 1,
+                }}
+                onPress={handleClose}
+              >
+                <FontAwesome
+                  name='times'
+                  size={20}
+                  color={CORES.textoSecundario}
+                />
+              </Pressable>
+
+              {/* Ícone de sucesso simplificado */}
+              <View
+                style={{
+                  backgroundColor: 'rgba(39, 174, 96, 0.15)',
+                  borderRadius: 40,
+                  padding: 20,
+                  marginBottom: 25,
+                  borderWidth: 3,
+                  borderColor: CORES.sucesso,
+                }}
+              >
+                <FontAwesome
+                  name='check-circle'
+                  size={70}
+                  color={CORES.sucesso}
+                />
+              </View>
+
+              {/* Título principal */}
+              <Text
+                style={{
+                  color: CORES.sucesso,
+                  fontSize: 24,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  marginBottom: 15,
+                  letterSpacing: 0.5,
+                }}
+              >
+                Reclamação Enviada!
               </Text>
+
+              {/* Mensagem informativa simplificada */}
+              <Text
+                style={{
+                  color: CORES.textoPrincipal,
+                  fontSize: 16,
+                  textAlign: 'center',
+                  lineHeight: 24,
+                  marginBottom: 20,
+                }}
+              >
+                A empresa será notificada e você receberá uma resposta em breve.
+              </Text>
+
+              {/* LottieView animação */}
+              <LottieView
+                source={require('../imgs/header.json')}
+                autoPlay
+                loop
+                style={{
+                  width: 180,
+                  height: 120,
+                }}
+              />
             </View>
           ) : (
             <ScrollView style={{ maxHeight: 430 }}>
               <View style={{ marginBottom: 12 }}>
                 <Text
                   style={{
-                    color: '#ECDCBF',
+                    color: CORES.textoPrincipal,
                     fontWeight: 'bold',
                     marginBottom: 4,
                   }}
@@ -202,14 +380,14 @@ export default function ModalCriarReclamacao({
                 </Text>
                 <TextInput
                   style={{
-                    backgroundColor: '#2A2A2D',
-                    color: '#fff',
+                    backgroundColor: CORES.fundoInput,
+                    color: CORES.textoPrincipal,
                     borderRadius: 8,
                     padding: 8,
                     marginBottom: 8,
                   }}
                   placeholder='Ex: Atendimento ruim'
-                  placeholderTextColor='#666'
+                  placeholderTextColor={CORES.placeholder}
                   value={titulo}
                   onChangeText={setTitulo}
                 />
@@ -217,7 +395,7 @@ export default function ModalCriarReclamacao({
               <View style={{ marginBottom: 12 }}>
                 <Text
                   style={{
-                    color: '#ECDCBF',
+                    color: CORES.textoPrincipal,
                     fontWeight: 'bold',
                     marginBottom: 4,
                   }}
@@ -226,15 +404,15 @@ export default function ModalCriarReclamacao({
                 </Text>
                 <TextInput
                   style={{
-                    backgroundColor: '#2A2A2D',
-                    color: '#fff',
+                    backgroundColor: CORES.fundoInput,
+                    color: CORES.textoPrincipal,
                     borderRadius: 8,
                     padding: 8,
                     minHeight: 60,
                     textAlignVertical: 'top',
                   }}
                   placeholder='Descreva o ocorrido...'
-                  placeholderTextColor='#666'
+                  placeholderTextColor={CORES.placeholder}
                   value={descricao}
                   onChangeText={setDescricao}
                   multiline
@@ -244,7 +422,7 @@ export default function ModalCriarReclamacao({
               <View style={{ marginBottom: 12 }}>
                 <Text
                   style={{
-                    color: '#ECDCBF',
+                    color: CORES.textoPrincipal,
                     fontWeight: 'bold',
                     marginBottom: 4,
                   }}
@@ -265,24 +443,89 @@ export default function ModalCriarReclamacao({
                     <CustomButton
                       title='Remover imagem'
                       onPress={() => setImagem(null)}
+                      height={40}
+                      width={140}
+                      cor={CORES.botaoRemover}
                     />
                   </View>
                 ) : (
                   <CustomButton
-                    title='Selecionar imagem'
+                    title='Imagem'
                     onPress={selecionarImagem}
+                    height={48}
+                    width='37%'
+                    cor={CORES.botaoImagem}
                   />
+                )}
+              </View>
+              <View style={{ marginBottom: 12 }}>
+                <Text
+                  style={{
+                    color: CORES.textoPrincipal,
+                    fontWeight: 'bold',
+                    marginBottom: 4,
+                  }}
+                >
+                  Contato (opcional)
+                </Text>
+                <Text
+                  style={{
+                    color: CORES.textoSecundario,
+                    fontSize: 12,
+                    marginBottom: 8,
+                    lineHeight: 16,
+                  }}
+                >
+                  Para a empresa entrar em contato diretamente com você. Aceita
+                  email ou WhatsApp.
+                </Text>
+                <TextInput
+                  style={{
+                    backgroundColor: CORES.fundoInput,
+                    color: CORES.textoPrincipal,
+                    borderRadius: 8,
+                    padding: 12,
+                    borderWidth: 1,
+                    borderColor:
+                      contato && validarContato(contato)
+                        ? CORES.erro
+                        : CORES.fundoImagem,
+                  }}
+                  placeholder='Ex: email@exemplo.com ou (11)99999-9999'
+                  placeholderTextColor={CORES.placeholder}
+                  value={contato}
+                  onChangeText={setContato}
+                  keyboardType='email-address'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                />
+                {contato && validarContato(contato) && (
+                  <Text
+                    style={{
+                      color: CORES.erro,
+                      fontSize: 12,
+                      marginTop: 4,
+                    }}
+                  >
+                    {validarContato(contato)}
+                  </Text>
                 )}
               </View>
               <CustomButton
                 title='Enviar Reclamação'
                 onPress={handleEnviar}
                 disabled={enviando}
+                height={48}
+                width='70%'
+                cor={CORES.botaoEnviar}
               />
               <CustomButton
                 title='Cancelar'
                 onPress={handleClose}
                 disabled={enviando}
+                height={48}
+                width='70%'
+                cor={CORES.botaoCancelar}
               />
             </ScrollView>
           )}

@@ -1,15 +1,16 @@
 import React from 'react';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
 
+// 🎨 PALETA DRACULA DEFAULT
 const CORES = {
-  corPrimaria: '#D84040',
-  corPrimariaEscura: '#A31D1D',
+  corPrimaria: '#8be9fd', // Mudança: Dracula cyan ao invés de vermelho
+  corPrimariaEscura: '#6be7fc', // Mudança: cyan mais escuro
   textoPrincipal: 'white',
 };
 
 const estilos = StyleSheet.create({
   botao: {
-    backgroundColor: CORES.corPrimaria,
+    backgroundColor: CORES.corPrimaria, // Será sobrescrito pela prop cor se fornecida
     borderRadius: 25,
     paddingVertical: 14,
     paddingHorizontal: 20,
@@ -37,12 +38,23 @@ const estilos = StyleSheet.create({
   },
 });
 
+/**
+ * 🔘 CUSTOM BUTTON COMPONENT
+ *
+ * @param {string} title - Texto do botão
+ * @param {function} onPress - Função de clique
+ * @param {boolean} disabled - Se o botão está desabilitado
+ * @param {number} height - Altura personalizada
+ * @param {number} width - Largura personalizada
+ * @param {string} cor - Cor de fundo personalizada (nova prop!)
+ */
 export default function CustomButton({
   title,
   onPress,
   disabled,
   height,
   width,
+  cor, // 🌟 Nova prop para cor personalizada
 }) {
   return (
     <Pressable
@@ -52,6 +64,7 @@ export default function CustomButton({
         disabled && { opacity: 0.5 },
         height && { height },
         width && { width },
+        cor && { backgroundColor: cor }, // 🎨 Aplica cor personalizada se fornecida
       ]}
       onPress={onPress}
       disabled={disabled}

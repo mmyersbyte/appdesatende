@@ -1,28 +1,32 @@
 import { StyleSheet } from 'react-native';
 
 const CORES = {
-  // Cores de fundo
-  fundoPrincipal: '#1A1A1D', // Fundo principal
-  fundoClaro: '#232326', // Fundo mais claro
-  fundoMaisClaro: '#2A2A2D', // Fundo para modais
+  // 🌙 PALETA DRACULA - FUNDO
+  fundoPrincipal: '#282a36', // Dracula background
+  fundoClaro: '#44475a', // Dracula current line
+  fundoMaisClaro: '#3a3f58', // Dracula selection
 
-  // Cores principais
-  corPrimaria: '#D84040', // Cor primária vermelha
-  bordaPrincipal: '#6A1E55', // Cor das bordas
+  // 🎨 CORES PRINCIPAIS VIVAS
+  corPrimaria: '#8be9fd', // Dracula cyan - título principal
+  corSecundaria: '#6272a4', // Dracula comment
+  corDestaque: '#50fa7b', // Dracula green - elementos positivos
+  corAlerta: '#ffb86c', // Dracula orange - elementos de atenção
+  bordaPrincipal: '#bd93f9', // Dracula purple - bordas especiais
 
-  // Cores de texto
-  texto: '#ECDCBF', // Texto principal
-  textoClaro: 'rgba(255, 255, 255, 0.95)', // Texto com 95% opacidade
-  textoMaisClaro: 'rgba(255, 255, 255, 0.85)', // Texto com 85% opacidade
-  textoSuave: 'rgba(255, 255, 255, 0.7)', // Texto com 70% opacidade
-  textoPlaceholder: '#bbb', // Texto para placeholders
+  // 🔤 CORES DE TEXTO
+  texto: '#f8f8f2', // Dracula foreground
+  textoClaro: 'rgba(248, 248, 242, 0.95)', // Dracula foreground 95%
+  textoMaisClaro: 'rgba(248, 248, 242, 0.85)', // Dracula foreground 85%
+  textoSuave: 'rgba(255, 255, 255, 0.7)', // Texto suave
+  textoPlaceholder: '#6272a4', // Dracula comment para placeholders
 
-  // Cores de status
-  statusPendente: '#ff6b6b', // Vermelho para pendente
-  statusResolvido: '#4ecdc4', // Verde-água para resolvido
+  // 🎯 CORES DE STATUS
+  statusPendente: '#ffb86c', // Dracula orange para pendente
+  statusResolvido: '#50fa7b', // Dracula green para resolvido
+  statusFechado: '#bd93f9', // Dracula purple para fechado
 
-  // Cores de modal
-  fundoModal: 'rgba(0, 0, 0, 0.7)', // Fundo do modal
+  // 🎭 CORES DE MODAL
+  fundoModal: 'rgba(0, 0, 0, 0.8)', // Fundo modal
   branco: '#fff',
 };
 
@@ -30,90 +34,94 @@ const estilos = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: CORES.fundoPrincipal,
-    paddingTop: 36,
-    paddingHorizontal: 10,
+    paddingTop: 32,
+    paddingHorizontal: 12,
     paddingBottom: 70,
   },
-  /* PESQUISA EMPRESAS */
+  /* PESQUISA EMPRESAS - OTIMIZADA */
   searchSection: {
-    marginBottom: 18,
+    marginBottom: 12,
   },
   labelPesquisa: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 6,
     textAlign: 'center',
     color: CORES.corPrimaria,
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#232326', // Fundo mais claro
-    borderColor: 'transparent', // Remove borda roxa
-    borderWidth: 0, // Remove borda
-    borderRadius: 14, // Mais arredondado
-    paddingHorizontal: 14,
-    paddingVertical: 7,
+    backgroundColor: CORES.fundoClaro,
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
     shadowColor: '#000',
-    shadowOpacity: 0.1, // Sombra mais suave
-    shadowRadius: 8,
-    elevation: 3,
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 5,
   },
   searchIcon: {
-    marginRight: 8,
+    marginRight: 10,
+    color: CORES.textoPlaceholder,
   },
   searchInput: {
     flex: 1,
-    height: 44,
-    color: '#fff',
-    fontSize: 16,
+    height: 40,
+    color: CORES.texto,
+    fontSize: 15,
     backgroundColor: 'transparent',
     fontWeight: '500',
-    letterSpacing: 0.2,
-    paddingLeft: 2,
+    letterSpacing: 0.3,
+    paddingLeft: 4,
   },
-  /* BANNER PRINCIPAL */
+  /* BANNER PRINCIPAL - OTIMIZADO PARA PROXIMIDADE */
   bannerContainer: {
-    marginBottom: 22,
+    marginBottom: 14,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 6,
   },
   bannerImagem: {
     width: '100%',
-    height: 180,
-    borderRadius: 16,
-    backgroundColor: CORES.fundoClaro,
+    height: 200,
+    borderRadius: 18,
   },
-  /* TEXTO EXPLICATIVO */
+  /* TEXTO EXPLICATIVO - COMPACTO */
   textoExplicativo: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
     color: CORES.textoMaisClaro,
-    lineHeight: 23,
+    lineHeight: 20,
     textAlign: 'center',
-    marginBottom: 18,
-    marginHorizontal: 8,
+    marginBottom: 16,
+    marginHorizontal: 12,
+    paddingHorizontal: 8,
   },
 
-  /* SEÇÃO DE EMPRESAS */
+  /* SEÇÃO DE EMPRESAS - OTIMIZADA */
   empresasSection: {
-    marginBottom: 24,
+    marginBottom: 20,
+    flex: 1,
   },
   empresasSubtitulo: {
-    fontSize: 17,
+    fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
     color: CORES.textoClaro,
-    marginBottom: 12,
-    letterSpacing: 0.5,
+    marginBottom: 14,
+    letterSpacing: 0.3,
+    paddingHorizontal: 4,
   },
   empresasListContainer: {
-    paddingRight: 8,
-    paddingLeft: 2,
+    paddingRight: 12,
+    paddingLeft: 4,
+    paddingBottom: 8,
   },
 });
 

@@ -2,12 +2,13 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
+// PALETA DRACULA PARA RODAPE
 const CORES = {
-  fundoPrincipal: '#1A1A1D',
-  corPrimaria: '#D84040',
-  textoPrincipal: 'white',
-  textoSecundario: '#555',
-  bordaBranca: 'white',
+  fundoPrincipal: '#282a36', // Dracula background
+  corPrimaria: '#bd93f9', // Dracula purple para selecionado
+  textoPrincipal: '#f8f8f2', // Dracula foreground
+  textoSecundario: '#6272a4', // Dracula comment
+  bordaSutil: '#44475a', // Dracula current line
 };
 
 const estilos = StyleSheet.create({
@@ -15,31 +16,39 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '110%',
+    height: 70, // Altura absolutamente fixa
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: CORES.bordaBranca,
-    paddingVertical: 12,
-    justifyContent: 'space-around',
+    borderTopColor: CORES.bordaSutil,
     backgroundColor: CORES.fundoPrincipal,
+    paddingHorizontal: 0, // Remove padding lateral
   },
   itemRodape: {
-    flex: 1,
+    width: '50%', // Largura fixa para cada item (2 itens = 50% cada)
+    height: 70, // Mesma altura do container
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
   },
-  itemSelecionado: {
-    flexDirection: 'column',
+  // Container interno com dimensões absolutamente fixas
+  itemContainer: {
+    width: 60, // Largura fixa para o container interno
+    height: 46, // Altura fixa para o container interno
     alignItems: 'center',
-    borderBottomColor: CORES.corPrimaria,
-    paddingBottom: 4,
+    justifyContent: 'center',
   },
-  itemNaoSelecionado: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingBottom: 4,
+  iconeFixo: {
+    width: 22, // Largura fixa para o ícone
+    height: 22, // Altura fixa para o ícone
+    textAlign: 'center',
+    marginBottom: 4,
   },
   textoRodape: {
     fontSize: 12,
-    marginTop: 2,
+    fontWeight: '500',
+    textAlign: 'center',
+    width: 60, // Largura fixa para o texto
+    height: 16, // Altura fixa para o texto
   },
 });
 
@@ -51,16 +60,11 @@ export default function Rodape({ selecionado, navegar }) {
         style={estilos.itemRodape}
         onPress={() => navegar('home')}
       >
-        <View
-          style={
-            selecionado === 'home'
-              ? estilos.itemSelecionado
-              : estilos.itemNaoSelecionado
-          }
-        >
+        <View style={estilos.itemContainer}>
           <FontAwesome
             name='home'
-            size={24}
+            size={22}
+            style={estilos.iconeFixo}
             color={
               selecionado === 'home' ? CORES.corPrimaria : CORES.textoSecundario
             }
@@ -69,7 +73,10 @@ export default function Rodape({ selecionado, navegar }) {
             style={[
               estilos.textoRodape,
               {
-                color: selecionado === 'home' ? 'white' : CORES.textoSecundario,
+                color:
+                  selecionado === 'home'
+                    ? CORES.textoPrincipal
+                    : CORES.textoSecundario,
               },
             ]}
           >
@@ -77,21 +84,17 @@ export default function Rodape({ selecionado, navegar }) {
           </Text>
         </View>
       </Pressable>
+
       {/* Perfil */}
       <Pressable
         style={estilos.itemRodape}
         onPress={() => navegar('perfil')}
       >
-        <View
-          style={
-            selecionado === 'perfil'
-              ? estilos.itemSelecionado
-              : estilos.itemNaoSelecionado
-          }
-        >
+        <View style={estilos.itemContainer}>
           <FontAwesome
             name='user'
-            size={24}
+            size={22}
+            style={estilos.iconeFixo}
             color={
               selecionado === 'perfil'
                 ? CORES.corPrimaria
@@ -103,11 +106,13 @@ export default function Rodape({ selecionado, navegar }) {
               estilos.textoRodape,
               {
                 color:
-                  selecionado === 'perfil' ? 'white' : CORES.textoSecundario,
+                  selecionado === 'perfil'
+                    ? CORES.textoPrincipal
+                    : CORES.textoSecundario,
               },
             ]}
           >
-            Seu Perfil
+            Perfil
           </Text>
         </View>
       </Pressable>

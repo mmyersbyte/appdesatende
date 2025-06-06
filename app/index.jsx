@@ -219,6 +219,7 @@ export default function Index() {
               disabled={tipoCadastro === 'cliente'}
               height={45}
               width={20}
+              cor='#D84040'
             />
             <CustomButton
               title={
@@ -234,6 +235,7 @@ export default function Index() {
               disabled={tipoCadastro === 'empresa'}
               height={45}
               width={20}
+              cor='#D84040'
             />
           </View>
 
@@ -306,18 +308,21 @@ export default function Index() {
       <CustomButton
         title='Login como cliente'
         onPress={() => setModalTipo('cliente')}
+        cor='#D84040'
       />
 
       {/* Botão de Login como Empresa */}
       <CustomButton
         title='Login como empresa'
         onPress={() => setModalTipo('empresa')}
+        cor='#D84040'
       />
 
       {/* Botão de Cadastro */}
       <CustomButton
         title='Cadastre-se'
         onPress={() => setModalTipo('cadastro')}
+        cor='#D84040'
       />
 
       {/* Modal para exibir os formulários */}

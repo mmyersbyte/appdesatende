@@ -66,6 +66,7 @@ export default function HomeScreen() {
   return (
     <View style={estilos.container}>
       <HeaderTitulo titulo='Desatende' />
+
       {/* Seção de Pesquisa */}
       <View style={estilos.searchSection}>
         <View style={estilos.searchContainer}>
@@ -87,20 +88,19 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      {/* Banner Principal */}
+      {/* Banner Principal - MOVIDO PARA PRÓXIMO DO INPUT */}
       <View style={estilos.bannerContainer}>
         <LottieView
-          source={require('./imgs/banner.json')}
+          source={require('./imgs/banner2.json')}
           autoPlay
           loop
           style={estilos.bannerImagem}
         />
       </View>
 
-      {/* Texto explicativo */}
+      {/* Texto explicativo - REDUZIDO */}
       <Text style={estilos.textoExplicativo}>
-        Relate experiências de atendimento ruim, ajude outros consumidores e
-        incentive empresas a melhorarem seus serviços.
+        Relate experiências ruins e ajude outros consumidores
       </Text>
 
       {/* Lista horizontal de empresas */}
@@ -109,7 +109,7 @@ export default function HomeScreen() {
         {carregandoEmpresas ? (
           <ActivityIndicator
             size='large'
-            color='#D84040'
+            color='#8be9fd'
             style={{ marginTop: 20 }}
           />
         ) : (
@@ -145,21 +145,21 @@ export default function HomeScreen() {
       {/* Feedback global */}
       {feedback.loading && (
         <Text
-          style={{ color: '#D84040', textAlign: 'center', marginBottom: 8 }}
+          style={{ color: '#8be9fd', textAlign: 'center', marginBottom: 8 }}
         >
           Enviando reclamação...
         </Text>
       )}
       {feedback.success && (
         <Text
-          style={{ color: '#27ae60', textAlign: 'center', marginBottom: 8 }}
+          style={{ color: '#50fa7b', textAlign: 'center', marginBottom: 8 }}
         >
           {feedback.success}
         </Text>
       )}
       {feedback.error && (
         <Text
-          style={{ color: '#D84040', textAlign: 'center', marginBottom: 8 }}
+          style={{ color: '#ffb86c', textAlign: 'center', marginBottom: 8 }}
         >
           {feedback.error}
         </Text>
@@ -170,7 +170,10 @@ export default function HomeScreen() {
         visible={modalVisivel}
         empresa={empresaSelecionada}
         onClose={fecharModal}
-        onSubmit={async ({ titulo, descricao, empresaId }, imagemUri) => {
+        onSubmit={async (
+          { titulo, descricao, contato, empresaId },
+          imagemUri
+        ) => {
           try {
             feedback.setLoading(true);
             const token = await AsyncStorage.getItem('token');
@@ -180,6 +183,11 @@ export default function HomeScreen() {
               );
               return;
             }
+
+            /**
+             * Construção do FormData seguindo padrões REST
+             * Inclui validação e tratamento do campo contato
+             */
             const formData = new FormData();
             formData.append('titulo', titulo);
             formData.append('descricao', descricao);
@@ -187,6 +195,16 @@ export default function HomeScreen() {
               'empresa',
               String(empresaId || empresaSelecionada?._id)
             );
+
+            // Adiciona contato apenas se fornecido e válido
+            if (contato && contato.trim()) {
+              formData.append('contato', contato.trim());
+            }
+
+            /**
+             * Processamento de imagem mantendo compatibilidade
+             * com sistema de upload existente
+             */
             if (imagemUri) {
               const filename = imagemUri.split('/').pop();
               const match = filename ? /\.(\w+)$/.exec(filename) : null;
@@ -197,23 +215,29 @@ export default function HomeScreen() {
                 type,
               });
             }
+
+            // Requisição para API seguindo padrões RESTful
             await api.post('/reclamacoes', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`,
               },
             });
-            feedback.showSuccess('Reclamação enviada com sucesso!');
-            setTimeout(() => {
-              feedback.resetFeedback();
-              fecharModal();
-            }, 1800);
+
+            // Sucesso - o feedback será exibido pelo modal
+            // feedback.showSuccess('Reclamação enviada com sucesso!'); // REMOVIDO - duplicado
+            // setTimeout(() => {
+            //   feedback.resetFeedback();
+            //   fecharModal();
+            // }, 1800); // REMOVIDO - será gerenciado pelo modal
           } catch (e) {
             feedback.showError('Não foi possível enviar sua reclamação.');
             console.log(
               'Erro ao enviar reclamação:',
               e?.response?.data || e.message || e
             );
+          } finally {
+            feedback.setLoading(false);
           }
         }}
       />
