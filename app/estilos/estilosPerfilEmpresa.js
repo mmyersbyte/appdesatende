@@ -1,65 +1,199 @@
 import { StyleSheet } from 'react-native';
 
-// Variáveis de cores organizadas em um objeto estruturado
+// 🧛‍♂️ PALETA DRACULA COMPLETA
 const CORES = {
-  // Cores de fundo
-  fundoPrincipal: '#1A1A1D', // Fundo principal escuro
-  fundoClaro: '#2A2A2D', // Fundo mais claro para cards
-  fundoMaisClaro: '#3A3A3D', // Fundo para modais
+  // 🌙 CORES DE FUNDO DRACULA
+  fundoPrincipal: '#282a36', // Dracula background
+  fundoClaro: '#44475a', // Dracula current line
+  fundoMaisClaro: '#6272a4', // Dracula comment
+  fundoCard: '#3a3f58', // Dracula selection mais escuro
 
-  // Cores principais
-  corPrimaria: '#D84040', // Vermelho usado no app
-  bordaPrincipal: '#6A1E55', // Cor para bordas principais
+  // 🎨 CORES PRINCIPAIS DRACULA
+  corPrimaria: '#bd93f9', // Dracula purple
+  corSecundaria: '#8be9fd', // Dracula cyan
+  corDestaque: '#50fa7b', // Dracula green
+  corAlerta: '#ffb86c', // Dracula orange
+  corErro: '#ff5555', // Dracula red
 
-  // Cores de text
-  textoPrincipal: '#ECDCBF', // Texto em tom bege/creme
-  textoClaro: 'rgba(255, 255, 255, 0.9)', // Texto branco 90% opacidade
-  textoMaisClaro: 'rgba(255, 255, 255, 0.8)', // Texto branco 80% opacidade
-  textoSuave: 'rgba(255, 255, 255, 0.7)', // Texto branco 70% opacidade
-  textoPlaceholder: '#999', // Texto para placeholders
+  // 🔤 CORES DE TEXTO DRACULA
+  textoPrincipal: '#f8f8f2', // Dracula foreground
+  textoClaro: 'rgba(248, 248, 242, 0.95)', // Dracula foreground 95%
+  textoMaisClaro: 'rgba(248, 248, 242, 0.85)', // Dracula foreground 85%
+  textoSuave: 'rgba(248, 248, 242, 0.7)', // Dracula foreground 70%
+  textoPlaceholder: '#6272a4', // Dracula comment
 
-  // Cores de status
-  statusPendente: '#ff6b6b', // Vermelho para pendentes
-  statusResolvido: '#4ecdc4', // Verde-água para resolvidos
+  // 🎯 CORES DE STATUS DRACULA
+  statusAberta: '#ff5555', // Dracula red para aberta
+  statusRespondida: '#50fa7b', // Dracula green para respondida
+  statusFechada: '#bd93f9', // Dracula purple para fechada
 
-  // Cores de modal
-  fundoModal: 'rgba(0, 0, 0, 0.7)', // Sobreposição escura para modal
+  // 🎭 CORES ESPECIAIS
+  fundoModal: 'rgba(0, 0, 0, 0.8)', // Overlay escuro
+  bordaAtiva: '#bd93f9', // Dracula purple para bordas ativas
 };
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: CORES.fundoPrincipal,
-    paddingTop: 40,
-    paddingHorizontal: 16,
-    paddingBottom: 60,
+    paddingTop: 32, // Reduzido para melhor UX
+    paddingHorizontal: 12, // Mais compacto
+    paddingBottom: 70, // Espaço para footer
   },
 
-  /* CABEÇALHO */
+  /* CABEÇALHO DRACULA UX */
   cabecalho: {
-    marginBottom: 20,
+    marginBottom: 24, // Aumentado para melhor separação
+    alignItems: 'center',
+    paddingVertical: 16,
+    marginHorizontal: 4,
   },
   labelPlataforma: {
-    fontSize: 34,
+    fontSize: 28, // Reduzido para melhor proporção
     fontWeight: 'bold',
     textAlign: 'center',
-    color: CORES.corPrimaria,
+    color: '#D84040', // Mudado para a cor solicitada
+    letterSpacing: 1.5,
   },
   labelPainel: {
-    fontSize: 18,
+    fontSize: 16, // Ligeiramente reduzido
     textAlign: 'center',
-    color: CORES.textoPrincipal,
-    marginTop: 5,
+    color: CORES.textoMaisClaro,
+    marginTop: 4, // Reduzido
+    fontWeight: '500',
+    letterSpacing: 0.5,
   },
 
-  /* PERFIL DA EMPRESA */
+  /* PAINEL DE RECLAMAÇÕES UX MELHORADO */
+  painelContainer: {
+    flex: 1,
+    marginBottom: 8, // Reduzido
+  },
+  painelTitulo: {
+    fontSize: 18, // Reduzido para melhor hierarquia
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: CORES.corSecundaria, // Cyan para diferenciação
+    marginBottom: 16, // Otimizado
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+
+  /* ESTADOS DE CARREGAMENTO DRACULA */
+  carregandoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: CORES.fundoCard,
+    borderRadius: 16,
+    marginHorizontal: 8,
+    paddingVertical: 40,
+  },
+  carregandoTexto: {
+    marginTop: 16,
+    color: CORES.textoPrincipal,
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  semDadosContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: CORES.fundoCard,
+    borderRadius: 16,
+    marginHorizontal: 8,
+    paddingVertical: 40,
+  },
+  semDadosTexto: {
+    marginTop: 16,
+    color: CORES.textoPrincipal,
+    fontSize: 16,
+    fontWeight: '500',
+    textAlign: 'center',
+  },
+
+  /* LISTA DE RECLAMAÇÕES UX */
+  reclamacoesListContainer: {
+    paddingBottom: 20, // Reduzido
+    paddingHorizontal: 4, // Pequeno padding lateral
+  },
+
+  /* ITEM DE RECLAMAÇÃO DRACULA */
+  reclamacaoItem: {
+    backgroundColor: CORES.fundoCard,
+    borderRadius: 14, // Mais arredondado
+    padding: 16, // Padding otimizado
+    marginBottom: 12, // Espaçamento menor
+    marginHorizontal: 4, // Pequena margem lateral
+    borderLeftWidth: 5, // Borda mais espessa
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 6,
+    borderTopRightRadius: 14,
+    borderBottomRightRadius: 14,
+  },
+  reclamacaoHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8, // Aumentado
+    alignItems: 'center',
+  },
+  reclamacaoUsuario: {
+    fontSize: 15, // Ligeiramente aumentado
+    fontWeight: 'bold',
+    color: CORES.textoPrincipal,
+    flex: 1,
+  },
+  reclamacaoData: {
+    fontSize: 12,
+    color: CORES.textoSuave,
+    fontWeight: '500',
+    backgroundColor: CORES.fundoMaisClaro,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  reclamacaoTitulo: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: CORES.corSecundaria, // Cyan para títulos
+    marginBottom: 8, // Aumentado
+    lineHeight: 22,
+  },
+  reclamacaoDescricao: {
+    fontSize: 14,
+    color: CORES.textoClaro,
+    marginBottom: 12, // Aumentado
+    lineHeight: 20,
+  },
+  reclamacaoFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 8, // Separação visual
+    borderTopWidth: 1,
+    borderTopColor: CORES.fundoMaisClaro,
+  },
+  reclamacaoStatus: {
+    fontSize: 13, // Ligeiramente reduzido
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+
+  /* PERFIL DA EMPRESA - MANTIDO PARA COMPATIBILIDADE */
   perfilContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
     padding: 15,
-    backgroundColor: CORES.fundoClaro,
-    borderRadius: 10,
+    backgroundColor: CORES.fundoCard,
+    borderRadius: 14,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 4,
   },
   logoContainer: {
     position: 'relative',
@@ -106,81 +240,28 @@ const estilos = StyleSheet.create({
     color: CORES.textoMaisClaro,
   },
 
-  /* PAINEL DE RECLAMAÇÕES */
-  painelContainer: {
-    flex: 1,
-    marginBottom: 10,
-  },
-  painelTitulo: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: CORES.corPrimaria,
-    marginBottom: 15,
-  },
-  carregandoContainer: {
-    flex: 1,
+  /* FALSO FOOTER MINIMALISTA */
+  falsoFooter: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: CORES.fundoCard,
+    borderTopWidth: 1,
+    borderTopColor: CORES.fundoMaisClaro,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 8,
   },
-  carregandoTexto: {
-    marginTop: 10,
-    color: CORES.textoPrincipal,
-    fontSize: 16,
-  },
-  semDadosContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  semDadosTexto: {
-    marginTop: 15,
-    color: CORES.textoPrincipal,
-    fontSize: 16,
-  },
-  reclamacoesListContainer: {
-    paddingBottom: 80, // Espaço para não sobrepor o footer
-  },
-  reclamacaoItem: {
-    backgroundColor: CORES.fundoClaro,
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 10,
-    borderLeftWidth: 4,
-  },
-  reclamacaoHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 5,
-  },
-  reclamacaoUsuario: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: CORES.textoPrincipal,
-  },
-  reclamacaoData: {
-    fontSize: 12,
+  falsoFooterTexto: {
     color: CORES.textoSuave,
-  },
-  reclamacaoTitulo: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: CORES.textoPrincipal,
-    marginBottom: 5,
-  },
-  reclamacaoDescricao: {
-    fontSize: 14,
-    color: CORES.textoClaro,
-    marginBottom: 10,
-  },
-  reclamacaoFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  reclamacaoStatus: {
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontWeight: '500',
+    letterSpacing: 0.5,
   },
 });
 

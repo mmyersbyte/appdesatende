@@ -89,7 +89,7 @@ export default function PerfilEmpresaScreen() {
         style={[
           estilos.reclamacaoItem,
           {
-            borderLeftColor: item.status === 'aberta' ? '#ff6b6b' : '#4ecdc4',
+            borderLeftColor: item.status === 'aberta' ? '#ff5555' : '#50fa7b',
           },
         ]}
         onPress={() => abrirModalResposta(item)}
@@ -122,7 +122,7 @@ export default function PerfilEmpresaScreen() {
           <Text
             style={[
               estilos.reclamacaoStatus,
-              { color: item.status === 'aberta' ? '#ff6b6b' : '#4ecdc4' },
+              { color: item.status === 'aberta' ? '#ff5555' : '#50fa7b' },
             ]}
           >
             {item.status === 'aberta' ? 'Pendente' : 'Respondida'}
@@ -131,7 +131,7 @@ export default function PerfilEmpresaScreen() {
           <FontAwesome
             name={item.status === 'aberta' ? 'reply' : 'check-circle'}
             size={16}
-            color={item.status === 'aberta' ? '#ff6b6b' : '#4ecdc4'}
+            color={item.status === 'aberta' ? '#ff5555' : '#50fa7b'}
           />
         </View>
       </Pressable>
@@ -156,7 +156,7 @@ export default function PerfilEmpresaScreen() {
           <View style={estilos.carregandoContainer}>
             <ActivityIndicator
               size='large'
-              color='#ba68c8'
+              color='#bd93f9'
             />
             <Text style={estilos.carregandoTexto}>
               Carregando reclamações...
@@ -167,7 +167,7 @@ export default function PerfilEmpresaScreen() {
             <FontAwesome
               name='smile-o'
               size={48}
-              color='#ba68c8'
+              color='#50fa7b'
             />
             <Text style={estilos.semDadosTexto}>
               Nenhuma reclamação encontrada!
@@ -193,6 +193,13 @@ export default function PerfilEmpresaScreen() {
         setResposta={setRespostaReclamacao}
         onEnviar={enviarResposta}
       />
+
+      {/* Falso Footer Minimalista */}
+      <View style={estilos.falsoFooter}>
+        <Text style={estilos.falsoFooterTexto}>
+          Painel Administrativo • DESATENDE
+        </Text>
+      </View>
     </View>
   );
 }

@@ -37,6 +37,7 @@ export default function Formulario({
   campos, // array de objetos: { placeholder, value, onChangeText, ...props }
   botoes, // array de objetos: { title, onPress, ...props }
   children,
+  corBotao, // Nova prop para cor dos botões
 }) {
   return (
     <ScrollView contentContainerStyle={estilos.formularioContainer}>
@@ -59,6 +60,7 @@ export default function Formulario({
           title={botao.title}
           onPress={botao.onPress}
           disabled={botao.disabled}
+          cor={corBotao || CORES.corPrimaria} // Aplica cor personalizada ou default
         />
       ))}
     </ScrollView>

@@ -158,6 +158,7 @@ export default function Index() {
             { title: 'Entrar', onPress: handleLogin },
             { title: 'Fechar', onPress: fecharModal },
           ]}
+          corBotao='#D84040'
         />
       );
     }
@@ -195,6 +196,7 @@ export default function Index() {
             { title: 'Cadastrar', onPress: handleCadastro },
             { title: 'Fechar', onPress: fecharModal },
           ]}
+          corBotao='#D84040'
         >
           {/* Botões de seleção de tipo de cadastro */}
           <View
