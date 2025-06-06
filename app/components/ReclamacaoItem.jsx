@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
+import { View, Text, Image, Pressable, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import ModalAvaliarReclamacao from './ModalAvaliarReclamacao';
-import { avaliarReclamacao } from '../api/reclamacao';
+import { avaliarReclamacao, deletarReclamacao } from '../api/reclamacao';
 
 export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
   // Estado para controlar o modal de avaliação
@@ -27,6 +27,44 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
       console.error('Erro ao avaliar reclamação:', error);
       throw error; // Propaga erro para o modal tratar
     }
+  };
+
+  /**
+   * 🗑️ HANDLER: Deletar reclamação
+   * Confirma e remove reclamação permanentemente
+   */
+  const handleDeletarReclamacao = () => {
+    Alert.alert(
+      '🗑️ Excluir Reclamação',
+      `Tem certeza que deseja excluir permanentemente a reclamação "${item.titulo}"?\n\nEsta ação não pode ser desfeita.`,
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deletarReclamacao(item._id);
+
+              // Atualiza lista de reclamações se callback foi fornecido
+              if (onAtualizarReclamacoes) {
+                await onAtualizarReclamacoes();
+              }
+
+              Alert.alert('✅ Sucesso', 'Reclamação excluída com sucesso!');
+            } catch (error) {
+              Alert.alert(
+                '❌ Erro',
+                error.message || 'Erro ao excluir reclamação'
+              );
+            }
+          },
+        },
+      ]
+    );
   };
 
   /**
@@ -409,17 +447,50 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
         )}
 
         {/* Título */}
-        <Text
+        <View
           style={{
-            fontWeight: 'bold',
-            color: '#FFD369',
-            fontSize: 20,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             marginBottom: 4,
-            letterSpacing: 0.2,
           }}
         >
-          {item.titulo}
-        </Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              color: '#FFD369',
+              fontSize: 20,
+              letterSpacing: 0.2,
+              flex: 1,
+              marginRight: 10,
+            }}
+          >
+            {item.titulo}
+          </Text>
+
+          {/* Ícone de lixeira */}
+          <Pressable
+            style={{
+              backgroundColor: 'rgba(255, 85, 85, 0.15)',
+              borderRadius: 12,
+              padding: 8,
+              borderWidth: 1,
+              borderColor: 'rgba(255, 85, 85, 0.3)',
+              shadowColor: '#ff5555',
+              shadowOpacity: 0.3,
+              shadowRadius: 4,
+              elevation: 2,
+            }}
+            onPress={handleDeletarReclamacao}
+            android_ripple={{ color: 'rgba(255, 85, 85, 0.2)' }}
+          >
+            <FontAwesome
+              name='trash-o'
+              size={16}
+              color='#ff5555'
+            />
+          </Pressable>
+        </View>
 
         {/* Descrição */}
         <Text

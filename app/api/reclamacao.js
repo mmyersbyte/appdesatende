@@ -196,3 +196,40 @@ export const avaliarReclamacao = async (id, avaliacaoData) => {
     throw new Error(mensagemErro);
   }
 };
+
+/**
+ * 🗑️ FUNÇÃO: Deletar reclamação
+ * Remove uma reclamação permanentemente
+ *
+ * @param {string} id - ID da reclamação a ser deletada
+ * @returns {Object} Resposta da API confirmando a exclusão
+ */
+export const deletarReclamacao = async (id) => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('Token de autenticação não encontrado');
+    }
+
+    const response = await api.delete(`/reclamacoes/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('✅ Reclamação deletada com sucesso:', id);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Erro ao deletar reclamação:', {
+      reclamacaoId: id,
+      erro: error?.response?.data || error.message,
+    });
+
+    const mensagemErro =
+      error?.response?.data?.msg ||
+      error.message ||
+      'Erro ao deletar reclamação';
+    throw new Error(mensagemErro);
+  }
+};

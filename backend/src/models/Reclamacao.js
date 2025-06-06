@@ -33,12 +33,13 @@ const reclamacaoSchema = new mongoose.Schema(
      */
     contato: {
       type: String,
+      required: [true, 'O contato (email ou WhatsApp) é obrigatório.'],
       trim: true,
       maxlength: [100, 'Contato deve ter no máximo 100 caracteres.'],
       validate: {
         validator: function (valor) {
-          // Permite campo vazio (opcional)
-          if (!valor) return true;
+          // Não permite campo vazio se é obrigatório
+          if (!valor || !valor.trim()) return false;
 
           // Regex para validação de email (RFC 5322 simplificado)
           const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

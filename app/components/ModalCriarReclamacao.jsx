@@ -95,7 +95,9 @@ export default function ModalCriarReclamacao({
    * Implementa regras de negócio no lado cliente
    */
   const validarContato = (valor) => {
-    if (!valor || !valor.trim()) return true; // Campo opcional
+    if (!valor || !valor.trim()) {
+      return 'Contato é obrigatório. Digite seu email ou WhatsApp.';
+    }
 
     const contatoTrimmed = valor.trim();
 
@@ -124,8 +126,10 @@ export default function ModalCriarReclamacao({
   // Handler de envio
   const handleEnviar = async () => {
     // Validação dos campos obrigatórios
-    if (!titulo.trim() || !descricao.trim()) {
-      feedback.showError('Preencha todos os campos obrigatórios.');
+    if (!titulo.trim() || !descricao.trim() || !contato.trim()) {
+      feedback.showError(
+        'Preencha todos os campos obrigatórios (*, incluindo contato).'
+      );
       return;
     }
 
@@ -135,7 +139,7 @@ export default function ModalCriarReclamacao({
     }
 
     /**
-     * Validação do campo contato se preenchido
+     * Validação obrigatória do campo contato
      * Aplica validação client-side antes do envio
      */
     const erroContato = validarContato(contato);
@@ -161,14 +165,14 @@ export default function ModalCriarReclamacao({
       feedback.setLoading(true);
 
       /**
-       * Envio dos dados incluindo o campo contato
+       * Envio dos dados incluindo o campo contato obrigatório
        * Mantém compatibilidade com API existente
        */
       await onSubmit(
         {
           titulo,
           descricao,
-          contato: contato.trim() || undefined, // Remove se vazio
+          contato: contato.trim(), // Agora é obrigatório
           empresaId: empresa?.id,
         },
         imagem
@@ -418,6 +422,42 @@ export default function ModalCriarReclamacao({
                   multiline
                 />
               </View>
+              {/* Campo de contato obrigatório */}
+              <View style={{ marginBottom: 12 }}>
+                <Text
+                  style={{
+                    color: CORES.textoPrincipal,
+                    fontWeight: 'bold',
+                    marginBottom: 4,
+                  }}
+                >
+                  Contato para Resposta *
+                </Text>
+                <TextInput
+                  style={{
+                    backgroundColor: CORES.fundoInput,
+                    color: CORES.textoPrincipal,
+                    borderRadius: 8,
+                    padding: 8,
+                    marginBottom: 8,
+                  }}
+                  placeholder='Email ou WhatsApp: exemplo@email.com ou (11)99999-9999'
+                  placeholderTextColor={CORES.placeholder}
+                  value={contato}
+                  onChangeText={setContato}
+                  keyboardType='email-address'
+                />
+                <Text
+                  style={{
+                    color: CORES.textoSecundario,
+                    fontSize: 12,
+                    marginTop: -4,
+                    marginBottom: 8,
+                  }}
+                >
+                  💬 A empresa usará este contato para responder sua reclamação
+                </Text>
+              </View>
               {/* Campo de upload de imagem opcional */}
               <View style={{ marginBottom: 12 }}>
                 <Text
@@ -456,59 +496,6 @@ export default function ModalCriarReclamacao({
                     width='37%'
                     cor={CORES.botaoImagem}
                   />
-                )}
-              </View>
-              <View style={{ marginBottom: 12 }}>
-                <Text
-                  style={{
-                    color: CORES.textoPrincipal,
-                    fontWeight: 'bold',
-                    marginBottom: 4,
-                  }}
-                >
-                  Contato (opcional)
-                </Text>
-                <Text
-                  style={{
-                    color: CORES.textoSecundario,
-                    fontSize: 12,
-                    marginBottom: 8,
-                    lineHeight: 16,
-                  }}
-                >
-                  Para a empresa entrar em contato diretamente com você. Aceita
-                  email ou WhatsApp.
-                </Text>
-                <TextInput
-                  style={{
-                    backgroundColor: CORES.fundoInput,
-                    color: CORES.textoPrincipal,
-                    borderRadius: 8,
-                    padding: 12,
-                    borderWidth: 1,
-                    borderColor:
-                      contato && validarContato(contato)
-                        ? CORES.erro
-                        : CORES.fundoImagem,
-                  }}
-                  placeholder='Ex: email@exemplo.com ou (11)99999-9999'
-                  placeholderTextColor={CORES.placeholder}
-                  value={contato}
-                  onChangeText={setContato}
-                  keyboardType='email-address'
-                  autoCapitalize='none'
-                  autoCorrect={false}
-                />
-                {contato && validarContato(contato) && (
-                  <Text
-                    style={{
-                      color: CORES.erro,
-                      fontSize: 12,
-                      marginTop: 4,
-                    }}
-                  >
-                    {validarContato(contato)}
-                  </Text>
                 )}
               </View>
               <CustomButton
