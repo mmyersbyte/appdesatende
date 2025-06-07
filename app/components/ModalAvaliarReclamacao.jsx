@@ -272,7 +272,7 @@ export default function ModalAvaliarReclamacao({
 
   /**
    * HANDLER: Envio da avaliação
-   * Valida dados e chama callback do componente pai
+   * Valida dados, chama callback e executa refresh
    */
   const handleEnviarAvaliacao = async () => {
     if (!dadosValidos()) {

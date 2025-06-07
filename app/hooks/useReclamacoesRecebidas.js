@@ -1,25 +1,31 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { buscarReclamacoesRecebidas } from '../api/reclamacao';
+import { useRefresh } from './useRefresh';
 
+/**
+ * 🏢 HOOK DE RECLAMAÇÕES RECEBIDAS
+ *
+ * Hook especializado para buscar reclamações recebidas por empresas
+ * Refatorado para usar o hook genérico useRefresh
+ *
+ * @returns {Object} - { reclamacoes, carregando, refresh }
+ */
 export function useReclamacoesRecebidas() {
-  const [reclamacoes, setReclamacoes] = useState([]);
-  const [carregando, setCarregando] = useState(true);
+  // Usa o hook genérico com a função específica de buscar reclamações
+  const {
+    data: reclamacoes,
+    loading: carregando,
+    refresh,
+  } = useRefresh(buscarReclamacoesRecebidas);
 
-  const carregar = useCallback(async () => {
-    setCarregando(true);
-    try {
-      const dados = await buscarReclamacoesRecebidas();
-      setReclamacoes(dados);
-    } catch (e) {
-      console.error('Erro ao buscar reclamações recebidas:', e);
-    } finally {
-      setCarregando(false);
-    }
-  }, []);
-
+  // Carrega dados automaticamente na primeira renderização
   useEffect(() => {
-    carregar();
-  }, [carregar]);
+    refresh();
+  }, [refresh]);
 
-  return { reclamacoes, carregando, refresh: carregar };
+  return {
+    reclamacoes,
+    carregando,
+    refresh,
+  };
 }
