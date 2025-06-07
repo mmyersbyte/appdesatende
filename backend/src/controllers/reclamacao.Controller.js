@@ -327,7 +327,7 @@ export const deletarReclamacao = async (req, res) => {
         .json({ msg: 'Só é possível deletar reclamações abertas.' });
     }
 
-    await reclamacao.remove();
+    await reclamacao.deleteOne();
     return res.status(200).json({ msg: 'Reclamação removida com sucesso.' });
   } catch (error) {
     console.error('Erro ao deletar reclamação:', error);
