@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function HeaderTitulo({ titulo }) {
+export default function HeaderTitulo({ titulo, tamanho = 32 }) {
   return (
     <View style={estilos.headerContainer}>
-      <Text style={estilos.headerTitulo}>{titulo}</Text>
+      <Text style={[estilos.headerTitulo, { fontSize: tamanho }]}>
+        {titulo}
+      </Text>
     </View>
   );
 }
@@ -19,13 +21,15 @@ const estilos = StyleSheet.create({
     marginBottom: 2,
   },
   headerTitulo: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 32,
+    fontWeight: '900',
     color: '#D84040',
-    letterSpacing: 0.5,
+    letterSpacing: 2.5,
     textAlign: 'center',
-    textShadowColor: 'rgba(0,0,0,0.18)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
+    textShadowColor: 'rgba(216, 64, 64, 0.3)',
+    textShadowOffset: { width: 0, height: 3 },
+    textShadowRadius: 8,
+    textTransform: 'uppercase',
+    marginBottom: 4,
   },
 });

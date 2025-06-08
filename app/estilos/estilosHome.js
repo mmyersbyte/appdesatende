@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const CORES = {
-  fundoPrincipal: '#282a36', // Dracula background
+  fundoPrincipal: '#222831', // Background alterado
   fundoClaro: '#44475a', // Dracula current line
 
   corPrimaria: '#8be9fd', // Dracula cyan - título principal
@@ -73,18 +73,22 @@ const estilos = StyleSheet.create({
   },
   bannerImagem: {
     width: '100%',
-    height: 200,
+    height: 280,
     borderRadius: 18,
   },
   textoExplicativo: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: CORES.textoMaisClaro,
-    lineHeight: 20,
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#bd93f9',
+    lineHeight: 26,
     textAlign: 'center',
     marginBottom: 16,
     marginHorizontal: 12,
     paddingHorizontal: 8,
+    textShadowColor: 'rgba(189, 147, 249, 0.2)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
+    letterSpacing: 0.8,
   },
 
   empresasSection: {
@@ -95,7 +99,7 @@ const estilos = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: CORES.textoClaro,
+    color: '#D84040',
     marginBottom: 14,
     letterSpacing: 0.3,
     paddingHorizontal: 4,

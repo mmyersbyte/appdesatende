@@ -16,15 +16,7 @@ import {
   cadastrarEmpresa,
   salvarToken,
 } from './api/auth';
-import api from './api/axios';
-import { useAuth } from './hooks/useAuth';
 import { useFeedback } from './hooks/useFeedback';
-
-// Adiciona um interceptor para logar todas as requisições feitas pelo Axios
-api.interceptors.request.use((request) => {
-  console.log('Requisição Axios:', request);
-  return request;
-});
 
 export default function Index() {
   // Estado para controlar qual modal (formulário) tá aberto: 'cliente', 'empresa', 'cadastro' ou null //(fechado)
@@ -42,7 +34,6 @@ export default function Index() {
 
   // Para navegar entre rotas do Expo
   const router = useRouter();
-  const { token, tipo, carregando: carregandoAuth } = useAuth();
   const feedback = useFeedback();
 
   // Função para fechar o modal e limpar os campos
@@ -275,12 +266,6 @@ export default function Index() {
           {feedback.success}
         </Text>
       )}
-      {/* Exemplo de uso do hook useAuth */}
-      <Text style={{ color: '#888', fontSize: 12, marginBottom: 8 }}>
-        Token: {token ? token.slice(0, 16) + '...' : 'Nenhum'} | Tipo:{' '}
-        {tipo || 'N/A'} | Carregando: {carregandoAuth ? 'Sim' : 'Não'}
-      </Text>
-      {/* Títuls*/}
       <Text style={estilos.titulo}>
         Seja bem-vindo ao <Text style={estilos.tituloDiferente}>Desatende</Text>
         !

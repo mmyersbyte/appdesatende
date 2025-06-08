@@ -132,7 +132,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
     return (
       <View
         style={{
-          backgroundColor: visual.corFundo,
+          backgroundColor: '#283739',
           borderRadius: 12,
           padding: 14,
           marginTop: 14,
@@ -418,7 +418,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
     <>
       <View
         style={{
-          backgroundColor: '#26262a',
+          backgroundColor: '#1D1616',
           borderRadius: 18,
           padding: 16,
           marginBottom: 22,
@@ -440,7 +440,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
               height: 140,
               borderRadius: 12,
               marginBottom: 12,
-              backgroundColor: '#1A1A1D',
+              backgroundColor: '#44475a',
             }}
             resizeMode='cover'
           />

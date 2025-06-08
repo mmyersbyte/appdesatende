@@ -23,7 +23,7 @@ export default function PerfilScreen() {
   const { reclamacoes, carregando, refresh } = useMinhasReclamacoes();
 
   return (
-    <View style={{ flex: 1, backgroundColor: CORES.fundoPrincipal }}>
+    <View style={{ flex: 1, backgroundColor: '#222831' }}>
       <View
         style={{
           flexDirection: 'row',
@@ -33,7 +33,10 @@ export default function PerfilScreen() {
         }}
       >
         <View style={{ flex: 1 }}>
-          <HeaderTitulo titulo='Minhas Reclamações' />
+          <HeaderTitulo
+            titulo='Minhas Reclamações'
+            tamanho={18}
+          />
         </View>
         <LogoutButton />
       </View>

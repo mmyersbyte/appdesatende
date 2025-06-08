@@ -25,19 +25,14 @@ export default function HomeScreen() {
   const [search, setSearch] = useState('');
   const [imagensCarregadas, setImagensCarregadas] = useState({});
   const router = useRouter();
-  // Busca empresas backend via hook
+  // Busca empresas reais do backend via hook
   const { empresas, carregando: carregandoEmpresas } = useEmpresas();
-  // Filtra as oito primeiras empresas como populares
-  const empresasPopulares = empresas.slice(0, 6);
+  // Filtra as 5 primeiras empresas como populares
+  const empresasPopulares = empresas.slice(0, 8);
 
   // Estados para modal e empresa selecionada
   const [modalVisivel, setModalVisivel] = useState(false);
   const [empresaSelecionada, setEmpresaSelecionada] = useState(null);
-  // Estados do formulário de reclamação
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [enviando, setEnviando] = useState(false);
-  const [sucessoEnvio, setSucessoEnvio] = useState(false);
 
   const feedback = useFeedback();
 
@@ -49,18 +44,12 @@ export default function HomeScreen() {
   const abrirModalReclamacao = (empresa) => {
     setEmpresaSelecionada(empresa);
     setModalVisivel(true);
-    setTitulo('');
-    setDescricao('');
-    setSucessoEnvio(false);
   };
 
   // Função para fechar o modal
   const fecharModal = () => {
     setModalVisivel(false);
     setEmpresaSelecionada(null);
-    setTitulo('');
-    setDescricao('');
-    setSucessoEnvio(false);
   };
 
   return (

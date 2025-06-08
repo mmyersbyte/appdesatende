@@ -8,10 +8,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-// Importa o hook de navegação do Expo Router
-import { useRouter } from 'expo-router';
 import ModalRespostaReclamacao from './components/ModalRespostaReclamacao';
-
+import { responderReclamacao } from './api/reclamacao';
 import { useReclamacoesRecebidas } from './hooks/useReclamacoesRecebidas';
 import LogoutButton from './components/LogoutButton';
 
