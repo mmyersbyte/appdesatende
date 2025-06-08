@@ -19,7 +19,7 @@ const estilos = StyleSheet.create({
     marginBottom: 2,
   },
   headerTitulo: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#D84040',
     letterSpacing: 0.5,

@@ -1,7 +1,6 @@
 import api from './axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Serviço para criar uma nova reclamação
 export const criarReclamacao = async (dados, token) => {
   const response = await api.post('/reclamacoes', dados, {
     headers: {
@@ -52,11 +51,6 @@ export async function responderReclamacao(id, texto) {
   return response.data;
 }
 
-/**
- * Remove resposta de uma reclamação
- * @param {string} id - ID da reclamação
- * @returns {Promise<Object>} - Resposta da API
- */
 export const removerResposta = async (id) => {
   try {
     const token = await AsyncStorage.getItem('token');
@@ -72,33 +66,6 @@ export const removerResposta = async (id) => {
   }
 };
 
-/**
- * 🌟 SISTEMA DE AVALIAÇÃO DE RECLAMAÇÕES
- * Permite aos clientes avaliar a qualidade das respostas das empresas
- *
- * FUNCIONALIDADES:
- * ✅ Avaliação por estrelas (1-5)
- * ✅ Indicador se problema foi resolvido (true/false)
- * ✅ Comentário opcional para feedback detalhado
- * ✅ Validação automática no backend
- * ✅ Atualização de status da reclamação
- *
- * @param {string} id - ID único da reclamação a ser avaliada
- * @param {Object} avaliacaoData - Dados da avaliação
- * @param {number} avaliacaoData.estrelas - Avaliação de 1 a 5 estrelas
- * @param {boolean} avaliacaoData.problemaResolvido - Se o problema foi resolvido
- * @param {string} [avaliacaoData.comentario] - Comentário opcional (min 10 chars)
- * @returns {Promise<Object>} Reclamação atualizada com avaliação
- *
- * EXEMPLO DE USO:
- * ```javascript
- * const avaliacao = await avaliarReclamacao('123', {
- *   estrelas: 5,
- *   problemaResolvido: true,
- *   comentario: 'Excelente atendimento, problema resolvido rapidamente!'
- * });
- * ```
- */
 export const avaliarReclamacao = async (id, avaliacaoData) => {
   try {
     /**
@@ -175,14 +142,14 @@ export const avaliarReclamacao = async (id, avaliacaoData) => {
      * RESPOSTA DE SUCESSO
      * Retorna dados da reclamação atualizada
      */
-    console.log('✅ Avaliação registrada:', response.data.avaliacaoDetalhes);
+    console.log(' Avaliação registrada:', response.data.avaliacaoDetalhes);
     return response.data;
   } catch (error) {
     /**
      * TRATAMENTO DE ERROS
      * Logs detalhados e propagação do erro para o componente
      */
-    console.error('❌ Erro ao avaliar reclamação:', {
+    console.error(' Erro ao avaliar reclamação:', {
       reclamacaoId: id,
       dadosEnviados: avaliacaoData,
       erro: error?.response?.data || error.message,
@@ -197,13 +164,6 @@ export const avaliarReclamacao = async (id, avaliacaoData) => {
   }
 };
 
-/**
- * 🗑️ FUNÇÃO: Deletar reclamação
- * Remove uma reclamação permanentemente
- *
- * @param {string} id - ID da reclamação a ser deletada
- * @returns {Object} Resposta da API confirmando a exclusão
- */
 export const deletarReclamacao = async (id) => {
   try {
     const token = await AsyncStorage.getItem('token');
@@ -218,13 +178,10 @@ export const deletarReclamacao = async (id) => {
       },
     });
 
-    console.log('✅ Reclamação deletada com sucesso:', id);
+    console.log('Reclamação deletada com sucesso:', id);
     return response.data;
   } catch (error) {
-    console.error('❌ Erro ao deletar reclamação:', {
-      reclamacaoId: id,
-      erro: error?.response?.data || error.message,
-    });
+    console.log(' Erro ao deletar reclamação', error);
 
     const mensagemErro =
       error?.response?.data?.msg ||

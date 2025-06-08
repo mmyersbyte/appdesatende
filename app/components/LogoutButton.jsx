@@ -1,23 +1,11 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-
-/**
- * 🚪 COMPONENTE DE LOGOUT MINIMALISTA
- *
- * Componente clean e simples para logout do usuário
- * Segue princípios de responsabilidade única e design minimalista
- *
- * @param {Function} onLogout - Função de logout passada como prop
- * @returns {JSX.Element} Botão de logout estilizado
- */
+import { useAuth } from '../hooks/useAuth';
 const LogoutButton = ({ onLogout }) => {
   const router = useRouter();
+  const { fazerLogout } = useAuth();
 
-  /**
-   * 🔄 HANDLER DE LOGOUT
-   * Executa logout com confirmação e redirecionamento seguro
-   */
   const handleLogout = () => {
     Alert.alert('Confirmar Logout', 'Tem certeza que deseja sair?', [
       {
@@ -29,6 +17,9 @@ const LogoutButton = ({ onLogout }) => {
         style: 'destructive',
         onPress: async () => {
           try {
+            // USANDO FUNÇÃO INTEGRADA DO HOOK QUE LIMPA STORAGE
+            await fazerLogout();
+
             // Executa função de logout passada como prop
             if (onLogout && typeof onLogout === 'function') {
               await onLogout();
@@ -56,31 +47,27 @@ const LogoutButton = ({ onLogout }) => {
   );
 };
 
-/**
- * 🎨 ESTILOS MINIMALISTAS
- * Design clean seguindo princípios de UX/UI
- */
 const styles = StyleSheet.create({
   logoutButton: {
-    backgroundColor: '#ff5555', // Vermelho Dracula para ação destrutiva
-    paddingHorizontal: 16,
+    backgroundColor: '#ff5555',
+    paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: 6,
+    borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    minWidth: 60,
+    minWidth: 30,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 0,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 7,
     shadowRadius: 2,
     elevation: 2, // Android shadow
   },
   logoutText: {
-    color: '#f8f8f2', // Branco Dracula
-    fontSize: 12,
+    color: '#f8f8f2',
+    fontSize: 13,
     fontWeight: '600',
     letterSpacing: 0.5,
   },

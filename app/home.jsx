@@ -25,10 +25,10 @@ export default function HomeScreen() {
   const [search, setSearch] = useState('');
   const [imagensCarregadas, setImagensCarregadas] = useState({});
   const router = useRouter();
-  // Busca empresas reais do backend via hook
+  // Busca empresas backend via hook
   const { empresas, carregando: carregandoEmpresas } = useEmpresas();
-  // Filtra as 5 primeiras empresas como populares
-  const empresasPopulares = empresas.slice(0, 8);
+  // Filtra as oito primeiras empresas como populares
+  const empresasPopulares = empresas.slice(0, 6);
 
   // Estados para modal e empresa selecionada
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -137,7 +137,7 @@ export default function HomeScreen() {
       <Rodape
         selecionado='home'
         navegar={(destino) => {
-          if (destino === 'home') return; // já está na home
+          if (destino === 'home') return;
           if (destino === 'perfil') router.push('./perfil');
         }}
       />

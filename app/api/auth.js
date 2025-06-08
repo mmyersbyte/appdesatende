@@ -33,3 +33,28 @@ export const salvarToken = async (token) => {
 export const obterToken = async () => {
   return await AsyncStorage.getItem('token');
 };
+
+// 🆕 NOVAS FUNÇÕES PARA GERENCIAR TIPO DE USUÁRIO
+export const salvarTipoUsuario = async (tipo) => {
+  await AsyncStorage.setItem('tipo', tipo);
+};
+
+export const obterTipoUsuario = async () => {
+  return await AsyncStorage.getItem('tipo');
+};
+
+// 🆕 FUNÇÃO COMPLETA DE AUTENTICAÇÃO
+export const salvarDadosAutenticacao = async (token, tipo) => {
+  await Promise.all([
+    AsyncStorage.setItem('token', token),
+    AsyncStorage.setItem('tipo', tipo),
+  ]);
+};
+
+// 🆕 FUNÇÃO DE LOGOUT COMPLETA
+export const limparDadosAutenticacao = async () => {
+  await Promise.all([
+    AsyncStorage.removeItem('token'),
+    AsyncStorage.removeItem('tipo'),
+  ]);
+};

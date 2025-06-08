@@ -4,6 +4,7 @@ import Rodape from './components/Rodape';
 import { useMinhasReclamacoes } from './hooks/useMinhasReclamacoes';
 import ReclamacaoItem from './components/ReclamacaoItem';
 import HeaderTitulo from './components/HeaderTitulo';
+import LogoutButton from './components/LogoutButton';
 
 // 🎨 PALETA DRACULA
 const CORES = {
@@ -23,7 +24,20 @@ export default function PerfilScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: CORES.fundoPrincipal }}>
-      <HeaderTitulo titulo='Minhas Reclamações' />
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: 16,
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <HeaderTitulo titulo='Minhas Reclamações' />
+        </View>
+        <LogoutButton />
+      </View>
+
       {carregando ? (
         <ActivityIndicator
           size='large'

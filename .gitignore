@@ -41,4 +41,6 @@ oie
 
 explicandoCodigo/
 
-.cursor/
+.env
+.env.local
+/env

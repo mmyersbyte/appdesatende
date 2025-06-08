@@ -35,7 +35,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
    */
   const handleDeletarReclamacao = () => {
     Alert.alert(
-      '🗑️ Excluir Reclamação',
+      'Excluir Reclamação',
       `Tem certeza que deseja excluir permanentemente a reclamação "${item.titulo}"?\n\nEsta ação não pode ser desfeita.`,
       [
         {
@@ -54,10 +54,10 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
                 await onAtualizarReclamacoes();
               }
 
-              Alert.alert('✅ Sucesso', 'Reclamação excluída com sucesso!');
+              Alert.alert('Sucesso', 'Reclamação excluída com sucesso!');
             } catch (error) {
               Alert.alert(
-                '❌ Erro',
+                'Erro',
                 error.message || 'Erro ao excluir reclamação'
               );
             }

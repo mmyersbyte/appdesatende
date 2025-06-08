@@ -1,41 +1,21 @@
-//Dashboard empresa
-
 import { useState } from 'react';
 import estilos from './estilos/estilosPerfilEmpresa';
 import {
   View,
   Text,
-  Image,
   Pressable,
   FlatList,
-  TextInput,
-  Modal,
-  ScrollView,
   ActivityIndicator,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 // Importa o hook de navegação do Expo Router
 import { useRouter } from 'expo-router';
 import ModalRespostaReclamacao from './components/ModalRespostaReclamacao';
-import {
-  buscarReclamacoesRecebidas,
-  responderReclamacao,
-} from './api/reclamacao';
+
 import { useReclamacoesRecebidas } from './hooks/useReclamacoesRecebidas';
+import LogoutButton from './components/LogoutButton';
 
 export default function PerfilEmpresaScreen() {
-  // Estados para informações da empresa
-  const [nomeEmpresa, setNomeEmpresa] = useState('Empresa Exemplo LTDA');
-  const [logoEmpresa, setLogoEmpresa] = useState(
-    'https://via.placeholder.com/150'
-  );
-  const [descricaoEmpresa, setDescricaoEmpresa] = useState(
-    'Empresa especializada em serviços de atendimento ao cliente.'
-  );
-
-  // Estado para controlar o carregamento da imagem do logo
-  const [logoCarregado, setLogoCarregado] = useState(false);
-
   // Usa o hook customizado para buscar reclamações recebidas
   const {
     reclamacoes,
@@ -46,19 +26,15 @@ export default function PerfilEmpresaScreen() {
   const [reclamacaoSelecionada, setReclamacaoSelecionada] = useState(null);
   const [respostaReclamacao, setRespostaReclamacao] = useState('');
 
-  // Hook para navegação entre telas
-  const router = useRouter();
-
   // Função para abrir o modal de resposta
   const abrirModalResposta = (reclamacao) => {
-    setReclamacaoSelecionada(reclamacao);
+    // Verifica se a reclamação já foi respondida
+    if (reclamacao.status !== 'aberta') {
+      return; // Não abre o modal se já foi respondida
+    }
 
-    /**
-     * Define a resposta inicial baseada no status da reclamação
-     * Se já foi respondida, carrega a resposta existente
-     * Se não, inicia com string vazia
-     */
-    setRespostaReclamacao(reclamacao.resposta?.texto || '');
+    setReclamacaoSelecionada(reclamacao);
+    setRespostaReclamacao('');
     setModalVisivel(true);
   };
 
@@ -84,16 +60,20 @@ export default function PerfilEmpresaScreen() {
 
   // Renderiza cada item da lista de reclamações
   const renderReclamacao = ({ item }) => {
+    const jaRespondida = item.status !== 'aberta';
+
     return (
       <Pressable
         style={[
           estilos.reclamacaoItem,
           {
             borderLeftColor: item.status === 'aberta' ? '#ff5555' : '#50fa7b',
+            opacity: jaRespondida ? 0.6 : 1,
           },
         ]}
-        onPress={() => abrirModalResposta(item)}
-        activeOpacity={0.7}
+        onPress={() => !jaRespondida && abrirModalResposta(item)}
+        disabled={jaRespondida}
+        activeOpacity={jaRespondida ? 1 : 0.7}
       >
         <View style={estilos.reclamacaoHeader}>
           <Text style={estilos.reclamacaoUsuario}>
@@ -141,9 +121,22 @@ export default function PerfilEmpresaScreen() {
   return (
     <View style={estilos.container}>
       {/* Cabeçalho com nome da plataforma */}
-      <View style={estilos.cabecalho}>
-        <Text style={estilos.labelPlataforma}>DESATENDE</Text>
-        <Text style={estilos.labelPainel}>Painel da Empresa</Text>
+      <View
+        style={[
+          estilos.cabecalho,
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingHorizontal: 16,
+          },
+        ]}
+      >
+        <View>
+          <Text style={estilos.labelPlataforma}>DESATENDE</Text>
+          <Text style={estilos.labelPainel}>Painel da Empresa</Text>
+        </View>
+        <LogoutButton />
       </View>
 
       {/* Seção de perfil da empresa */}

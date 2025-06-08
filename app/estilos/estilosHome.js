@@ -1,33 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 const CORES = {
-  // 🌙 PALETA DRACULA - FUNDO
   fundoPrincipal: '#282a36', // Dracula background
   fundoClaro: '#44475a', // Dracula current line
-  fundoMaisClaro: '#3a3f58', // Dracula selection
 
-  // 🎨 CORES PRINCIPAIS VIVAS
   corPrimaria: '#8be9fd', // Dracula cyan - título principal
-  corSecundaria: '#6272a4', // Dracula comment
-  corDestaque: '#50fa7b', // Dracula green - elementos positivos
-  corAlerta: '#ffb86c', // Dracula orange - elementos de atenção
   bordaPrincipal: '#bd93f9', // Dracula purple - bordas especiais
 
-  // 🔤 CORES DE TEXTO
   texto: '#f8f8f2', // Dracula foreground
   textoClaro: 'rgba(248, 248, 242, 0.95)', // Dracula foreground 95%
   textoMaisClaro: 'rgba(248, 248, 242, 0.85)', // Dracula foreground 85%
   textoSuave: 'rgba(255, 255, 255, 0.7)', // Texto suave
   textoPlaceholder: '#6272a4', // Dracula comment para placeholders
-
-  // 🎯 CORES DE STATUS
-  statusPendente: '#ffb86c', // Dracula orange para pendente
-  statusResolvido: '#50fa7b', // Dracula green para resolvido
-  statusFechado: '#bd93f9', // Dracula purple para fechado
-
-  // 🎭 CORES DE MODAL
-  fundoModal: 'rgba(0, 0, 0, 0.8)', // Fundo modal
-  branco: '#fff',
 };
 
 const estilos = StyleSheet.create({
@@ -92,7 +76,6 @@ const estilos = StyleSheet.create({
     height: 200,
     borderRadius: 18,
   },
-  /* TEXTO EXPLICATIVO - COMPACTO */
   textoExplicativo: {
     fontSize: 14,
     fontWeight: '600',
@@ -104,7 +87,6 @@ const estilos = StyleSheet.create({
     paddingHorizontal: 8,
   },
 
-  /* SEÇÃO DE EMPRESAS - OTIMIZADA */
   empresasSection: {
     marginBottom: 20,
     flex: 1,
