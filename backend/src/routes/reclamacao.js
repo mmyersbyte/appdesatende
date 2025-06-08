@@ -12,37 +12,41 @@ import {
 } from '../controllers/reclamacao.Controller.js';
 import auth from '../middlewares/auth.js';
 import upload from '../middlewares/upload.js';
+import { validateBody } from '../middlewares/validate.js';
+import {
+  criarReclamacaoSchema,
+  responderReclamacaoSchema,
+  avaliarReclamacaoSchema,
+} from '../validators/reclamacaoValidators.js';
 
 const router = express.Router();
 
 // Rotas principais
 router.use(auth);
 
-router.post('/', upload.single('imagem'), criarReclamacao);
+router.post(
+  '/',
+  upload.single('imagem'),
+  validateBody(criarReclamacaoSchema),
+  criarReclamacao
+);
 router.get('/meu-perfil', listarReclamacoesPorUsuario);
 
 router.get('/empresa', listarReclamacoesPorEmpresa);
 router.get('/:id', getReclamacaoPorId);
 router.patch('/:id', editarReclamacao);
 router.delete('/:id', deletarReclamacao);
-router.patch('/:id/responder', responderReclamacao);
+router.patch(
+  '/:id/responder',
+  validateBody(responderReclamacaoSchema),
+  responderReclamacao
+);
 router.delete('/:id/remover-resposta', removerResposta);
 
-/**
- * 🌟 SISTEMA DE AVALIAÇÃO DE RECLAMAÇÕES
- * Rota: POST /reclamacoes/:id/avaliar
- *
- * FUNCIONALIDADE:
- * ✅ Permite aos clientes avaliar respostas das empresas
- * ✅ Sistema de estrelas (1-5) + indicador problema resolvido
- * ✅ Comentário opcional para feedback qualitativo
- * ✅ Validações robustas de autorização e dados
- *
- * SEGURANÇA:
- * 🔒 Requer autenticação (middleware auth)
- * 🔒 Apenas autor da reclamação pode avaliar
- * 🔒 Validação de dados no controller
- */
-router.post('/:id/avaliar', avaliarReclamacao);
+router.post(
+  '/:id/avaliar',
+  validateBody(avaliarReclamacaoSchema),
+  avaliarReclamacao
+);
 
 export default router;

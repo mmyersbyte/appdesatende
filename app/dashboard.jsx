@@ -132,7 +132,7 @@ export default function PerfilEmpresaScreen() {
       >
         <View>
           <Text style={estilos.labelPlataforma}>DESATENDE</Text>
-          <Text style={estilos.labelPainel}>Painel da Empresa</Text>
+          <Text style={estilos.labelPainel}>Painel Administrativo</Text>
         </View>
         <LogoutButton />
       </View>
