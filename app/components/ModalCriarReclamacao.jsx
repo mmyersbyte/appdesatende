@@ -22,7 +22,7 @@ const CORES = {
   fundoModal: 'rgba(0, 0, 0, 0.8)',
   fundoPrincipal: '#282a36', // Dracula background
   fundoInput: '#44475a', // Dracula current line
-  fundoImagem: '#3a3f58', // Dracula selection
+  fundoImagem: '#B6B09F',
 
   // Textos
   textoPrincipal: '#f8f8f2', // Dracula foreground
@@ -127,9 +127,7 @@ export default function ModalCriarReclamacao({
   const handleEnviar = async () => {
     // Validação dos campos obrigatórios
     if (!titulo.trim() || !descricao.trim() || !contato.trim()) {
-      feedback.showError(
-        'Preencha todos os campos obrigatórios (*, incluindo contato).'
-      );
+      feedback.showError('Preencha todos os campos obrigatórios.');
       return;
     }
 
@@ -251,7 +249,11 @@ export default function ModalCriarReclamacao({
           {empresa && !sucessoEnvio && (
             <View style={{ alignItems: 'center', marginBottom: 18 }}>
               <Image
-                source={{ uri: empresa.imagem }}
+                source={
+                  typeof empresa.imagem === 'string'
+                    ? { uri: empresa.imagem }
+                    : empresa.imagem
+                }
                 style={{
                   width: 70,
                   height: 70,
@@ -365,8 +367,8 @@ export default function ModalCriarReclamacao({
                 autoPlay
                 loop
                 style={{
-                  width: 180,
-                  height: 120,
+                  width: 200,
+                  height: 240,
                 }}
               />
             </View>
