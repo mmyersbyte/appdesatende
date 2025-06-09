@@ -32,7 +32,9 @@ export default function EmpresaItem({
           </View>
         )}
         <Image
-          source={{ uri: item.imagem }}
+          source={
+            typeof item.imagem === 'string' ? { uri: item.imagem } : item.imagem
+          }
           style={[styles.empresaImagem, !imageLoaded && { opacity: 0 }]}
           onLoad={onImageLoad}
           onError={onImageLoad}
@@ -54,11 +56,13 @@ const styles = StyleSheet.create({
     marginRight: 14,
     alignItems: 'center',
     width: 90,
-    backgroundColor: '#2A2A2D',
+    backgroundColor: '#f8f8fa',
     borderRadius: 16,
     paddingVertical: 10,
+    borderWidth: 1.2,
+    borderColor: '#ececec',
     shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.08,
     shadowRadius: 6,
     elevation: 2,
     marginBottom: 4,
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
   empresaNome: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#ECDCBF',
+    color: '#232326',
     textAlign: 'center',
     width: '100%',
     paddingHorizontal: 2,

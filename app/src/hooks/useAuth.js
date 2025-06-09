@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { limparDadosAutenticacao, salvarDadosAutenticacao } from '../api/auth';
+import {
+  limparDadosAutenticacao,
+  salvarDadosAutenticacao,
+} from '../api/auth.js';
 
 export function useAuth() {
   const [token, setToken] = useState(null);

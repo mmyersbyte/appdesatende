@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { buscarMinhasReclamacoes } from '../api/reclamacao';
+import { buscarMinhasReclamacoes } from '../api/reclamacao.js';
 
 export function useMinhasReclamacoes() {
   const [reclamacoes, setReclamacoes] = useState([]);

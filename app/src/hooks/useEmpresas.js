@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { buscarEmpresas } from '../api/empresas';
+import { buscarEmpresas } from '../api/empresas.js';
 
 export function useEmpresas() {
   const [empresas, setEmpresas] = useState([]);

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node --watch server.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon --trace-warnings server.js",
     "test": "npx poku tests",
     "test:auth": "npx poku tests/auth.test.js",
     "test:validators": "npx poku tests/validators.test.js",

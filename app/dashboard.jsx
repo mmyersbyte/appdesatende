@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import ModalRespostaReclamacao from './components/ModalRespostaReclamacao';
-import { responderReclamacao } from './api/reclamacao';
-import { useReclamacoesRecebidas } from './hooks/useReclamacoesRecebidas';
+import { responderReclamacao } from './src/api/reclamacao';
+import { useReclamacoesRecebidas } from './src/hooks/useReclamacoesRecebidas';
 import LogoutButton from './components/LogoutButton';
 
 export default function PerfilEmpresaScreen() {

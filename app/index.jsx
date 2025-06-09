@@ -15,8 +15,8 @@ import {
   cadastrarUsuario,
   cadastrarEmpresa,
   salvarToken,
-} from './api/auth';
-import { useFeedback } from './hooks/useFeedback';
+} from './src/api/auth';
+import { useFeedback } from './src/hooks/useFeedback';
 
 export default function Index() {
   // Estado para controlar qual modal (formulário) tá aberto: 'cliente', 'empresa', 'cadastro' ou null //(fechado)

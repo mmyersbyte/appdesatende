@@ -1,7 +1,7 @@
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import Rodape from './components/Rodape';
-import { useMinhasReclamacoes } from './hooks/useMinhasReclamacoes';
+import { useMinhasReclamacoes } from './src/hooks/useMinhasReclamacoes';
 import ReclamacaoItem from './components/ReclamacaoItem';
 import HeaderTitulo from './components/HeaderTitulo';
 import LogoutButton from './components/LogoutButton';

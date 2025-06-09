@@ -15,11 +15,16 @@ import LottieView from 'lottie-react-native';
 import Rodape from './components/Rodape';
 import EmpresaItem from './components/EmpresaItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import api from './api/axios';
+import api from './src/api/axios';
 import ModalCriarReclamacao from './components/ModalCriarReclamacao';
-import { useEmpresas } from './hooks/useEmpresas';
-import { useFeedback } from './hooks/useFeedback';
+import { useEmpresas } from './src/hooks/useEmpresas';
+import { useFeedback } from './src/hooks/useFeedback';
 import HeaderTitulo from './components/HeaderTitulo';
+import mcdonalds1 from './imgs/mcdonalds1.png';
+import americanScaralines2 from './imgs/americanScaralines2.png';
+import CocoBangu3 from './imgs/CocoBangu3.png';
+import Marvan4 from './imgs/Marvan4.png';
+import Carrefive5 from './imgs/Carrefive5.png';
 
 export default function HomeScreen() {
   const [search, setSearch] = useState('');
@@ -27,7 +32,7 @@ export default function HomeScreen() {
   const router = useRouter();
   // Busca empresas reais do backend via hook
   const { empresas, carregando: carregandoEmpresas } = useEmpresas();
-  // Filtra as 5 primeiras empresas como populares
+  // Filtra as 8 primeiras empresas como populares
   const empresasPopulares = empresas.slice(0, 8);
 
   // Estados para modal e empresa selecionada
@@ -35,6 +40,23 @@ export default function HomeScreen() {
   const [empresaSelecionada, setEmpresaSelecionada] = useState(null);
 
   const feedback = useFeedback();
+
+  // Imagens temporárias para as 5 primeiras empresas
+  const imagensTemporarias = [
+    mcdonalds1,
+    americanScaralines2,
+    CocoBangu3,
+    Marvan4,
+    Carrefive5,
+  ];
+
+  // Sobrescreve as imagens das 5 primeiras empresas
+  const empresasComImagens = empresasPopulares.map((empresa, idx) => {
+    if (idx < 5) {
+      return { ...empresa, imagem: imagensTemporarias[idx] };
+    }
+    return empresa;
+  });
 
   const handleImageLoad = (id) => {
     setImagensCarregadas((prev) => ({ ...prev, [id]: true }));
@@ -103,7 +125,7 @@ export default function HomeScreen() {
           />
         ) : (
           <FlatList
-            data={empresasPopulares.filter((e) =>
+            data={empresasComImagens.filter((e) =>
               e.nome.toLowerCase().includes(search.toLowerCase())
             )}
             renderItem={({ item }) => (

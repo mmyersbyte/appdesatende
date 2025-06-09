@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { buscarReclamacoesRecebidas } from '../api/reclamacao';
+import { buscarReclamacoesRecebidas } from '../api/reclamacao.js';
 import { useRefresh } from './useRefresh';
 
 /**

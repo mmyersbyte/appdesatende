@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import LottieView from 'lottie-react-native';
-import { useImagePicker } from '../hooks/useImagePicker';
+import { useImagePicker } from '../src/hooks/useImagePicker';
 import CustomButton from './CustomButton';
-import { useFeedback } from '../hooks/useFeedback';
+import { useFeedback } from '../src/hooks/useFeedback';
 
 // PALETA DRACULA PARA MODAL CRIAR RECLAMAÇÃO
 const CORES = {

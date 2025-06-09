@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, Pressable, Alert } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import ModalAvaliarReclamacao from './ModalAvaliarReclamacao';
-import { avaliarReclamacao, deletarReclamacao } from '../api/reclamacao';
+import { avaliarReclamacao, deletarReclamacao } from '../src/api/reclamacao';
 
 export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
   // Estado para controlar o modal de avaliação

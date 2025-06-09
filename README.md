@@ -13,12 +13,9 @@
   <img src="https://img.shields.io/badge/EXPRESS.JS-FF6F61?style=for-the-badge&logo=express&logoColor=white" alt="EXPRESS.JS">
   <img src="https://img.shields.io/badge/MONGODB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MONGODB">
   <img src="https://img.shields.io/badge/SWAGGER-DOCS-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="SWAGGER">
-  <img src="https://img.shields.io/badge/React_Native-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native">
+ <img src="https://img.shields.io/badge/REACT_NATIVE-61DAFB?style=for-the-badge&logo=react&logoColor=20232a" alt="React Native">
 
 </p>
-
-<!-- imagem -->
-<img src="assets/LABEMGITHUB.png" alt="Banner da LABEMGITHUB" />
 
 <h2>Objetivo do Projeto</h2> 
 <p> Desatende é um app que desenvolvi sozinho para um projeto da faculdade, com backend focado em boas práticas e segurança. O nome “Desatende” une as palavras “desatenção” e “atende”, deixando claro o propósito: registrar falhas no atendimento em setores como restaurantes, faculdades, companhias aéreas e outros. Usuários podem cadastrar reclamações, detalhando o ocorrido e a localização, e as reclamações são organizadas por categoria, facilitando a busca por setor. Empresas e instituições podem responder publicamente, promovendo transparência e resolução. O objetivo é criar uma comunidade onde experiências reais ajudam a pressionar por melhorias no atendimento e elevar o padrão de serviço.
@@ -27,6 +24,12 @@ O aplicativo não foi publicado em ambiente de produção como o Console e Rende
 
 <hr/>
 
+<h2>DOCS</h2>
+<p>
+Com o backend rodando, acesse <code>http://localhost:5000/api-docs</code> no navegador para testar a API pela interface gráfica Swagger UI.
+</p>
+<img src="imgs/swagger.png" alt="docs" width="700" />
+
 <h2>Autenticação e Segurança</h2>
 <p> A autenticação utiliza <code>JWT</code> para gerar e validar tokens de sessão de forma segura. Os tokens são assinados com uma chave secreta definida em variáveis de ambiente (<code>dotenv</code>), nunca expostos no código-fonte. As senhas dos usuários são validadas, possuem requisitos mínimos e são armazenadas já criptografadas usando <code>bcrypt</code>. O backend implementa validação de dados com <code>Joi</code> e limita tentativas abusivas de acesso através do <code>express-rate-limit</code>, protegendo a API contra ataques de força bruta e DDoS. Como o frontend é React Native, não há necessidade de configuração de <code>CORS</code>. O sistema possui fluxo completo de cadastro e autenticação, permitindo que novos usuários se registrem normalmente. </p>
 </p>
@@ -34,15 +37,11 @@ O aplicativo não foi publicado em ambiente de produção como o Console e Rende
 <h2>Telas e funcionalidades</h2> <p> O aplicativo possui fluxo de autenticação com telas de login e cadastro, tanto para usuários quanto empresas. Após login, a <strong>Home</strong> lista empresas disponíveis, permitindo abrir um modal para envio de reclamações utilizando o método <code>POST</code> na API. Usuários autenticados podem acessar o <strong>Perfil</strong> para visualizar suas reclamações, deletar abertas e avaliar respostas recebidas após interação da empresa. A tela de perfil também conta com botão de logout seguro. <br><br> No dashboard da empresa, é possível visualizar todas as reclamações recebidas. Cada reclamação pode ser respondida diretamente pelo dashboard, utilizando o método <code>PATCH</code> para editar o status e a resposta do registro. Todo o fluxo é baseado em autenticação via <code>JWT</code> e integração direta com as rotas protegidas do backend. </p>
 
 <h2>Stacks e principais tecnologias</h2> <p> O projeto utiliza <strong>React Native</strong> para a interface mobile, integração de APIs via <strong>Axios</strong>, backend construído em <strong>Node.js</strong> com <strong>Express</strong> e <strong>ESModules</strong>. O banco de dados é <strong>MongoDB</strong>, utilizando <strong>Mongoose</strong> como ODM. <br><br> A autenticação é baseada em <strong>JWT</strong> e as senhas são protegidas com <strong>bcrypt</strong>. O projeto adota <strong>Joi</strong> para validação de dados, <strong>express-rate-limit</strong> para limitar requisições e diversas outras bibliotecas para garantir boas práticas e segurança. </p>
+<img src="imgs/app.js.png" alt="app.js" width="700" />
 
 <h2>Testes Automatizados</h2>
 <p> Os testes unitários foram implementados com o <code>Poku</code> leve, rápido e brasileiro! 🇧🇷
 Além disso, utilizei <code>Thunder Client</code> e <code>HTTPie</code> para testes manuais dos endpoints.
-</p>
-
-<h2>Swagger</h2>
-<p>
-Com o backend rodando, acesse <code>http://localhost:5000/api-docs</code> no navegador para testar a API pela interface gráfica Swagger UI.
 </p>
 
 <h2>Como rodar o backend localmente </h2>

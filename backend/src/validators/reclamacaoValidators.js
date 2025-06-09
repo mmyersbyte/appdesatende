@@ -21,20 +21,11 @@ export const criarReclamacaoSchema = Joi.object({
       'any.required': 'A empresa é obrigatória',
     }),
 
-  // Campo contato - aceita email ou zapzap
-  contato: Joi.string()
-    .trim()
-    .max(100)
-    .pattern(
-      /^(?:\([0-9]{2}\)\s9[0-9]{4}-[0-9]{4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
-    )
-    .required()
-    .messages({
-      'string.pattern.base':
-        'Contato deve ser um email válido ou WhatsApp no formato (11) 99999-9999',
-      'string.max': 'Contato deve ter no máximo 100 caracteres',
-      'any.required': 'O contato é obrigatório',
-    }),
+  // Campo contato - aceita qualquer formato, apenas obrigatório e até 100 caracteres
+  contato: Joi.string().trim().max(100).required().messages({
+    'string.max': 'Contato deve ter no máximo 100 caracteres',
+    'any.required': 'O contato é obrigatório',
+  }),
 
   // Campo imagem - opcional, aceita formatos comuns
   imagem: Joi.object({

@@ -1,16 +1,15 @@
 import React from 'react';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
 
-// PALETA DRACULA DEFAULT
 const CORES = {
-  corPrimaria: '#8be9fd', // Mudança: Dracula cyan ao invés de vermelho
-  corPrimariaEscura: '#6be7fc', // Mudança: cyan mais escuro
+  corPrimaria: '#8be9fd',
+  corPrimariaEscura: '#6be7fc',
   textoPrincipal: 'white',
 };
 
 const estilos = StyleSheet.create({
   botao: {
-    backgroundColor: CORES.corPrimaria, // Será sobrescrito pela prop cor se fornecida
+    backgroundColor: CORES.corPrimaria,
     borderRadius: 25,
     paddingVertical: 14,
     paddingHorizontal: 20,

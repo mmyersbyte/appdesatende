@@ -5,6 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "scheme": "desatende",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
