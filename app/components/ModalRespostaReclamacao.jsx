@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   View,
@@ -8,8 +8,10 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 
 const CORES = {
   fundoModal: 'rgba(0, 0, 0, 0.8)',
@@ -169,6 +171,31 @@ const estilos = StyleSheet.create({
     color: CORES.textoSuave,
     fontStyle: 'italic',
   },
+  closeButton: {
+    padding: 5,
+  },
+  reclamacaoInfo: {
+    backgroundColor: '#f8f9fa',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  reclamacaoTitulo: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+  },
+  reclamacaoDescricao: {
+    fontSize: 14,
+    color: '#666',
+    lineHeight: 20,
+  },
+  loadingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
 });
 
 export default function ModalRespostaReclamacao({
@@ -178,25 +205,45 @@ export default function ModalRespostaReclamacao({
   resposta,
   setResposta,
   onEnviar,
+  enviandoResposta = false,
 }) {
+  const [focado, setFocado] = useState(false);
+
+  const handleEnviar = () => {
+    if (enviandoResposta) return;
+    onEnviar();
+  };
+
+  const handleClose = () => {
+    if (enviandoResposta) return;
+    onClose();
+  };
+
   return (
     <Modal
       visible={visible}
       transparent={true}
       animationType='slide'
-      onRequestClose={onClose}
+      onRequestClose={handleClose}
     >
       <View style={estilos.modalContainer}>
         <View style={estilos.modalContent}>
           <View style={estilos.modalHeader}>
             <Text style={estilos.modalTitulo}>Responder Reclamação</Text>
-            <Pressable onPress={onClose}>
-              <FontAwesome
+            <TouchableOpacity
+              onPress={handleClose}
+              disabled={enviandoResposta}
+              style={[
+                estilos.closeButton,
+                enviandoResposta && { opacity: 0.5 },
+              ]}
+            >
+              <Ionicons
                 name='close'
                 size={24}
-                color='#fff'
+                color='#666'
               />
-            </Pressable>
+            </TouchableOpacity>
           </View>
           {reclamacao && (
             <ScrollView style={estilos.modalScrollView}>
@@ -272,27 +319,48 @@ export default function ModalRespostaReclamacao({
               <View style={estilos.respostaContainer}>
                 <Text style={estilos.respostaLabel}>Sua Resposta:</Text>
                 <TextInput
-                  style={estilos.respostaInput}
+                  style={[
+                    estilos.respostaInput,
+                    focado && estilos.respostaInputFocused,
+                    enviandoResposta && { opacity: 0.6 },
+                  ]}
                   multiline={true}
                   numberOfLines={5}
                   placeholder='Digite sua resposta para esta reclamação...'
                   placeholderTextColor={CORES.placeholder}
                   value={resposta}
                   onChangeText={setResposta}
+                  onFocus={() => setFocado(true)}
+                  onBlur={() => setFocado(false)}
+                  editable={!enviandoResposta}
                 />
               </View>
               <View style={estilos.modalBotoes}>
                 <Pressable
                   style={[estilos.modalBotao, estilos.botaoCancelar]}
-                  onPress={onClose}
+                  onPress={handleClose}
+                  disabled={enviandoResposta}
                 >
                   <Text style={estilos.textoBotaoCancelar}>Cancelar</Text>
                 </Pressable>
                 <Pressable
                   style={[estilos.modalBotao, estilos.botaoEnviar]}
-                  onPress={onEnviar}
+                  onPress={handleEnviar}
+                  disabled={enviandoResposta}
                 >
-                  <Text style={estilos.textoBotaoEnviar}>Enviar Resposta</Text>
+                  {enviandoResposta ? (
+                    <View style={estilos.loadingContainer}>
+                      <ActivityIndicator
+                        size='small'
+                        color='#fff'
+                      />
+                      <Text style={estilos.textoBotaoEnviar}>Enviando...</Text>
+                    </View>
+                  ) : (
+                    <Text style={estilos.textoBotaoEnviar}>
+                      Enviar Resposta
+                    </Text>
+                  )}
                 </Pressable>
               </View>
             </ScrollView>

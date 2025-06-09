@@ -26,12 +26,12 @@ export const criarReclamacaoSchema = Joi.object({
     .trim()
     .max(100)
     .pattern(
-      /^(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(?:\+?55\s?)?(?:\(?\d{2}\)?[\s-]?)(?:9\d{4}[\s-]?\d{4}|\d{4}[\s-]?\d{4}))$/
+      /^(?:\([0-9]{2}\)\s9[0-9]{4}-[0-9]{4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
     )
     .required()
     .messages({
       'string.pattern.base':
-        'Contato deve ser um email válido ou WhatsApp no formato correto',
+        'Contato deve ser um email válido ou WhatsApp no formato (11) 99999-9999',
       'string.max': 'Contato deve ter no máximo 100 caracteres',
       'any.required': 'O contato é obrigatório',
     }),

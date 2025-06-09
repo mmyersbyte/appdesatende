@@ -13,7 +13,7 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 
 /**
- * 🎨 DESIGN SYSTEM - CORES
+ * DESIGN SYSTEM - CORES
  * Paleta Dracula harmônica e elegante
  */
 const CORES = {
@@ -30,10 +30,6 @@ const CORES = {
   estrelaInativa: '#6272a4',
 };
 
-/**
- * 🎨 ESTILOS DO COMPONENTE
- * Estilização seguindo padrões da aplicação
- */
 const estilos = StyleSheet.create({
   modalContainer: {
     flex: 1,

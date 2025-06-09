@@ -16,7 +16,7 @@ import { useImagePicker } from '../hooks/useImagePicker';
 import CustomButton from './CustomButton';
 import { useFeedback } from '../hooks/useFeedback';
 
-// 🎨 PALETA DRACULA PARA MODAL CRIAR RECLAMAÇÃO
+// PALETA DRACULA PARA MODAL CRIAR RECLAMAÇÃO
 const CORES = {
   // Fundos
   fundoModal: 'rgba(0, 0, 0, 0.8)',

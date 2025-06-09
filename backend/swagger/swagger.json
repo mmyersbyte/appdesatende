@@ -1,0 +1,534 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Desatende API",
+    "version": "1.0.0",
+    "description": "API para gerenciamento de reclamações desenvolvido por Pedro Victor"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Servidor de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login de usuário ou empresa",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "usuario@teste.com" },
+                  "senha": { "type": "string", "example": "123456" }
+                },
+                "required": ["email", "senha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "token": { "type": "string" },
+                    "tipo": { "type": "string", "example": "user" },
+                    "usuario": { "type": "object" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "401": {
+            "description": "Credenciais incorretas"
+          }
+        }
+      }
+    },
+    "/auth/cadastro/usuario": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Cadastro de usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string", "example": "João Silva" },
+                  "email": { "type": "string", "example": "joao@teste.com" },
+                  "senha": { "type": "string", "example": "123456" },
+                  "confirmarSenha": { "type": "string", "example": "123456" }
+                },
+                "required": ["nome", "email", "senha", "confirmarSenha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário cadastrado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "409": {
+            "description": "Email já cadastrado"
+          }
+        }
+      }
+    },
+    "/auth/cadastro/empresa": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Cadastro de empresa",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string", "example": "Empresa X" },
+                  "email": { "type": "string", "example": "empresa@teste.com" },
+                  "senha": { "type": "string", "example": "123456" },
+                  "confirmarSenha": { "type": "string", "example": "123456" }
+                },
+                "required": ["nome", "email", "senha", "confirmarSenha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Empresa cadastrada com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "409": {
+            "description": "Email já cadastrado"
+          }
+        }
+      }
+    },
+    "/empresas/listar-empresas": {
+      "get": {
+        "tags": ["Empresas"],
+        "summary": "Listar todas as empresas",
+        "description": "Retorna uma lista de todas as empresas cadastradas.",
+        "responses": {
+          "200": {
+            "description": "Lista de empresas retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "507f1f77bcf86cd799439012"
+                      },
+                      "nome": { "type": "string", "example": "Empresa X" },
+                      "email": {
+                        "type": "string",
+                        "example": "empresa@teste.com"
+                      },
+                      "descricao": {
+                        "type": "string",
+                        "example": "Empresa de tecnologia"
+                      },
+                      "imagem": {
+                        "type": "string",
+                        "example": "https://exemplo.com/logo.png"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/empresas/{id}": {
+      "get": {
+        "tags": ["Empresas"],
+        "summary": "Buscar empresa por ID",
+        "description": "Retorna os dados de uma empresa específica pelo seu ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da empresa",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439012"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dados da empresa retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "507f1f77bcf86cd799439012"
+                    },
+                    "nome": { "type": "string", "example": "Empresa X" },
+                    "email": {
+                      "type": "string",
+                      "example": "empresa@teste.com"
+                    },
+                    "descricao": {
+                      "type": "string",
+                      "example": "Empresa de tecnologia"
+                    },
+                    "imagem": {
+                      "type": "string",
+                      "example": "https://exemplo.com/logo.png"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Empresa não encontrada"
+          }
+        }
+      }
+    },
+    "/users/listar-usuarios": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Listar todos os usuários",
+        "description": "Retorna uma lista de todos os usuários cadastrados.",
+        "responses": {
+          "200": {
+            "description": "Lista de usuários retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "507f1f77bcf86cd799439011"
+                      },
+                      "nome": { "type": "string", "example": "João Silva" },
+                      "email": { "type": "string", "example": "joao@teste.com" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reclamacoes": {
+      "post": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Criar uma nova reclamação",
+        "description": "Usuário autenticado pode criar uma reclamação para uma empresa.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "titulo": { "type": "string", "example": "Atendimento ruim" },
+                  "descricao": {
+                    "type": "string",
+                    "example": "Fui mal atendido na loja X"
+                  },
+                  "contato": { "type": "string", "example": "(11) 99999-9999" },
+                  "empresa": {
+                    "type": "string",
+                    "example": "507f1f77bcf86cd799439012"
+                  }
+                },
+                "required": ["titulo", "descricao", "contato", "empresa"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Reclamação criada com sucesso" },
+          "400": { "description": "Dados inválidos" },
+          "401": { "description": "Não autenticado" }
+        }
+      }
+    },
+    "/reclamacoes/minhas": {
+      "get": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Listar minhas reclamações",
+        "description": "Usuário autenticado pode listar todas as reclamações que ele fez.",
+        "responses": {
+          "200": {
+            "description": "Lista de reclamações do usuário",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Reclamacao" }
+                }
+              }
+            }
+          },
+          "401": { "description": "Não autenticado" }
+        }
+      }
+    },
+    "/reclamacoes/recebidas": {
+      "get": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Listar reclamações recebidas pela empresa",
+        "description": "Empresa autenticada pode listar todas as reclamações que recebeu.",
+        "responses": {
+          "200": {
+            "description": "Lista de reclamações recebidas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Reclamacao" }
+                }
+              }
+            }
+          },
+          "401": { "description": "Não autenticado" }
+        }
+      }
+    },
+    "/reclamacoes/{id}": {
+      "get": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Buscar reclamação por ID",
+        "description": "Retorna os detalhes de uma reclamação específica.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da reclamação",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439013"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes da reclamação",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Reclamacao" }
+              }
+            }
+          },
+          "404": { "description": "Reclamação não encontrada" }
+        }
+      },
+      "delete": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Deletar uma reclamação",
+        "description": "Permite que o autor ou admin exclua uma reclamação.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da reclamação",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439013"
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Reclamação deletada com sucesso" },
+          "401": { "description": "Não autenticado" },
+          "403": { "description": "Sem permissão" },
+          "404": { "description": "Reclamação não encontrada" }
+        }
+      }
+    },
+    "/reclamacoes/{id}/responder": {
+      "patch": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Responder uma reclamação",
+        "description": "Empresa autenticada pode responder uma reclamação aberta.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da reclamação",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439013"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "resposta": {
+                    "type": "string",
+                    "example": "Agradecemos o contato, vamos resolver seu problema."
+                  }
+                },
+                "required": ["resposta"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Reclamação respondida com sucesso" },
+          "400": { "description": "Dados inválidos" },
+          "401": { "description": "Não autenticado" },
+          "403": { "description": "Sem permissão" },
+          "404": { "description": "Reclamação não encontrada" }
+        }
+      }
+    },
+    "/reclamacoes/{id}/avaliar": {
+      "post": {
+        "tags": ["Ciclo de Reclamação"],
+        "summary": "Avaliar atendimento da reclamação",
+        "description": "Usuário pode avaliar o atendimento após resposta da empresa.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da reclamação",
+            "schema": {
+              "type": "string",
+              "example": "507f1f77bcf86cd799439013"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "estrelas": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 4
+                  },
+                  "comentario": {
+                    "type": "string",
+                    "example": "Empresa resolveu meu problema rapidamente."
+                  }
+                },
+                "required": ["estrelas"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Avaliação registrada com sucesso" },
+          "400": { "description": "Dados inválidos" },
+          "401": { "description": "Não autenticado" },
+          "403": { "description": "Sem permissão" },
+          "404": { "description": "Reclamação não encontrada" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Reclamacao": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "example": "507f1f77bcf86cd799439013" },
+          "titulo": { "type": "string", "example": "Atendimento ruim" },
+          "descricao": {
+            "type": "string",
+            "example": "Fui mal atendido na loja X"
+          },
+          "contato": { "type": "string", "example": "(11) 99999-9999" },
+          "status": { "type": "string", "example": "aberta" },
+          "resposta": {
+            "type": "string",
+            "example": "Agradecemos o contato, vamos resolver seu problema."
+          },
+          "avaliacao": {
+            "type": "object",
+            "properties": {
+              "estrelas": { "type": "integer", "example": 4 },
+              "comentario": {
+                "type": "string",
+                "example": "Empresa resolveu meu problema rapidamente."
+              }
+            }
+          },
+          "empresa": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "507f1f77bcf86cd799439012"
+              },
+              "nome": { "type": "string", "example": "Empresa X" }
+            }
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "507f1f77bcf86cd799439011"
+              },
+              "nome": { "type": "string", "example": "João Silva" }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-01-15T10:30:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-01-15T10:30:00.000Z"
+          }
+        }
+      }
+    }
+  }
+}

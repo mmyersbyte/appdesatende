@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, View, Text, StyleSheet } from 'react-native';
 
-// 🎨 PALETA DRACULA DEFAULT
+// PALETA DRACULA DEFAULT
 const CORES = {
   corPrimaria: '#8be9fd', // Mudança: Dracula cyan ao invés de vermelho
   corPrimariaEscura: '#6be7fc', // Mudança: cyan mais escuro
@@ -54,7 +54,7 @@ export default function CustomButton({
   disabled,
   height,
   width,
-  cor, // 🌟 Nova prop para cor personalizada
+  cor, // Nova prop para cor personalizada
 }) {
   return (
     <Pressable
@@ -64,7 +64,7 @@ export default function CustomButton({
         disabled && { opacity: 0.5 },
         height && { height },
         width && { width },
-        cor && { backgroundColor: cor }, // 🎨 Aplica cor personalizada se fornecida
+        cor && { backgroundColor: cor }, // Aplica cor personalizada se fornecida
       ]}
       onPress={onPress}
       disabled={disabled}

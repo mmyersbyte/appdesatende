@@ -9,7 +9,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
   const [modalAvaliacaoVisivel, setModalAvaliacaoVisivel] = useState(false);
 
   /**
-   * 🌟 HANDLER: Enviar avaliação
+   * HANDLER: Enviar avaliação
    * Integra com API e atualiza lista de reclamações
    */
   const handleAvaliar = async (dadosAvaliacao) => {
@@ -30,7 +30,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
   };
 
   /**
-   * 🗑️ HANDLER: Deletar reclamação
+   * HANDLER: Deletar reclamação
    * Confirma e remove reclamação permanentemente
    */
   const handleDeletarReclamacao = () => {
@@ -68,7 +68,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
   };
 
   /**
-   * 🎨 CONFIGURAÇÃO VISUAL POR ESTRELAS
+   * CONFIGURAÇÃO VISUAL POR ESTRELAS
    * Define cores, ícones e textos baseados na avaliação
    */
   const getAvaliacaoVisual = (estrelas) => {
@@ -118,7 +118,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
   };
 
   /**
-   * 🎨 COMPONENTE: Exibição da avaliação existente MELHORADA
+   * COMPONENTE: Exibição da avaliação existente MELHORADA
    * Mostra estado visual padronizado baseado nas estrelas
    */
   const renderAvaliacaoExistente = () => {
@@ -615,7 +615,7 @@ export default function ReclamacaoItem({ item, onAtualizarReclamacoes }) {
         )}
 
         {/**
-         * 🌟 SISTEMA DE AVALIAÇÃO
+         * SISTEMA DE AVALIAÇÃO
          * Exibe avaliação existente ou botão para avaliar
          */}
         {renderAvaliacaoExistente()}

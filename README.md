@@ -1,256 +1,139 @@
-# App DesAtende - Sistema de Reclamações para Empresas
-
-## 📖 Sobre o Projeto
-
-O **DesAtende** é um aplicativo desenvolvido em React Native com Expo que permite aos usuários registrar e gerenciar reclamações sobre empresas. O sistema inclui autenticação de usuários, sistema de avaliações e administração de reclamações.
-
-## 🏗️ Estrutura do Projeto
-
-### Frontend (React Native + Expo)
-
-```
-app/
-├── components/        # Componentes reutilizáveis
-├── hooks/            # Custom hooks
-├── api/              # Configurações de API
-├── imgs/             # Imagens e ícones
-├── estilos/          # Arquivos de estilo
-├── (auth)/           # Rotas de autenticação
-└── (tabs)/           # Navegação por abas
-```
-
-### Backend (Node.js + Express + MongoDB)
-
-```
-backend/
-├── src/
-│   ├── config/       # Configurações (MongoDB)
-│   ├── controllers/  # Controladores das rotas
-│   ├── middlewares/  # Middlewares personalizados
-│   ├── models/       # Modelos do MongoDB
-│   └── routes/       # Definição de rotas
-├── tests/            # Testes automatizados
-├── server.js         # Servidor principal
-└── app.js            # Configuração do Express
-```
-
-## 🚀 Como Executar o Projeto (Para Recrutadores)
-
-### Pré-requisitos
-
-1. **Node.js** (versão 16+)
-2. **npm** ou **yarn**
-3. **MongoDB** (local ou Atlas)
-4. **Expo CLI** ou **Expo Go** no celular
-
-### Opção 1: Execução Rápida com Expo Go
-
-#### 1. Clone o repositório
-
-```bash
-git clone <url-do-repositorio>
-cd appdesatende
-```
-
-#### 2. Configure o Backend
-
-```bash
-cd backend
-npm install
-
-# Configure o arquivo .env
-cp .env.example .env
-# Edite o .env com sua string do MongoDB
-```
-
-Edite o arquivo `backend/.env`:
-
-```env
-MONGODB_URI=sua_string_mongodb_aqui
-PORT=5000
-```
-
-#### 3. Inicie o Backend
-
-```bash
-npm run dev
-```
-
-#### 4. Configure o Frontend
-
-```bash
-cd ..  # Volte para a raiz do projeto
-npm install
-```
-
-#### 5. Configure a URL da API
-
-No arquivo `app.json`, encontre o campo `extra.API_BASE_URL` e atualize com o IP da sua máquina:
-
-```json
-{
-  "extra": {
-    "API_BASE_URL": "http://SEU_IP_LOCAL:5000/api"
-  }
-}
-```
-
-**Para descobrir seu IP:**
-
-- **Windows**: `ipconfig`
-- **macOS/Linux**: `ifconfig` ou `ip addr show`
-
-#### 6. Execute o App
-
-```bash
-npx expo start
-```
-
-#### 7. Teste no Dispositivo
-
-1. Baixe o **Expo Go** na Play Store/App Store
-2. Escaneie o QR Code que aparece no terminal
-3. O app abrirá no seu celular
-
-### Opção 2: Build para Dispositivo Físico
-
-#### Para Android:
-
-```bash
-npx expo build:android
-```
-
-#### Para iOS:
-
-```bash
-npx expo build:ios
-```
-
-## 🔧 Configurações de Ambiente
-
-### Variáveis de Ambiente Expo
-
-O projeto usa variáveis de ambiente nativas do Expo configuradas em `app.json`:
-
-```json
-{
-  "extra": {
-    "API_BASE_URL": "http://192.168.1.17:5000/api"
-  }
-}
-```
-
-### Variáveis do Backend
-
-Configure no arquivo `backend/.env`:
-
-```env
-MONGODB_URI=sua_string_mongodb_completa
-PORT=5000
-```
-
-## 📱 Funcionalidades Principais
-
-### Autenticação
-
-- ✅ Registro de usuários
-- ✅ Login/Logout
-- ✅ Persistência de sessão
-
-### Gestão de Reclamações
-
-- ✅ Criar reclamações
-- ✅ Visualizar reclamações próprias
-- ✅ Visualizar reclamações recebidas (empresas)
-- ✅ Sistema de avaliações (1-5 estrelas)
-- ✅ Deletar reclamações (apenas se abertas)
-
-### Interface
-
-- ✅ Navegação por abas
-- ✅ Design responsivo
-- ✅ Modais para criação e avaliação
-- ✅ Sistema de cores consistente
-
-## 🛠️ Tecnologias Utilizadas
-
-### Frontend
-
-- **React Native** com **Expo**
-- **Expo Router** para navegação
-- **Axios** para requisições HTTP
-- **Expo Image Picker** para upload de imagens
-
-### Backend
-
-- **Node.js** com **Express**
-- **MongoDB** com **Mongoose**
-- **JWT** para autenticação
-- **Bcrypt** para hash de senhas
-- **Multer** para upload de arquivos
-
-## 🧪 Executando Testes
-
-### Backend
-
-```bash
-cd backend
-npm test
-```
-
-### Frontend
-
-```bash
-npm test
-```
-
-## 📋 Checklist de Verificação
-
-Antes de testar, verifique se:
-
-- [ ] MongoDB está rodando e acessível
-- [ ] Backend iniciou sem erros na porta 5000
-- [ ] Arquivo `.env` está configurado corretamente
-- [ ] IP no `app.json` está correto para sua rede
-- [ ] Dispositivo móvel está na mesma rede Wi-Fi
-- [ ] Expo Go está instalado no dispositivo
-
-## 🐛 Resolução de Problemas Comuns
-
-### "Network Error" no app
-
-- Verifique se o backend está rodando
-- Confirme se o IP no `app.json` está correto
-- Teste a conexão: `http://SEU_IP:5000/api` no navegador
-
-### "MongoDB connection failed"
-
-- Verifique a string de conexão no `.env`
-- Confirme se o MongoDB está rodando
-- Para MongoDB Atlas, verifique as permissões de IP
-
-### "Expo Go não carrega"
-
-- Certifique-se de estar na mesma rede Wi-Fi
-- Tente limpar o cache: `npx expo start --clear`
-- Reinicie o Expo Go
-
-## 📞 Suporte
-
-Em caso de dúvidas durante a execução:
-
-1. Verifique os logs do terminal
-2. Confirme as configurações de rede
-3. Teste as rotas da API diretamente
-
-## 🎯 Demonstração Rápida
-
-Para uma demonstração rápida:
-
-1. Execute apenas `npx expo start`
-2. Use o modo web: pressione `w` no terminal
-3. Teste as funcionalidades básicas no navegador
-
----
-
-**Tempo estimado para setup completo: 10-15 minutos**
+<!-- Aqui é o titulo! -->
+
+<p align="center">
+  <img src="https://img.shields.io/badge/DESATENDE-FF1A1A?style=for-the-badge&logo=fire&logoColor=white" alt="DESATENDE" width="200"/>
+</p>
+
+<hr />
+
+<!-- stacks -->
+<p align="center">
+  <img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JAVASCRIPT">
+  <img src="https://img.shields.io/badge/NODE-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="NODE">
+  <img src="https://img.shields.io/badge/EXPRESS.JS-FF6F61?style=for-the-badge&logo=express&logoColor=white" alt="EXPRESS.JS">
+  <img src="https://img.shields.io/badge/MONGODB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MONGODB">
+  <img src="https://img.shields.io/badge/SWAGGER-DOCS-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="SWAGGER">
+  <img src="https://img.shields.io/badge/React_Native-20232a?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native">
+
+</p>
+
+<!-- imagem -->
+<img src="assets/LABEMGITHUB.png" alt="Banner da LABEMGITHUB" />
+
+<h2>Objetivo do Projeto</h2> 
+<p> Desatende é um app que desenvolvi sozinho para um projeto da faculdade, com backend focado em boas práticas e segurança. O nome “Desatende” une as palavras “desatenção” e “atende”, deixando claro o propósito: registrar falhas no atendimento em setores como restaurantes, faculdades, companhias aéreas e outros. Usuários podem cadastrar reclamações, detalhando o ocorrido e a localização, e as reclamações são organizadas por categoria, facilitando a busca por setor. Empresas e instituições podem responder publicamente, promovendo transparência e resolução. O objetivo é criar uma comunidade onde experiências reais ajudam a pressionar por melhorias no atendimento e elevar o padrão de serviço.
+O aplicativo não foi publicado em ambiente de produção como o Console e Render, sendo destinado exclusivamente a fins educacionais.
+</p>
+
+<hr/>
+
+<h2>Autenticação e Segurança</h2>
+<p> A autenticação utiliza <code>JWT</code> para gerar e validar tokens de sessão de forma segura. Os tokens são assinados com uma chave secreta definida em variáveis de ambiente (<code>dotenv</code>), nunca expostos no código-fonte. As senhas dos usuários são validadas, possuem requisitos mínimos e são armazenadas já criptografadas usando <code>bcrypt</code>. O backend implementa validação de dados com <code>Joi</code> e limita tentativas abusivas de acesso através do <code>express-rate-limit</code>, protegendo a API contra ataques de força bruta e DDoS. Como o frontend é React Native, não há necessidade de configuração de <code>CORS</code>. O sistema possui fluxo completo de cadastro e autenticação, permitindo que novos usuários se registrem normalmente. </p>
+</p>
+
+<h2>Telas e funcionalidades</h2> <p> O aplicativo possui fluxo de autenticação com telas de login e cadastro, tanto para usuários quanto empresas. Após login, a <strong>Home</strong> lista empresas disponíveis, permitindo abrir um modal para envio de reclamações utilizando o método <code>POST</code> na API. Usuários autenticados podem acessar o <strong>Perfil</strong> para visualizar suas reclamações, deletar abertas e avaliar respostas recebidas após interação da empresa. A tela de perfil também conta com botão de logout seguro. <br><br> No dashboard da empresa, é possível visualizar todas as reclamações recebidas. Cada reclamação pode ser respondida diretamente pelo dashboard, utilizando o método <code>PATCH</code> para editar o status e a resposta do registro. Todo o fluxo é baseado em autenticação via <code>JWT</code> e integração direta com as rotas protegidas do backend. </p>
+
+<h2>Stacks e principais tecnologias</h2> <p> O projeto utiliza <strong>React Native</strong> para a interface mobile, integração de APIs via <strong>Axios</strong>, backend construído em <strong>Node.js</strong> com <strong>Express</strong> e <strong>ESModules</strong>. O banco de dados é <strong>MongoDB</strong>, utilizando <strong>Mongoose</strong> como ODM. <br><br> A autenticação é baseada em <strong>JWT</strong> e as senhas são protegidas com <strong>bcrypt</strong>. O projeto adota <strong>Joi</strong> para validação de dados, <strong>express-rate-limit</strong> para limitar requisições e diversas outras bibliotecas para garantir boas práticas e segurança. </p>
+
+<h2>Testes Automatizados</h2>
+<p> Os testes unitários foram implementados com o <code>Poku</code> leve, rápido e brasileiro! 🇧🇷
+Além disso, utilizei <code>Thunder Client</code> e <code>HTTPie</code> para testes manuais dos endpoints.
+</p>
+
+<h2>Swagger</h2>
+<p>
+Com o backend rodando, acesse <code>http://localhost:5000/api-docs</code> no navegador para testar a API pela interface gráfica Swagger UI.
+</p>
+
+<h2>Como rodar o backend localmente </h2>
+<p>
+Clone este repositório e acesse a pasta <code>backend</code>. Crie um arquivo <code>.env</code> com base no <code>.env.example</code> fornecido.
+</p>
+<p>
+Instale as dependências com <code>npm install</code> e inicie o servidor usando <code>npm run dev</code> ou <code>node server.js</code>.
+</p>
+
+<p> Se desejar testar autenticação JWT, defina um valor seguro para <code>JWT_SECRET</code> </p>
+
+<h2>Como rodar o frontend localmente </h2>
+<p>Installe o EXPO no telefone fisíco e altere a BASE_URL em app.json ou instale o Android Studio e rode npx install expo e npm install no fr</p>
+
+<h2>Estrutura do Projeto</h2>
+<pre><code>.
+├── <b>backend</b>
+│   ├── .env
+│   ├── package.json
+│   ├── server.js
+│   ├── swagger
+│   │   ├── swagger.json
+│   │   └── swagger.js
+│   ├── tests
+│   │   ├── auth.test.js
+│   │   ├── validators.test.js
+│   └── src
+│       ├── app.js
+│       ├── config
+│       │   └── db.js
+│       ├── controllers
+│       │   ├── authEmpresa.Controller.js
+│       │   ├── authUser.Controller.js
+│       │   ├── empresa.Controller.js
+│       │   ├── reclamacao.Controller.js
+│       │   └── user.Controller.js
+│       ├── middlewares
+│       │   ├── auth.js
+│       │   ├── errorHandler.js
+│       │   ├── notFoundHandler.js
+│       │   ├── rateLimiter.js
+│       │   ├── upload.js
+│       │   └── validate.js
+│       ├── models
+│       │   ├── Empresa.js
+│       │   ├── Reclamacao.js
+│       │   └── User.js
+│       ├── routes
+│       │   ├── empresa.js
+│       │   ├── reclamacao.js
+│       │   └── user.js
+│       └── validators
+│           ├── authValidators.js
+│           └── reclamacaoValidators.js
+├── <b>app</b>
+│   ├── api
+│   │   ├── auth.js
+│   │   ├── axios.js
+│   │   ├── empresas.js
+│   │   └── reclamacao.js
+│   ├── components
+│   │   ├── AuthModal.jsx
+│   │   ├── CustomButton.jsx
+│   │   ├── EmpresaItem.jsx
+│   │   ├── Formulario.jsx
+│   │   ├── HeaderTitulo.jsx
+│   │   ├── LogoutButton.jsx
+│   │   ├── ModalAvaliarReclamacao.jsx
+│   │   ├── ModalCriarReclamacao.jsx
+│   │   ├── ModalRespostaReclamacao.jsx
+│   │   ├── ReclamacaoItem.jsx
+│   │   └── Rodape.jsx
+│   ├── estilos
+│   │   ├── estilosHome.js
+│   │   ├── estilosLogin.js
+│   │   ├── estilosPerfil.js
+│   │   └── estilosPerfilEmpresa.js
+│   ├── hooks
+│   │   ├── useAuth.js
+│   │   ├── useEmpresas.js
+│   │   ├── useFeedback.js
+│   │   ├── useImagePicker.js
+│   │   ├── useMinhasReclamacoes.js
+│   │   ├── useReclamacoesRecebidas.js
+│   │   └── useRefresh.js
+│   ├── dashboard.jsx
+│   ├── home.jsx
+│   ├── index.jsx
+│   └── perfil.jsx
+├── app.js
+├── app.json
+├── package.json
+</code></pre>

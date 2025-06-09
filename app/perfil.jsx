@@ -6,7 +6,7 @@ import ReclamacaoItem from './components/ReclamacaoItem';
 import HeaderTitulo from './components/HeaderTitulo';
 import LogoutButton from './components/LogoutButton';
 
-// 🎨 PALETA DRACULA
+// PALETA DRACULA
 const CORES = {
   fundoPrincipal: '#282a36', // Dracula background
   corPrimaria: '#8be9fd', // Dracula cyan
@@ -17,7 +17,7 @@ export default function PerfilScreen() {
   const router = useRouter();
 
   /**
-   * 🔄 HOOK: Gerenciamento de reclamações
+   * HOOK: Gerenciamento de reclamações
    * Inclui função de refresh para atualizar lista após avaliações
    */
   const { reclamacoes, carregando, refresh } = useMinhasReclamacoes();
@@ -54,7 +54,7 @@ export default function PerfilScreen() {
           renderItem={({ item }) => (
             <ReclamacaoItem
               item={item}
-              onAtualizarReclamacoes={refresh} // 🌟 Callback para atualizar lista
+              onAtualizarReclamacoes={refresh} // Callback para atualizar lista
             />
           )}
           contentContainerStyle={{

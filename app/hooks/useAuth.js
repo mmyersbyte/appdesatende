@@ -7,7 +7,7 @@ export function useAuth() {
   const [tipo, setTipo] = useState(null); // 'user' ou 'empresa'
   const [carregando, setCarregando] = useState(true);
 
-  // 🔄 FUNÇÃO PARA CARREGAR DADOS DO STORAGE
+  // FUNÇÃO PARA CARREGAR DADOS DO STORAGE
   const carregarDadosAutenticacao = async () => {
     try {
       setCarregando(true);
@@ -56,7 +56,7 @@ export function useAuth() {
     return !!(token && tipo);
   };
 
-  // ⚡ CARREGA DADOS AO INICIALIZAR
+  // CARREGA DADOS AO INICIALIZAR
   useEffect(() => {
     carregarDadosAutenticacao();
   }, []);

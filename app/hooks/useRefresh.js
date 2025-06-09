@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 /**
- * 🔄 HOOK GENÉRICO DE REFRESH
+ *  HOOK GENÉRICO DE REFRESH
  *
  * Hook reutilizável para refresh de dados em diferentes componentes
  * Baseado na lógica extraída do useReclamacoesRecebidas
@@ -14,10 +14,6 @@ export function useRefresh(fetchFunction) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  /**
-   * 🔄 FUNÇÃO DE REFRESH
-   * Executa fetch com loading e error handling
-   */
   const refresh = useCallback(async () => {
     if (!fetchFunction || typeof fetchFunction !== 'function') {
       console.warn('useRefresh: fetchFunction deve ser uma função válida');
@@ -46,15 +42,6 @@ export function useRefresh(fetchFunction) {
   };
 }
 
-/**
- * 🔄 HOOK SIMPLES DE REFRESH
- *
- * Versão simplificada apenas para trigger de refresh
- * Ideal para casos onde só precisamos de um callback de atualização
- *
- * @param {Function} refreshCallback - Função callback de refresh
- * @returns {Function} - Função refresh
- */
 export function useSimpleRefresh(refreshCallback) {
   const refresh = useCallback(async () => {
     if (refreshCallback && typeof refreshCallback === 'function') {

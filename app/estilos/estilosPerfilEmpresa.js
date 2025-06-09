@@ -1,41 +1,43 @@
 import { StyleSheet } from 'react-native';
 
-// 🧛‍♂️ PALETA DRACULA COMPLETA
-const CORES = {
-  // 🌙 CORES DE FUNDO DRACULA
-  fundoPrincipal: '#282a36', // Dracula background
-  fundoClaro: '#44475a', // Dracula current line
-  fundoMaisClaro: '#6272a4', // Dracula comment
-  fundoCard: '#3a3f58', // Dracula selection mais escuro
+// PALETA DRACULA COMPLETA
+// Cores oficiais do tema Dracula para uma interface dark consistente
+// https://draculatheme.com/contribute
 
-  // 🎨 CORES PRINCIPAIS DRACULA
-  corPrimaria: '#bd93f9', // Dracula purple
-  corSecundaria: '#8be9fd', // Dracula cyan
-  corDestaque: '#50fa7b', // Dracula green
-  corAlerta: '#ffb86c', // Dracula orange
-  corErro: '#ff5555', // Dracula red
+const COLORS = {
+  // ========== CORES BASES DRACULA ==========
 
-  // 🔤 CORES DE TEXTO DRACULA
-  textoPrincipal: '#f8f8f2', // Dracula foreground
-  textoClaro: 'rgba(248, 248, 242, 0.95)', // Dracula foreground 95%
-  textoMaisClaro: 'rgba(248, 248, 242, 0.85)', // Dracula foreground 85%
-  textoSuave: 'rgba(248, 248, 242, 0.7)', // Dracula foreground 70%
-  textoPlaceholder: '#6272a4', // Dracula comment
+  // CORES PRINCIPAIS DRACULA
+  background: '#282a36', // Fundo principal
+  currentLine: '#44475a', // Linha atual/hover
+  foreground: '#f8f8f2', // Texto principal
+  comment: '#6272a4', // Comentários
+  selection: '#44475a', // Seleção
 
-  // 🎯 CORES DE STATUS DRACULA
-  statusAberta: '#ff5555', // Dracula red para aberta
-  statusRespondida: '#50fa7b', // Dracula green para respondida
-  statusFechada: '#bd93f9', // Dracula purple para fechada
+  // CORES DE TEXTO DRACULA
+  cyan: '#8be9fd', // Azul claro
+  green: '#50fa7b', // Verde
+  orange: '#ffb86c', // Laranja
+  pink: '#ff79c6', // Rosa
+  purple: '#bd93f9', // Roxo
+  red: '#ff5555', // Vermelho
+  yellow: '#f1fa8c', // Amarelo
 
-  // 🎭 CORES ESPECIAIS
-  fundoModal: 'rgba(0, 0, 0, 0.8)', // Overlay escuro
-  bordaAtiva: '#bd93f9', // Dracula purple para bordas ativas
+  // CORES DE STATUS DRACULA
+  success: '#50fa7b', // Verde para sucesso
+  warning: '#ffb86c', // Laranja para avisos
+  error: '#ff5555', // Vermelho para erros
+  info: '#8be9fd', // Azul para informações
+
+  // CORES ESPECIAIS
+  white: '#f8f8f2', // Branco Dracula
+  black: '#282a36', // Preto Dracula
 };
 
 const estilos = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: CORES.fundoPrincipal,
+    backgroundColor: COLORS.background,
     paddingTop: 32, // Reduzido para melhor UX
     paddingHorizontal: 12, // Mais compacto
     paddingBottom: 70, // Espaço para footer
@@ -58,7 +60,7 @@ const estilos = StyleSheet.create({
   labelPainel: {
     fontSize: 16, // Ligeiramente reduzido
     textAlign: 'center',
-    color: CORES.textoMaisClaro,
+    color: COLORS.foreground,
     marginTop: 4, // Reduzido
     fontWeight: '500',
     letterSpacing: 0.5,
@@ -73,7 +75,7 @@ const estilos = StyleSheet.create({
     fontSize: 18, // Reduzido para melhor hierarquia
     fontWeight: 'bold',
     textAlign: 'center',
-    color: CORES.corSecundaria, // Cyan para diferenciação
+    color: COLORS.cyan, // Cyan para diferenciação
     marginBottom: 16, // Otimizado
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -84,14 +86,14 @@ const estilos = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: CORES.fundoCard,
+    backgroundColor: COLORS.selection,
     borderRadius: 16,
     marginHorizontal: 8,
     paddingVertical: 40,
   },
   carregandoTexto: {
     marginTop: 16,
-    color: CORES.textoPrincipal,
+    color: COLORS.foreground,
     fontSize: 16,
     fontWeight: '500',
   },
@@ -99,14 +101,14 @@ const estilos = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: CORES.fundoCard,
+    backgroundColor: COLORS.selection,
     borderRadius: 16,
     marginHorizontal: 8,
     paddingVertical: 40,
   },
   semDadosTexto: {
     marginTop: 16,
-    color: CORES.textoPrincipal,
+    color: COLORS.foreground,
     fontSize: 16,
     fontWeight: '500',
     textAlign: 'center',
@@ -120,7 +122,7 @@ const estilos = StyleSheet.create({
 
   /* ITEM DE RECLAMAÇÃO DRACULA */
   reclamacaoItem: {
-    backgroundColor: CORES.fundoCard,
+    backgroundColor: COLORS.selection,
     borderRadius: 14, // Mais arredondado
     padding: 16, // Padding otimizado
     marginBottom: 12, // Espaçamento menor
@@ -142,14 +144,14 @@ const estilos = StyleSheet.create({
   reclamacaoUsuario: {
     fontSize: 15, // Ligeiramente aumentado
     fontWeight: 'bold',
-    color: CORES.textoPrincipal,
+    color: COLORS.foreground,
     flex: 1,
   },
   reclamacaoData: {
     fontSize: 12,
-    color: CORES.textoSuave,
+    color: COLORS.comment,
     fontWeight: '500',
-    backgroundColor: CORES.fundoMaisClaro,
+    backgroundColor: COLORS.comment,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
@@ -157,13 +159,13 @@ const estilos = StyleSheet.create({
   reclamacaoTitulo: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: CORES.corSecundaria, // Cyan para títulos
+    color: COLORS.cyan, // Cyan para títulos
     marginBottom: 8, // Aumentado
     lineHeight: 22,
   },
   reclamacaoDescricao: {
     fontSize: 14,
-    color: CORES.textoClaro,
+    color: COLORS.currentLine,
     marginBottom: 12, // Aumentado
     lineHeight: 20,
   },
@@ -173,7 +175,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 8, // Separação visual
     borderTopWidth: 1,
-    borderTopColor: CORES.fundoMaisClaro,
+    borderTopColor: COLORS.comment,
   },
   reclamacaoStatus: {
     fontSize: 13, // Ligeiramente reduzido
@@ -188,7 +190,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding: 15,
-    backgroundColor: CORES.fundoCard,
+    backgroundColor: COLORS.selection,
     borderRadius: 14,
     shadowColor: '#000',
     shadowOpacity: 0.2,
@@ -212,7 +214,7 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: CORES.fundoMaisClaro,
+    backgroundColor: COLORS.comment,
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -220,7 +222,7 @@ const estilos = StyleSheet.create({
   placeholderText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: CORES.corPrimaria,
+    color: COLORS.purple,
   },
   loadingIndicator: {
     position: 'absolute',
@@ -232,12 +234,12 @@ const estilos = StyleSheet.create({
   nomeEmpresa: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: CORES.textoPrincipal,
+    color: COLORS.foreground,
     marginBottom: 5,
   },
   descricaoEmpresa: {
     fontSize: 14,
-    color: CORES.textoMaisClaro,
+    color: COLORS.comment,
   },
 
   /* FALSO FOOTER MINIMALISTA */
@@ -247,9 +249,9 @@ const estilos = StyleSheet.create({
     left: 0,
     right: 0,
     height: 60,
-    backgroundColor: CORES.fundoCard,
+    backgroundColor: COLORS.selection,
     borderTopWidth: 1,
-    borderTopColor: CORES.fundoMaisClaro,
+    borderTopColor: COLORS.comment,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -258,7 +260,7 @@ const estilos = StyleSheet.create({
     elevation: 8,
   },
   falsoFooterTexto: {
-    color: CORES.textoSuave,
+    color: COLORS.comment,
     fontSize: 12,
     fontWeight: '500',
     letterSpacing: 0.5,

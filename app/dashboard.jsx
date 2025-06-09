@@ -24,6 +24,9 @@ export default function PerfilEmpresaScreen() {
   const [reclamacaoSelecionada, setReclamacaoSelecionada] = useState(null);
   const [respostaReclamacao, setRespostaReclamacao] = useState('');
 
+  // Estado de loading para envio de resposta
+  const [enviandoResposta, setEnviandoResposta] = useState(false);
+
   // Função para abrir o modal de resposta
   const abrirModalResposta = (reclamacao) => {
     // Verifica se a reclamação já foi respondida
@@ -36,15 +39,22 @@ export default function PerfilEmpresaScreen() {
     setModalVisivel(true);
   };
 
-  // Função para enviar resposta à reclamação
+  // ✅ MELHORADO: Função para enviar resposta com loading
   const enviarResposta = async () => {
     if (!respostaReclamacao.trim()) {
       alert('Por favor, digite uma resposta para a reclamação.');
       return;
     }
+
     try {
+      setEnviandoResposta(true); // ✅ Inicia loading
+
       await responderReclamacao(reclamacaoSelecionada._id, respostaReclamacao);
       await refresh(); // Atualiza a lista após responder
+
+      // ✅ Feedback de sucesso
+      alert('✅ Resposta enviada com sucesso!');
+
       setModalVisivel(false);
       setReclamacaoSelecionada(null);
       setRespostaReclamacao('');
@@ -53,6 +63,8 @@ export default function PerfilEmpresaScreen() {
         erro?.response?.data?.msg || 'Erro ao enviar resposta. Tente novamente.'
       );
       console.error('Erro ao responder reclamação:', erro);
+    } finally {
+      setEnviandoResposta(false); // ✅ Finaliza loading
     }
   };
 
@@ -183,6 +195,7 @@ export default function PerfilEmpresaScreen() {
         resposta={respostaReclamacao}
         setResposta={setRespostaReclamacao}
         onEnviar={enviarResposta}
+        enviandoResposta={enviandoResposta} // ✅ Passa estado de loading
       />
 
       {/* Falso Footer Minimalista */}

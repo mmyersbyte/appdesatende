@@ -424,20 +424,15 @@ export const removerResposta = async (req, res) => {
 };
 
 /**
- * 🌟 SISTEMA DE AVALIAÇÃO DE RECLAMAÇÕES
- * Permite aos clientes avaliar a qualidade das respostas das empresas
+ * SISTEMA DE AVALIAÇÃO DE RECLAMAÇÕES
  *
  * REGRAS DE NEGÓCIO:
- * ✅ Apenas o autor da reclamação pode avaliar
- * ✅ Reclamação deve ter sido respondida
- * ✅ Não pode avaliar duas vezes a mesma reclamação
- * ✅ Estrelas obrigatórias (1-5)
- * ✅ Problema resolvido obrigatório
- * ✅ Comentário opcional (min 10 chars se preenchido)
- *
- * @param {Object} req - Objeto de requisição
- * @param {Object} res - Objeto de resposta
- * @returns {JSON} Reclamação atualizada com avaliação ou erro
+ * Apenas o autor da reclamação pode avaliar
+ * Reclamação deve ter sido respondida
+ * Não pode avaliar duas vezes a mesma reclamação
+ * Estrelas obrigatórias (1-5)
+ * Problema resolvido obrigatório
+ * Comentário opcional (min 10 chars se preenchido)
  */
 export const avaliarReclamacao = async (req, res) => {
   try {
@@ -592,7 +587,7 @@ export const avaliarReclamacao = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('❌ Erro ao avaliar reclamação:', error);
+    console.error('Erro ao avaliar reclamação:', error);
     res.status(500).json({
       msg: 'Erro interno do servidor ao registrar avaliação',
       error: error.message,
