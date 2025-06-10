@@ -7,7 +7,8 @@ import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import setupSwagger from '../swagger/swagger.js';
 const app = express();
-// NÃO TEM CORS PQ É PARA FRONT REACT NATIVE
+
+// Sem CORS pq o front é RN
 app.use(express.json());
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.use(limiter);

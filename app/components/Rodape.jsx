@@ -4,11 +4,11 @@ import { FontAwesome } from '@expo/vector-icons';
 
 // PALETA PARA RODAPE
 const CORES = {
-  fundoPrincipal: '#222831', // Background igual ao das telas
-  corPrimaria: '#F2F2F2', // Vermelho do Desatende para selecionado
-  textoPrincipal: '#f8f8f2', // Dracula foreground
-  textoSecundario: 'gray', // Dracula cyan - mais vibrante para ícones
-  bordaSutil: '#44475a', // Dracula current line
+  fundoPrincipal: '#222831',
+  corPrimaria: '#F2F2F2',
+  textoPrincipal: '#f8f8f2',
+  textoSecundario: 'gray',
+  bordaSutil: '#44475a',
 };
 
 const estilos = StyleSheet.create({
