@@ -195,14 +195,12 @@ export default function PerfilEmpresaScreen() {
         resposta={respostaReclamacao}
         setResposta={setRespostaReclamacao}
         onEnviar={enviarResposta}
-        enviandoResposta={enviandoResposta} // ✅ Passa estado de loading
+        enviandoResposta={enviandoResposta} //  Passa estado de loading
       />
 
       {/* Falso Footer Minimalista */}
       <View style={estilos.falsoFooter}>
-        <Text style={estilos.falsoFooterTexto}>
-          Painel Administrativo • DESATENDE
-        </Text>
+        <Text style={estilos.falsoFooterTexto}>Painel Administrativo</Text>
       </View>
     </View>
   );

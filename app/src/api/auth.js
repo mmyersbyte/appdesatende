@@ -30,7 +30,7 @@ export const salvarToken = async (token) => {
   await AsyncStorage.setItem('token', token);
 };
 
-// 🆕 FUNÇÃO COMPLETA DE AUTENTICAÇÃO
+//  FUNÇÃO COMPLETA DE AUTENTICAÇÃO
 export const salvarDadosAutenticacao = async (token, tipo) => {
   await Promise.all([
     AsyncStorage.setItem('token', token),
@@ -38,7 +38,7 @@ export const salvarDadosAutenticacao = async (token, tipo) => {
   ]);
 };
 
-// 🆕 FUNÇÃO DE LOGOUT COMPLETA
+// FUNÇÃO DE LOGOUT COMPLETA
 export const limparDadosAutenticacao = async () => {
   await Promise.all([
     AsyncStorage.removeItem('token'),
