@@ -30,7 +30,7 @@ export function useAuth() {
     }
   };
 
-  // 🆕 FUNÇÃO DE LOGIN INTEGRADA
+  //  FUNÇÃO DE LOGIN INTEGRADA
   const fazerLogin = async (token, tipo) => {
     try {
       await salvarDadosAutenticacao(token, tipo);
@@ -42,7 +42,7 @@ export function useAuth() {
     }
   };
 
-  // 🆕 FUNÇÃO DE LOGOUT INTEGRADA
+  // FUNÇÃO DE LOGOUT INTEGRADA
   const fazerLogout = async () => {
     try {
       await limparDadosAutenticacao();
@@ -54,7 +54,7 @@ export function useAuth() {
     }
   };
 
-  // 🆕 FUNÇÃO PARA VERIFICAR SE ESTÁ AUTENTICADO
+  //  FUNÇÃO PARA VERIFICAR SE ESTÁ AUTENTICADO
   const estaAutenticado = () => {
     return !!(token && tipo);
   };

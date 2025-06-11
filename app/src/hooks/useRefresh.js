@@ -1,14 +1,5 @@
 import { useState, useCallback } from 'react';
 
-/**
- *  HOOK GENÉRICO DE REFRESH
- *
- * Hook reutilizável para refresh de dados em diferentes componentes
- * Baseado na lógica extraída do useReclamacoesRecebidas
- *
- * @param {Function} fetchFunction - Função que busca os dados
- * @returns {Object} - { data, loading, refresh, error }
- */
 export function useRefresh(fetchFunction) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
