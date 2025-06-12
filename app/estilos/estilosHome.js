@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const CORES = {
-  fundoPrincipal: '#222831', // Background alterado
+  fundoPrincipal: '#1A1A1D', // Background alterado
   fundoClaro: '#44475a', // Dracula current line
 
   corPrimaria: '#8be9fd', // Dracula cyan - título principal

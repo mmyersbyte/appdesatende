@@ -4,7 +4,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 // PALETA PARA RODAPE
 const CORES = {
-  fundoPrincipal: '#222831',
+  fundoPrincipal: '#1A1A1D',
   corPrimaria: '#F2F2F2',
   textoPrincipal: '#f8f8f2',
   textoSecundario: 'gray',

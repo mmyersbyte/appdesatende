@@ -23,7 +23,7 @@ export default function PerfilScreen() {
   const { reclamacoes, carregando, refresh } = useMinhasReclamacoes();
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#222831' }}>
+    <View style={{ flex: 1, backgroundColor: '#1A1A1D' }}>
       <View
         style={{
           flexDirection: 'row',
