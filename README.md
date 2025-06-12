@@ -42,7 +42,7 @@ O aplicativo não foi publicado em ambiente de produção como o Play Console e 
 <p align="center">
 <img height="650" alt="DesatendeIndex" src="imgs/index2.png">
 
-<img height="650" alt="Desatende" src="imgs/home.png">
+<img height="650" alt="Desatende" src="imgs/homescreeng.png">
 
 </p>
 <hr/>
